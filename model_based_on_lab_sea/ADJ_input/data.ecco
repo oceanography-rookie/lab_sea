@@ -1,0 +1,23 @@
+# ******************
+# ECCO cost function
+# ******************
+ &ECCO_COST_NML
+ data_errfile    = 'data.err',
+#
+# mult_obcsn  = 1.0,
+# mult_obcss  = 1.0,
+# mult_obcsw  = 1.0,
+# mult_obcse  = 1.0,
+#
+ cost_iprec  = 64,
+ cost_yftype = 'RL', 
+&
+
+ &ECCO_GENCOST_NML
+ gencost_avgperiod(1)  = 'step',
+ gencost_barfile(1) = 'm_boxmean_theta',
+ gencost_mask(1) = 'my_mask',
+ gencost_name(1) = 'mycost',
+ gencost_outputlevel(1)=0,
+ mult_gencost(1) = 1.,
+ &

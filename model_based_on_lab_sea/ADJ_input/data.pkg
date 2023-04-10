@@ -1,0 +1,14 @@
+# Packages
+ &PACKAGES
+  useGMRedi=.FALSE.,
+  useKPP=.true.,
+  useECCO=.true.,
+  useEXF=.true.,
+  useOBCS=.true.,
+  useSEAICE=.false.,
+  useDiagnostics=.false.,
+  useDOWN_SLOPE= .false.,
+  useCTRL  = .TRUE.,
+  useCAL=.TRUE.
+ &
+

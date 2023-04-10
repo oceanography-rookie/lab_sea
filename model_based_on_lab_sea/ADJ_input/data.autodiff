@@ -1,0 +1,15 @@
+# =========================
+# pkg AUTODIFF parameters :
+# =========================
+#  inAdExact :: get an exact adjoint (no approximation) (def=.True.)
+#
+ &AUTODIFF_PARM01
+# inAdExact = .FALSE.,
+#            &       inAdMode, inAdTrue, inAdFalse, inAdExact,
+#            &       useKPPinAdMode,    useKPPinFwdMode,
+#            &       useGMRediInAdMode, useGMRediInFwdMode,
+#            &       useSEAICEinAdMode, useSEAICEinFwdMode,
+#            &       turnFreeDriftInAdMode
+ useKPPinAdMode = .FALSE.,
+ &
+

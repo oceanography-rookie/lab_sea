@@ -1,0 +1,36 @@
+# Open-boundaries
+ &OBCS_PARM01
+# OB_Ieast =  34*0,137*-1,1061*0,
+# OB_Ieast = 151*0,334*-1,1515*0,
+# OB_Ieast = 150*0,335*-1,1515*0,
+# OB_Ieast = 146*0,342*-1,1512*0,
+ OB_Ieast = 150*0,334*-1,1516*0
+# useOrlanskiEast=.FALSE.,
+ useOBCSbalance=.false.,
+ OBCS_balanceFacE=-1,
+ OBCS_monitorFreq=864000.,
+#
+ useOBCSsponge = .true.,
+ useOBCSprescribe = .true.,
+#
+ OBEuFile = '/work/uo0122/u301673/MITgcm/verification/red_sea/EXF_FILES/Glorys12V1_UobcsE_1km_19930101-20191231_cs_vs.bin',
+ OBEvFile = '/work/uo0122/u301673/MITgcm/verification/red_sea/EXF_FILES/Glorys12V1_VobcsE_1km_19930101-20191231.bin',
+ OBEtFile = '/work/uo0122/u301673/MITgcm/verification/red_sea/EXF_FILES/Glorys12V1_TobcsE_1km_19930101-20191231.bin',
+ OBEsFile = '/work/uo0122/u301673/MITgcm/verification/red_sea/EXF_FILES/Glorys12V1_SobcsE_1km_19930101-20191231.bin',
+## OBEetaFile = '../input.1km/gecco2_EobcsE_1km_48-13-c2.bin',
+#
+/
+
+# Orlanski parameters
+# &OBCS_PARM02
+#Cmax = 0.25,
+#cVelTimeScale = 500.,
+/
+# Sponge layer parameters
+ &OBCS_PARM03
+ spongeThickness = 10,
+ Urelaxobcsinner = 432000.0,
+ Urelaxobcsbound = 86400.0,
+ Vrelaxobcsinner = 432000.0,
+ Vrelaxobcsbound = 86400.0,
+/

@@ -1,0 +1,1 @@
+tafx  -f77 -i4 -r4 -intrinsic system,flush -reverse -pure -l taf_ad.log -mpi -I. -I./mpi_headers -toplevel the_main_loop -input xx_obcsn_dummy,xx_obcss_dummy,xx_obcsw_dummy,xx_obcse_dummy,xx_genarr2d_dummy,xx_genarr3d_dummy,xx_gentim2d_dummy -output fc  ad_input_code.f

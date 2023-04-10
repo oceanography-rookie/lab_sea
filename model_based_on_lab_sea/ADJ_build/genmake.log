@@ -1,0 +1,93 @@
+
+running: check_fortran_compiler
+ mpif90 -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -O3 -c genmake_tcomp.f
+ mpif90 -mcmodel=medium -shared-intel -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -O3 -o genmake_tcomp genmake_tcomp.o -L/sw/spack-levante/netcdf-fortran-4.5.3-k6xq5g/lib -L/sw/spack-levante/netcdf-c-4.8.1-2k3cmu/lib -lnetcdff -Wl,-rpath,/sw/spack-levante/netcdf-fortran-4.5.3-k6xq5g/lib -Wl,-rpath,/sw/spack-levante/netcdf-c-4.8.1-2k3cmu/lib
+ mpirun -np 1 ./genmake_tcomp
+ hello world :            1
+ hello world :            2
+ hello world :            3
+ --> set FC_CHECK= 5 /5
+
+running: look_for_makedepend()
+ --> set MAKEDEPEND=$(TOOLSDIR)/xmakedepend
+
+running: check_HAVE_CLOC()
+ running: get_fortran_c_namemangling()
+ mpicc -O3 -ip -fPIC -c genmake_test.c
+genmake_test.c(1): warning #266: function "tsub" declared implicitly
+  void tcall( char * string ) { tsub( string ); }
+                                ^
+
+ mpif90 -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -c genmake_tcomp.f
+ --> set FC_NAMEMANGLE='#define FC_NAMEMANGLE(X)  X ## _'
+mpicc -O3 -ip -fPIC -c genmake_tc_1.c
+mpif90 -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -o genmake_tc genmake_tc_2.f genmake_tc_1.o
+  HELLO WORLD   1681159288.49974     
+ --> set HAVE_CLOC='t'
+
+running: check_HAVE_SETRLSTK()
+mpicc -O3 -ip -fPIC -c genmake_tc_1.c
+      program hello
+      external setrlstk
+      call setrlstk()
+      end
+mpif90 -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -o genmake_tc genmake_tc_2.f genmake_tc_1.o
+ --> set HAVE_SETRLSTK='t'
+
+running: check_HAVE_SIGREG()
+mpicc -O3 -ip -fPIC -c genmake_tc_1.c
+genmake_tc_1.c(11): warning #274: declaration is not visible outside of function
+      unsigned int sn, siginfo_t  si, struct ucontext *sc )
+                                             ^
+
+      program hello
+      integer anint
+      common /iv/ anint
+      external sigreg
+      call sigreg(anint)
+      end
+mpif90 -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -o genmake_tc genmake_tc_2.f genmake_tc_1.o
+ --> set HAVE_SIGREG='t'
+
+running: check_HAVE_STAT()
+mpicc -O3 -ip -fPIC -c genmake_tc_1.c
+      program hello
+      integer nbyte
+      call tfsize(nbyte)
+      print *," HELLO WORLD", nbyte
+      end
+mpif90 -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -o genmake_tc genmake_tc_2.f genmake_tc_1.o
+ --> set HAVE_STAT='t'
+
+running: check_netcdf_libs()
+===  genmake_tnc.F  >>>
+      program fgennc
+#include "netcdf.inc"
+      integer iret, ncid, xid
+      iret = nf_create('genmake_tnc.nc', NF_CLOBBER, ncid)
+      IF (iret .NE. NF_NOERR) write(*,*) NF_STRERROR(iret)
+      iret = nf_def_dim(ncid, 'X', 11, xid)
+      IF (iret .NE. NF_NOERR) write(*,*) NF_STRERROR(iret)
+      iret = nf_close(ncid)
+      IF (iret .NE. NF_NOERR) write(*,*) NF_STRERROR(iret)
+      end
+<<<  genmake_tnc.F  ===
+cat genmake_tnc.F |  cpp -traditional -P -DALLOW_USE_MPI -DALWAYS_USE_MPI -DWORDLENGTH=4 -DALLOW_USE_MPI -DHAVE_SYSTEM -DHAVE_FDATE -DHAVE_ETIME_FCT -DHAVE_CLOC -DHAVE_SETRLSTK -DHAVE_SIGREG -DHAVE_STAT -I$INCLUDEDIRS -I/sw/spack-levante/openmpi-4.1.2-yfwe6t/include
+  WARNING: CPP failed to pre-process the netcdf test.
+    Please check that $INCLUDES is properly set.
+mpif90 -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -O3 -c genmake_tnc.f  \ 
+  &&  mpif90 -mcmodel=medium -shared-intel -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -O3 -o genmake_tnc genmake_tnc.o -L/sw/spack-levante/netcdf-fortran-4.5.3-k6xq5g/lib -L/sw/spack-levante/netcdf-c-4.8.1-2k3cmu/lib -lnetcdff -Wl,-rpath,/sw/spack-levante/netcdf-fortran-4.5.3-k6xq5g/lib -Wl,-rpath,/sw/spack-levante/netcdf-c-4.8.1-2k3cmu/lib
+genmake_tnc.f: remark #5133: The input stream is empty
+/sw/spack-levante/intel-oneapi-compilers-2022.0.1-an2cbq/compiler/2022.0.1/linux/bin/intel64/../../compiler/lib/intel64_lin/for_main.o: In function `main':
+for_main.c:(.text+0x2e): undefined reference to `MAIN__'
+
+==> try again with added '-lnetcdf'
+cat genmake_tnc.F |  cpp -traditional -P -DALLOW_USE_MPI -DALWAYS_USE_MPI -DWORDLENGTH=4 -DALLOW_USE_MPI -DHAVE_SYSTEM -DHAVE_FDATE -DHAVE_ETIME_FCT -DHAVE_CLOC -DHAVE_SETRLSTK -DHAVE_SIGREG -DHAVE_STAT -I$INCLUDEDIRS -I/sw/spack-levante/openmpi-4.1.2-yfwe6t/include > genmake_tnc.f \ 
+ &&  mpif90 -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -O3 -c genmake_tnc.f \ 
+ &&  mpif90 -mcmodel=medium -shared-intel -132 -r8 -i4 -W0 -WB -convert big_endian -assume byterecl -fPIC -mcmodel=medium -shared-intel -O3 -o genmake_tnc genmake_tnc.o -L/sw/spack-levante/netcdf-fortran-4.5.3-k6xq5g/lib -L/sw/spack-levante/netcdf-c-4.8.1-2k3cmu/lib -lnetcdff -Wl,-rpath,/sw/spack-levante/netcdf-fortran-4.5.3-k6xq5g/lib -Wl,-rpath,/sw/spack-levante/netcdf-c-4.8.1-2k3cmu/lib -lnetcdf
+check_netcdf: successful
+ --> set HAVE_NETCDF='t'
+
+running: check_HAVE_FLUSH()
+  check_HAVE_FLUSH: successful
+ --> set HAVE_FLUSH='t'

@@ -1,0 +1,454 @@
+#! /bin/sh
+#---------
+#***********************************************************
+# Copyright 2002-2019, FastOpt GmbH, Hamburg, Germany
+# All right reserved
+# You must be authorized by FastOpt to use the servers!
+# All accesses to the servers will be logged.
+#***********************************************************
+initialize()
+{
+#-----------------------------------
+# if necessary edit these lines
+#-----------------------------------
+SSH=ssh
+SSHKEYGEN=ssh-keygen
+SSHDIR=${HOME}/.ssh
+BITS=4096
+KEY_TYPE=rsa
+SENDMAIL=/usr/lib/sendmail
+SSHKEYGEN_OPT="-t ${KEY_TYPE}"
+SSHFLAGS=""
+
+# you might need to uncomment this for OpenSSH-7 using old dsa keys
+#SSHFLAGS="-o PubkeyAcceptedKeyTypes=+ssh-dss”
+ 
+#-----------------------------------
+# version of this script
+#-----------------------------------
+SCRIPTID=5.0
+
+#-----------------------------------
+# check if gzip is available
+#-----------------------------------
+if which gzip >/dev/null 2>&1; then
+    COMPRESS=1
+else
+    COMPRESS=0
+fi
+
+}
+
+#-----------------------------------
+# do not edit below this line
+#-----------------------------------
+usage()
+{
+echo ' options :    kind     [default]  comment'
+echo ''
+echo ' -setup       boolean  [off]      setup secure connection to server'
+echo ' -test        boolean  [off]      test connection to server'
+echo ' -vtest       boolean  [off]      verbose test connection to server'
+echo ' -server      string   []         choose server'
+echo ' -include     files    []         header files to be included'
+echo ' -version     string   []         specify TAF version eg. -version 1.5.1'
+echo ' -show        string   []         show (versions,changelog,news,taf)'
+echo ' -get         string   []         get (staf,manual,lib-linux,lib-sun,lib-sgi)'
+echo ' -put         string   []         upload a file or a whole directory'
+echo ' -D           string   []         define CPP macro'
+echo ''
+echo ' -l           string   [taf.log]  set name of listing file'
+echo ' -u           boolean  [off]      make the default type be undefined'
+echo ' -i4          boolean  [on]       integers have 4  bytes by default'
+echo ' -i8          boolean  [off]      integers have 8  bytes by default'
+echo ' -i16         boolean  [off]      integers have 16 bytes by default'
+echo ' -r4          boolean  [on]       reals    have 4  bytes by default'
+echo ' -r8          boolean  [off]      reals    have 8  bytes by default'
+echo ' -r16         boolean  [off]      reals    have 16 bytes by default'
+echo ' -p4          boolean  [on]       pointers have 4  bytes by default'
+echo ' -p8          boolean  [off]      pointers have 8  bytes by default'
+echo ' -e           boolean  [off]      accept and write extended source lines (132)'
+echo ' -I           string   []         specify directory containing include files'
+echo ' -N           integer  [0]        line width in columns, default 72 (free 132)'
+echo ' -U           boolean  [off]      distinguish between upper and lower case'
+echo ' -maxerrors   integer  [100]      maximal number of errors reported'
+echo ' -intrinsic   string   []         define non standard intrinsic functions'
+echo ' -toplevel    string   [model]    name of routine to differentiate'
+echo ' -input       string   []         list of independent (control) variables'
+echo ' -output      string   []         list of dependent variables'
+echo ' -active-file boolean  [off]      detect active files'
+echo ' -pta         boolean  [off]      apply points-to analysis'
+echo ' -reverse     boolean  [off]      operate in reverse mode'
+echo ' -forward     boolean  [off]      operate in forward mode'
+echo ' -pure        boolean  [off]      generate code to compute derivatives only'
+echo ' -asd         boolean  [off]      automatic sparsity detection'
+echo ' -asdkind     integer  [0]        ASD integer kind type parameter'
+echo ' -clone       boolean  [off]      generate clone code'
+echo ' -vecfor      integer  [0]        number of vectors propagated in forward mode'
+echo ' -vecrev      integer  [0]        number of vectors propagated in reverse mode'
+echo ' -ldg         boolean  [off]      add leading dimension arguments'
+echo ' -arglist     boolean  [off]      fixed argument list of derivative top-level'
+echo ' -unit        integer  [60]       lowest unit number used for file tapes'
+echo ' -closetapes  boolean  [off]      close tape files after each operation'
+echo ' -replaceintr boolean  [off]      replace max,min,abs intrinsics'
+echo ' -admark      string   [_ad]      set mark for adjoint names'
+echo ' -tlmark      string   [_tl]      set mark for tangent linear names'
+echo ' -auxmark     string   [h]        set mark for auxiliary names'
+echo ' -prefix      boolean  [off]      prepend mark to name'
+echo ' -f77         boolean  [off]      read and write code for FORTRAN-77 compiler'
+echo ' -f90         boolean  [off]      read and write code for Fortran-90 compiler'
+echo ' -f95         boolean  [on]       read and write code for Fortran-95 compiler'
+echo ' -f03         boolean  [off]      read and write code for Fortran-2003 compiler'
+echo ' -f08         boolean  [off]      read and write code for Fortran-2008 compiler'
+echo ' -f18         boolean  [off]      read and write code for Fortran-2018 compiler'
+echo ' -mpi         boolean  [off]      process code based on the MPI-library'
+echo ' -mpi-tag     integer  [16384]    integer value to add to all mpi tags'
+echo ' -openmp      boolean  [off]      read and write OpenMP 2.0 directives'
+echo ' -ivdep       boolean  [off]      write CDIR$ IVDEP directives'
+echo ' -keep        boolean  [off]      keep not required statements'
+echo ' -info        boolean  [off]      give all information'
+echo ' -warning     boolean  [on]       give all warnings'
+echo ' -warn_step   boolean  [off]      notice non differentiable statements'
+echo ' -showrecomp  boolean  [off]      insert comments about recomputations into code'
+echo ' -free        boolean  [off]      next files are in fixed source form'
+echo ' -fixed       boolean  [off]      next files are in free  source form'
+echo ''
+}
+
+setup_taf()
+{
+#---------------------------------------
+# check availability of commands
+# used for setup
+#---------------------------------------
+if test ! -d ${SSHDIR}; then
+    echo "Directory ${SSHDIR} does not exist."
+    exit 8
+fi
+
+if basename 'which ${SSHKEYGEN}' >/dev/null 2>&1; then
+:
+#    echo "command ${SSHKEYGEN} found"
+else
+    echo "Command ${SSHKEYGEN} not available."
+    exit 8
+fi
+
+#-----------------------------------
+# generate key
+#-----------------------------------
+if test ! -s ${PUBLIC_KEY}; then
+  \rm -f ${PUBLIC_KEY} ${PRIVATE_KEY}
+  ${SSHKEYGEN} -b ${BITS} ${SSHKEYGEN_OPT} -f ${PRIVATE_KEY}
+   chmod 600 ${PRIVATE_KEY}
+else
+  echo " Public key already generated, sending it again."
+fi
+
+#-----------------------------------
+# email the public key
+#-----------------------------------
+if test -s ${PUBLIC_KEY}; then
+  if test ! -x ${SENDMAIL}; then
+    echo "Command ${SENDMAIL} not available."
+    echo "Please send ${PUBLIC_KEY} directly to ${TAF_EMAIL}."
+    exit 9
+  fi
+
+  ( echo "To: ${TAF_EMAIL}"; echo 'Subject: SSH2 PUBLIC KEY'; echo "Username: $USER:$HOST"; \
+       cat ${PUBLIC_KEY} ) | ${SENDMAIL} ${TAF_EMAIL}
+
+  echo
+  echo " Your public key (${PUBLIC_KEY}) was send to ${TAF_EMAIL} ."
+  echo " Your secure shell (${SSH}) access will be enabled."
+  echo
+else
+  echo
+  echo "Your public key is empty! (${PUBLIC_KEY})"
+  echo
+  exit 9
+fi
+}
+
+#---------------------------------------
+# get environment
+#---------------------------------------
+initialize
+
+PRIVATE_KEY=${SSHDIR}/taf
+PUBLIC_KEY=${PRIVATE_KEY}.pub
+
+#---------------------------------------
+# server settings
+#---------------------------------------
+SERVER1=fastopt.de
+SERVER2=fastopt.net
+SERVER_ID=taf
+TAF_EMAIL=info@${SERVER1}
+SERVER=${SERVER1}
+COMMAND=tafx
+CMDFILES=
+SSHOPTIONS="${SSHFLAGS} -x -l ${SERVER_ID} -i""${PRIVATE_KEY}"" "
+
+#---------------------------------------
+# TAF output
+#---------------------------------------
+echo ''
+echo ' Transformation of Algorithms in Fortran (TAF)'
+echo ' Copyright 2000-2019 FastOpt GmbH, Hamburg, Germany'
+echo ' All rights reserved.'
+echo ' URL: http://www.FastOpt.de, Email: info@FastOpt.de'
+echo " script to access TAF remotely version ${SCRIPTID}"
+echo ''
+
+#---------------------------------------
+# give usage if no argument was given
+#---------------------------------------
+if test $# -eq 0; then
+  echo ' error: no file names specified'
+  echo ''
+  echo " usage:   `basename $0` [options] -- <filenames>"
+  echo ''
+  echo " Use '`basename $0` -help' for a complete list of options."
+  echo ''
+  exit 1
+fi
+
+#---------------------------------------
+# check availability of commands
+#---------------------------------------
+if ${SSH} -V >/dev/null 2>&1; then
+  :
+else
+  echo "error: command ${SSH} not available"
+  exit 8
+fi
+
+#---------------------------------------
+# check options
+#---------------------------------------
+ERROR=0
+INCLUDES=
+FILES=
+OPTIONS=
+VERSION=
+
+while test $# != 0; do
+	case "$1" in
+
+	-help) usage; exit;;
+
+	-setup) setup_taf; exit;;
+
+        -test)
+	  echo "${SSH} ${SSHOPTIONS} ${SERVER} test"
+		${SSH} ${SSHOPTIONS} ${SERVER} test
+	  exit
+	  ;;
+        -vtest)
+	  echo "${SSH} -v ${SSHOPTIONS} ${SERVER} test"
+		${SSH} -v ${SSHOPTIONS} ${SERVER} test
+	  exit
+	  ;;
+	-server)
+	  shift; SERVER=$1; shift
+	  ;;
+	-1)
+	  shift; SERVER=${SERVER1}
+	  ;;
+	-2)
+	  shift; SERVER=${SERVER2}
+	  ;;
+	-version)
+	  shift; VERSION="-version $1"; shift
+	  ;;
+	-show)
+	  shift; THIS=$1
+	  ${SSH} ${SSHOPTIONS} ${SERVER} show ${THIS}
+	  exit
+	  ;;
+	-get)
+	  shift; THIS=$1
+	  echo "retrieving $THIS from server $SERVER"
+	  ${SSH} ${SSHOPTIONS} ${SERVER} get ${THIS} | tar vxf -
+	  exit
+	  ;;
+	-put)
+	  shift; THIS=$1
+	  echo "transfering $THIS to server $SERVER"
+	  tar -hzcf - $THIS | ${SSH} ${SSHOPTIONS} ${SERVER} put ${THIS}
+	  exit
+	  ;;
+	-v1)                     OPTIONS="$OPTIONS $1"; shift;;
+	-u|-e|-U)                OPTIONS="$OPTIONS $1"; shift;;
+	-i4|-i8|-i16)            OPTIONS="$OPTIONS $1"; shift;;
+	-r4|-r8|-r16)	         OPTIONS="$OPTIONS $1"; shift;;
+	-p4|-p8)	         OPTIONS="$OPTIONS $1"; shift;;
+	-active-file)	         OPTIONS="$OPTIONS $1"; shift;;
+	-static|-asd)            OPTIONS="$OPTIONS $1"; shift;;
+	-postfix)                OPTIONS="$OPTIONS $1"; shift;;
+	-prefix)                 OPTIONS="$OPTIONS $1"; shift;;
+	-reverse|-forward|-clone)OPTIONS="$OPTIONS $1"; shift;;
+	-pure|-pureadd)          OPTIONS="$OPTIONS $1"; shift;;
+	-ldg)                    OPTIONS="$OPTIONS $1"; shift;;
+	-arglist|-closetapes)    OPTIONS="$OPTIONS $1"; shift;;
+	-split|-replaceintr)     OPTIONS="$OPTIONS $1"; shift;;
+	-f77|-f90|-f95)          OPTIONS="$OPTIONS $1"; shift;;
+	-f03|-f08|-f18)          OPTIONS="$OPTIONS $1"; shift;;
+	-ivdep)                  OPTIONS="$OPTIONS $1"; shift;;
+	-keep)                   OPTIONS="$OPTIONS $1"; shift;;
+	-info|-noinfo)           OPTIONS="$OPTIONS $1"; shift;;
+	-warning|-nowarning)     OPTIONS="$OPTIONS $1"; shift;;
+	-warn_step)              OPTIONS="$OPTIONS $1"; shift;;
+	-showrecomp)             OPTIONS="$OPTIONS $1"; shift;;
+	-openmp|-openacc)        OPTIONS="$OPTIONS $1"; shift;;
+	-ompvec|-ignore-omp)     OPTIONS="$OPTIONS $1"; shift;;
+	-pta)                    OPTIONS="$OPTIONS $1"; shift;;
+	-craypointer)            OPTIONS="$OPTIONS $1"; shift;;
+	-mpi)                    OPTIONS="$OPTIONS $1"; shift;;
+	-mpi-tag)
+	  OPTIONS="$OPTIONS $1"; shift
+	  OPTIONS="$OPTIONS $1"; shift
+	  ;;
+	-robust|-flow)
+	  OPTIONS="$OPTIONS $1"; shift
+	  OPTIONS="$OPTIONS $1"; shift
+	  ;;
+	-l|-N|-I|-maxerrors|-asdkind)
+	  OPTIONS="$OPTIONS $1"; shift
+	  OPTIONS="$OPTIONS $1"; shift
+	  ;;
+	-I*)
+	  OPTIONS="$OPTIONS $1"; shift
+	  ;;
+	-D*)
+	  OPTIONS="$OPTIONS $1"; shift
+	  ;;
+	-toplevel|-unit|-admark|-tlmark|-auxmark|-modmark|-orgmark)
+	  OPTIONS="$OPTIONS $1"; shift
+	  OPTIONS="$OPTIONS $1"; shift
+	  ;;
+	-vecfor|-vecrev)
+	  OPTIONS="$OPTIONS $1"; shift
+	  OPTIONS="$OPTIONS $1"; shift
+	  ;;
+	-intrinsic|-input|-output)
+	  OPTIONS="$OPTIONS $1"; shift
+	  OPTIONS="$OPTIONS `echo $1|sed -e 's/ /,/g'`"; shift
+	  ;;
+	-dottest|-dotall)        OPTIONS="$OPTIONS $1"; shift;;
+	-dotonly)
+	  OPTIONS="$OPTIONS $1"; shift
+	  OPTIONS="$OPTIONS $1"; shift
+	  ;;
+	-include)
+	    OPTIONS="$OPTIONS -I."
+	    shift
+	    while test \( 'X-' != X`echo $1|cut -c1` \) -a \( $# != 0 \); do
+	      INCLUDES="$INCLUDES $1"
+	      shift
+	    done
+	  ;;
+	-free|-fixed)            CMDFILES="$CMDFILES $1"; shift;;
+	--)
+	  shift
+	  FILES="$FILES $*"
+	  CMDFILES="$CMDFILES $*"
+	  while test $# != 0; do shift; done
+	  ;;
+	-*)
+	  echo " undefined option $1"
+	  echo ''
+	  ERROR=1
+	  shift
+	  ;;
+	*)
+	  FILES="$FILES $1"
+	  CMDFILES="$CMDFILES $1"
+	  shift
+	  ;;
+	esac
+done
+
+#---------------------------------------
+# check on files exist
+#---------------------------------------
+if test "$FILES" = ""; then
+   echo ' error: no file names specified'
+   echo ''
+   exit 2
+fi
+
+err=0
+for i in `echo $FILES`; do
+  if test ! -f $i; then
+    echo " file not found: $i"
+    err=1
+  fi
+done
+if test $err -eq 1; then
+  exit 3
+fi
+
+#---------------------------------------
+# exit on unknown option error
+#---------------------------------------
+if test $ERROR != 0; then
+  exit 4
+fi
+
+#---------------------------------------
+# save command line
+#---------------------------------------
+rm -f taf_command
+echo "${COMMAND} ${OPTIONS} ${CMDFILES}" > taf_command
+
+#---------------------------------------
+# info line
+#---------------------------------------
+IDENT=taf_ident
+DATE=`date +'%y%m%d:%H.%M'`
+# WAMI=`whoami`
+WAMI=$USER
+HOST=`hostname`
+DOMA=`domainname`
+INET=`grep ${HOST} /etc/hosts | head -1 | awk '{print $1}'`
+
+if which finger >/dev/null 2>&1; then
+    NAME=`finger -ms ${WAMI} | tail -1 | awk '{print $2,$3}'`
+else
+    NAME=''
+fi
+
+COMM="${COMMAND} ${OPTIONS}"
+rm -f ${IDENT}
+echo "${DATE} ${WAMI} ${HOST} ${DOMA} ${INET} '${NAME}' ${COMM}" > ${IDENT}
+
+#---------------------------------------
+# access TAF by remote shell
+#---------------------------------------
+\rm -f taf_output
+
+echo " Processing files at ${SERVER}, please wait."
+echo
+
+if test $COMPRESS -eq 1; then
+  tar chfb - 20 ${IDENT} ${FILES} ${INCLUDES} | gzip -c \
+    | ${SSH} ${SSHOPTIONS} ${SERVER} ${COMMAND} \
+      -gzip -scriptid ${SCRIPTID} ${VERSION} ${OPTIONS} ${CMDFILES}  \
+    | gzip -d -c | tar xmf -
+else
+  tar chfb - 20 ${IDENT} ${FILES} ${INCLUDES} \
+    | ${SSH} ${SSHOPTIONS} ${SERVER} ${COMMAND} \
+       -scriptid ${SCRIPTID} ${VERSION} ${OPTIONS} ${CMDFILES}  \
+    | tar xmf -
+fi
+
+cat taf_output
+
+#---------------------------------------
+# normal exit
+#---------------------------------------
+rm -f ${IDENT}
+
+exit

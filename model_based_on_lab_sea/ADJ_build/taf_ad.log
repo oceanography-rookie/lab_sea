@@ -1,0 +1,2147 @@
+ Transformation of Algorithms in Fortran (TAF) Version 5.8.0
+ Copyright 2000-2023 FastOpt GmbH, Hamburg, Germany
+ All rights reserved.
+ URL: http://www.FastOpt.de, Email: info@FastOpt.de
+
+taf -f77 -i4 -r4 -intrinsic system,flush -reverse -pure -l taf_ad.log -mpi -I. -I./mpi_headers -toplevel the_main_loop -input xx_obcsn_dummy,xx_obcss_dummy,xx_obcsw_dummy,xx_obcse_dummy,xx_genarr2d_dummy,xx_genarr3d_dummy,xx_gentim2d_dummy -output fc ad_input_code.f -outdir . 
+
+ad_input_code.f:
+ parsing subroutine ** autodiff_init_varia **
+ parsing subroutine ** autodiff_store **
+ parsing subroutine ** autodiff_restore **
+ parsing subroutine ** cal_addtime **
+ parsing subroutine ** cal_checkdate **
+ parsing function   ** cal_compdates **
+ parsing subroutine ** cal_convdate **
+ parsing subroutine ** cal_copydate **
+ parsing subroutine ** cal_fulldate **
+ parsing subroutine ** cal_getdate **
+ parsing subroutine ** cal_getmonthsrec **
+ parsing function   ** cal_intdays **
+ parsing function   ** cal_intmonths **
+ parsing function   ** cal_intyears **
+ parsing function   ** cal_isleap **
+ parsing function   ** cal_numints **
+ parsing subroutine ** cal_printdate **
+ parsing subroutine ** cal_printerror **
+ parsing subroutine ** cal_subdates **
+ parsing subroutine ** cal_time2dump **
+ parsing subroutine ** cal_timeinterval **
+ parsing subroutine ** cal_timepassed **
+ parsing subroutine ** cal_timestamp **
+ parsing subroutine ** cal_toseconds **
+ parsing subroutine ** cost_accumulate_mean **
+ parsing subroutine ** cost_final **
+ parsing subroutine ** cost_init_varia **
+ parsing subroutine ** cost_tile **
+ parsing subroutine ** cost_test **
+ parsing subroutine ** cost_tracer **
+ parsing subroutine ** cost_atlantic_heat **
+ parsing subroutine ** cost_depth **
+ parsing subroutine ** cost_vector **
+ parsing subroutine ** cost_state_final **
+ parsing subroutine ** ctrl_cost_driver **
+ parsing subroutine ** ctrl_cost_gen2d **
+ parsing subroutine ** ctrl_cost_gen3d **
+ parsing subroutine ** ctrl_depth_ini **
+ parsing subroutine ** ctrl_get_gen **
+ parsing subroutine ** ctrl_get_gen_rec **
+ parsing subroutine ** ctrl_get_mask3d **
+ parsing subroutine ** ctrl_get_mask2d **
+ parsing subroutine ** ctrl_init_rec **
+ parsing subroutine ** ctrl_init_variables **
+ parsing subroutine ** ctrl_map_ini_genarr **
+ parsing subroutine ** ctrl_map_ini_gentim2d **
+ parsing subroutine ** ctrl_map_forcing **
+ parsing subroutine ** ctrl_map_genarr2d **
+ parsing subroutine ** ctrl_map_genarr3d **
+ parsing subroutine ** ctrl_map_gentim2d **
+ parsing subroutine ** ctrl_getobcse **
+ parsing subroutine ** ctrl_getobcsn **
+ parsing subroutine ** ctrl_getobcss **
+ parsing subroutine ** ctrl_getobcsw **
+ parsing subroutine ** ctrl_init_obcs_variables **
+ parsing subroutine ** ctrl_swapffields **
+ parsing subroutine ** ctrl_swapffields_3d **
+ parsing subroutine ** ctrl_swapffields_xz **
+ parsing subroutine ** ctrl_swapffields_yz **
+ parsing subroutine ** ctrl_assign **
+ parsing subroutine ** ctrl_cprlrl **
+ parsing subroutine ** ctrl_cprsrl **
+ parsing subroutine ** ctrl_cprsrs **
+ parsing function   ** diagnostics_is_on **
+ parsing subroutine ** dwnslp_apply **
+ parsing subroutine ** dwnslp_calc_flow **
+ parsing subroutine ** dwnslp_calc_rho **
+ parsing subroutine ** dwnslp_init_varia **
+ parsing subroutine ** cost_averagesgeneric **
+ parsing subroutine ** cost_averagesfields **
+ parsing subroutine ** cost_averagesflags **
+ parsing subroutine ** cost_averagesinit **
+ parsing subroutine ** cost_bp_read **
+ parsing subroutine ** cost_generic **
+ parsing subroutine ** cost_genloop **
+ parsing subroutine ** cost_gencost_all **
+ parsing subroutine ** cost_gencost_moc **
+ parsing subroutine ** cost_gencost_assignperiod **
+ parsing subroutine ** cost_gencost_customize **
+ parsing subroutine ** cost_gencost_sshv4 **
+ parsing subroutine ** cost_gencost_sstv4 **
+ parsing subroutine ** cost_gencost_seaicev4 **
+ parsing subroutine ** get_exconc_deconc **
+ parsing subroutine ** cost_gencost_bpv4 **
+ parsing subroutine ** cost_gencost_boxmean **
+ parsing subroutine ** cost_gencost_glbmean **
+ parsing subroutine ** cost_gencost_transp **
+ parsing subroutine ** cost_gencal **
+ parsing subroutine ** cost_genread **
+ parsing subroutine ** cost_sla_read **
+ parsing subroutine ** cost_sla_read_yd **
+ parsing subroutine ** cost_obcs **
+ parsing subroutine ** cost_obcsn **
+ parsing subroutine ** cost_obcss **
+ parsing subroutine ** cost_obcsw **
+ parsing subroutine ** cost_obcse **
+ parsing subroutine ** cost_obcs_ageos **
+ parsing subroutine ** cost_obcsvol **
+ parsing subroutine ** ecco_cost_driver **
+ parsing subroutine ** ecco_cost_final **
+ parsing subroutine ** ecco_cost_init_varia **
+ parsing subroutine ** ecco_init_varia **
+ parsing subroutine ** ecco_phys **
+ parsing subroutine ** ecco_zero **
+ parsing subroutine ** ecco_diffmsk **
+ parsing subroutine ** ecco_cp **
+ parsing subroutine ** ecco_cprsrl **
+ parsing subroutine ** ecco_addcost **
+ parsing subroutine ** ecco_add **
+ parsing subroutine ** ecco_subtract **
+ parsing subroutine ** ecco_addmask **
+ parsing subroutine ** ecco_div **
+ parsing subroutine ** ecco_divfield **
+ parsing subroutine ** ecco_mult **
+ parsing subroutine ** ecco_multfield **
+ parsing subroutine ** ecco_maskmindepth **
+ parsing subroutine ** ecco_offset **
+ parsing subroutine ** ecco_readbar **
+ parsing subroutine ** ecco_readwei **
+ parsing subroutine ** ecco_error **
+ parsing subroutine ** exch2_3d_rl **
+ parsing subroutine ** exch2_3d_rs **
+ parsing subroutine ** exch2_sm_3d_rl **
+ parsing subroutine ** exch2_uv_3d_rs **
+ parsing subroutine ** exch2_uv_3d_rl **
+ parsing subroutine ** exch2_uv_agrid_3d_rs **
+ parsing subroutine ** exch2_uv_agrid_3d_rl **
+ parsing subroutine ** exch2_uv_dgrid_3d_rs **
+ parsing subroutine ** exch2_uv_dgrid_3d_rl **
+ parsing subroutine ** exf_init_varia **
+ parsing subroutine ** exf_init_fld **
+ parsing subroutine ** exf_bulkformulae **
+ parsing subroutine ** exf_filter_rl **
+ parsing subroutine ** exf_getclim **
+ parsing subroutine ** exf_getffields **
+ parsing subroutine ** exf_getffieldrec **
+ parsing subroutine ** exf_getforcing **
+ parsing subroutine ** exf_getmonthsrec **
+ parsing subroutine ** exf_getsurfacefluxes **
+ parsing subroutine ** exf_getyearlyfieldname **
+ parsing subroutine ** exf_interp **
+ parsing subroutine ** exf_interp_uv **
+ parsing function   ** lagran **
+ parsing subroutine ** exf_interpolate **
+ parsing subroutine ** exf_mapfields **
+ parsing subroutine ** exf_radiation **
+ parsing subroutine ** exf_set_fld **
+ parsing subroutine ** exf_set_gen **
+ parsing subroutine ** exf_init_gen **
+ parsing subroutine ** exf_set_obcs_xz **
+ parsing subroutine ** exf_set_obcs_yz **
+ parsing subroutine ** exf_set_obcs_x **
+ parsing subroutine ** exf_set_obcs_y **
+ parsing subroutine ** exf_set_uv **
+ parsing subroutine ** exf_swapffields **
+ parsing subroutine ** exf_swapffields_3d **
+ parsing subroutine ** exf_swapffields_xz **
+ parsing subroutine ** exf_swapffields_yz **
+ parsing subroutine ** exf_wind **
+ parsing subroutine ** exf_zenithangle **
+ parsing subroutine ** gad_advection **
+ parsing subroutine ** gad_biharm_r **
+ parsing subroutine ** gad_biharm_x **
+ parsing subroutine ** gad_biharm_y **
+ parsing subroutine ** gad_c2_adv_r **
+ parsing subroutine ** gad_c2_impl_r **
+ parsing subroutine ** gad_c2_adv_x **
+ parsing subroutine ** gad_c2_adv_y **
+ parsing subroutine ** gad_c4_adv_r **
+ parsing subroutine ** gad_c4_adv_x **
+ parsing subroutine ** gad_c4_adv_y **
+ parsing subroutine ** gad_calc_rhs **
+ parsing subroutine ** gad_del2 **
+ parsing subroutine ** gad_diff_r **
+ parsing subroutine ** gad_diff_x **
+ parsing subroutine ** gad_diff_y **
+ parsing subroutine ** gad_dst2u1_adv_r **
+ parsing subroutine ** gad_dst2u1_impl_r **
+ parsing subroutine ** gad_dst2u1_adv_x **
+ parsing subroutine ** gad_dst2u1_adv_y **
+ parsing subroutine ** gad_dst3_adv_x **
+ parsing subroutine ** gad_dst3_adv_y **
+ parsing subroutine ** gad_dst3_adv_r **
+ parsing subroutine ** gad_dst3fl_adv_x **
+ parsing subroutine ** gad_dst3fl_adv_y **
+ parsing subroutine ** gad_dst3fl_adv_r **
+ parsing subroutine ** gad_dst3fl_impl_r **
+ parsing subroutine ** gad_fluxlimit_adv_r **
+ parsing subroutine ** gad_fluxlimit_impl_r **
+ parsing subroutine ** gad_fluxlimit_adv_x **
+ parsing subroutine ** gad_fluxlimit_adv_y **
+ parsing subroutine ** gad_grad_x **
+ parsing subroutine ** gad_grad_y **
+ parsing subroutine ** gad_implicit_r **
+ parsing subroutine ** gad_init_varia **
+ parsing subroutine ** gad_os7mp_adv_x **
+ parsing subroutine ** gad_os7mp_adv_y **
+ parsing subroutine ** gad_os7mp_adv_r **
+ parsing subroutine ** gad_read_pickup **
+ parsing subroutine ** gad_u3_adv_r **
+ parsing subroutine ** gad_u3c4_impl_r **
+ parsing subroutine ** gad_u3_adv_x **
+ parsing subroutine ** gad_u3_adv_y **
+ parsing subroutine ** gad_som_advect **
+ parsing subroutine ** gad_som_adv_r **
+ parsing subroutine ** gad_som_adv_x **
+ parsing subroutine ** gad_som_adv_y **
+ parsing subroutine ** gad_som_fill_cs_corner **
+ parsing subroutine ** gad_som_lim_r **
+ parsing subroutine ** gad_som_prep_cs_corner **
+ parsing subroutine ** gad_som_exchanges **
+ parsing subroutine ** gad_exch_som **
+ parsing subroutine ** kpp_calc **
+ parsing subroutine ** kpp_calc_dummy **
+ parsing subroutine ** kpp_calc_diff_t **
+ parsing subroutine ** kpp_calc_diff_s **
+ parsing subroutine ** kpp_calc_diff_ptr **
+ parsing subroutine ** kpp_calc_visc **
+ parsing subroutine ** kpp_output **
+ parsing subroutine ** kpp_do_exch **
+ parsing subroutine ** kpp_init_varia **
+ parsing subroutine ** kppmix **
+ parsing subroutine ** bldepth **
+ parsing subroutine ** wscale **
+ parsing subroutine ** ri_iwmix **
+ parsing subroutine ** z121 **
+ parsing subroutine ** smooth_horiz **
+ parsing subroutine ** blmix **
+ parsing subroutine ** enhance **
+ parsing subroutine ** statekpp **
+ parsing subroutine ** kpp_doublediff **
+ parsing subroutine ** kpp_transport_s **
+ parsing subroutine ** kpp_transport_t **
+ parsing subroutine ** kpp_transport_ptr **
+ parsing subroutine ** kpp_forcing_surf **
+ parsing subroutine ** mom_calc_absvort3 **
+ parsing subroutine ** mom_calc_hdiv **
+ parsing subroutine ** mom_calc_hfacz **
+ parsing subroutine ** mom_calc_ke **
+ parsing subroutine ** mom_calc_relvort3 **
+ parsing subroutine ** mom_calc_strain **
+ parsing subroutine ** mom_calc_tension **
+ parsing subroutine ** mom_calc_visc **
+ parsing subroutine ** mom_hdissip **
+ parsing subroutine ** mom_quasihydrostatic **
+ parsing subroutine ** mom_u_botdrag_coeff **
+ parsing subroutine ** mom_u_coriolis_nh **
+ parsing subroutine ** mom_u_metric_nh **
+ parsing subroutine ** mom_u_rviscflux **
+ parsing subroutine ** mom_u_sidedrag **
+ parsing subroutine ** mom_v_botdrag_coeff **
+ parsing subroutine ** mom_v_coriolis_nh **
+ parsing subroutine ** mom_v_metric_nh **
+ parsing subroutine ** mom_v_rviscflux **
+ parsing subroutine ** mom_v_sidedrag **
+ parsing subroutine ** mom_visc_qgl_limit **
+ parsing subroutine ** mom_visc_qgl_stretch **
+ parsing subroutine ** mom_calc_rtrans **
+ parsing subroutine ** mom_fluxform **
+ parsing subroutine ** mom_u_adv_uu **
+ parsing subroutine ** mom_u_adv_vu **
+ parsing subroutine ** mom_u_adv_wu **
+ parsing subroutine ** mom_u_coriolis **
+ parsing subroutine ** mom_u_del2u **
+ parsing subroutine ** mom_u_metric_cylinder **
+ parsing subroutine ** mom_u_metric_sphere **
+ parsing subroutine ** mom_u_xviscflux **
+ parsing subroutine ** mom_u_yviscflux **
+ parsing subroutine ** mom_v_adv_uv **
+ parsing subroutine ** mom_v_adv_vv **
+ parsing subroutine ** mom_v_adv_wv **
+ parsing subroutine ** mom_v_coriolis **
+ parsing subroutine ** mom_v_del2v **
+ parsing subroutine ** mom_v_metric_cylinder **
+ parsing subroutine ** mom_v_metric_sphere **
+ parsing subroutine ** mom_v_xviscflux **
+ parsing subroutine ** mom_v_yviscflux **
+ parsing subroutine ** mom_vecinv **
+ parsing subroutine ** mom_vi_coriolis **
+ parsing subroutine ** mom_vi_del2uv **
+ parsing subroutine ** mom_vi_hdissip **
+ parsing subroutine ** mom_vi_u_coriolis **
+ parsing subroutine ** mom_vi_u_coriolis_c4 **
+ parsing subroutine ** mom_vi_u_grad_ke **
+ parsing subroutine ** mom_vi_u_vertshear **
+ parsing subroutine ** mom_vi_v_coriolis **
+ parsing subroutine ** mom_vi_v_coriolis_c4 **
+ parsing subroutine ** mom_vi_v_grad_ke **
+ parsing subroutine ** mom_vi_v_vertshear **
+ parsing subroutine ** obcs_adjust_uvice **
+ parsing subroutine ** obcs_apply_eta **
+ parsing subroutine ** obcs_apply_seaice **
+ parsing subroutine ** obcs_apply_uvice **
+ parsing subroutine ** obcs_apply_r_star **
+ parsing subroutine ** obcs_apply_surf_dr **
+ parsing subroutine ** obcs_apply_ts **
+ parsing subroutine ** obcs_apply_uv **
+ parsing subroutine ** obcs_apply_w **
+ parsing subroutine ** obcs_apply_ptracer **
+ parsing subroutine ** obcs_calc **
+ parsing subroutine ** obcs_calc_stevens **
+ parsing subroutine ** obcs_stevens_calc_tracer_east **
+ parsing subroutine ** obcs_stevens_calc_tracer_west **
+ parsing subroutine ** obcs_stevens_calc_tracer_north **
+ parsing subroutine ** obcs_stevens_calc_tracer_south **
+ parsing subroutine ** obcs_stevens_save_tracers **
+ parsing subroutine ** obcs_copy_uv_n **
+ parsing subroutine ** obcs_save_uv_n **
+ parsing subroutine ** obcs_copy_tracer **
+ parsing subroutine ** obcs_u1_adv_tracer **
+ parsing subroutine ** obcs_exchanges **
+ parsing subroutine ** obcs_exf_load **
+ parsing subroutine ** obcs_exf_read_xz **
+ parsing subroutine ** obcs_exf_read_yz **
+ parsing subroutine ** obcs_fields_load **
+ parsing subroutine ** obcs_time_interp_xz **
+ parsing subroutine ** obcs_time_interp_yz **
+ parsing subroutine ** obcs_init_variables **
+ parsing subroutine ** obcs_prescribe_read **
+ parsing subroutine ** obcs_read_pickup **
+ parsing subroutine ** obcs_sponge_u **
+ parsing subroutine ** obcs_sponge_v **
+ parsing subroutine ** obcs_sponge_t **
+ parsing subroutine ** obcs_sponge_s **
+ parsing subroutine ** obcs_balance_flow **
+ parsing subroutine ** obcs_adjust **
+ parsing subroutine ** orlanski_east **
+ parsing subroutine ** orlanski_north **
+ parsing subroutine ** orlanski_south **
+ parsing subroutine ** orlanski_west **
+ parsing subroutine ** orlanski_init **
+ parsing subroutine ** read_fld_xyz_rs **
+ parsing subroutine ** read_fld_xyz_rl **
+ parsing subroutine ** read_fld_xy_rs **
+ parsing subroutine ** read_fld_xy_rl **
+ parsing subroutine ** read_rec_xy_rs **
+ parsing subroutine ** read_rec_xy_rl **
+ parsing subroutine ** read_rec_xyz_rs **
+ parsing subroutine ** read_rec_xyz_rl **
+ parsing subroutine ** read_rec_3d_rs **
+ parsing subroutine ** read_rec_3d_rl **
+ parsing subroutine ** read_rec_lev_rs **
+ parsing subroutine ** read_rec_lev_rl **
+ parsing subroutine ** read_rec_xz_rs **
+ parsing subroutine ** read_rec_xz_rl **
+ parsing subroutine ** read_rec_yz_rs **
+ parsing subroutine ** read_rec_yz_rl **
+ parsing subroutine ** timeave_cumul_1k1t **
+ parsing subroutine ** timeave_cumul_1t **
+ parsing subroutine ** timeave_cumul_1vfc **
+ parsing subroutine ** timeave_cumul_2v **
+ parsing subroutine ** timeave_cumul_2vfc **
+ parsing subroutine ** timeave_cumulate **
+ parsing subroutine ** timeave_cumul_dif_1t **
+ parsing subroutine ** timeave_norma_2v **
+ parsing subroutine ** timeave_normalize **
+ parsing subroutine ** timeave_reset **
+ parsing subroutine ** timeave_statvars **
+ parsing subroutine ** timeave_statv_write **
+ parsing subroutine ** timeave_surf_flux **
+ parsing function   ** different_multiple **
+ parsing subroutine ** fill_cs_corner_ag_rl **
+ parsing subroutine ** fill_cs_corner_tr_rl **
+ parsing subroutine ** fill_cs_corner_uv_rs **
+ parsing subroutine ** fill_cs_corner_uv_rl **
+ parsing subroutine ** get_periodic_interval **
+ parsing subroutine ** lef_zero **
+ parsing subroutine ** exch_sm_3d_rl **
+ parsing subroutine ** exch_3d_rs **
+ parsing subroutine ** exch_3d_rl **
+ parsing subroutine ** exch_xy_rl **
+ parsing subroutine ** exch_xy_rs **
+ parsing subroutine ** exch_xyz_rl **
+ parsing subroutine ** exch_xyz_rs **
+ parsing subroutine ** exch_uv_3d_rs **
+ parsing subroutine ** exch_uv_3d_rl **
+ parsing subroutine ** exch_uv_xy_rs **
+ parsing subroutine ** exch_uv_xy_rl **
+ parsing subroutine ** exch_uv_xyz_rs **
+ parsing subroutine ** exch_uv_xyz_rl **
+ parsing subroutine ** exch_uv_agrid_3d_rs **
+ parsing subroutine ** exch_uv_agrid_3d_rl **
+ parsing subroutine ** exch_uv_dgrid_3d_rs **
+ parsing subroutine ** exch_uv_dgrid_3d_rl **
+ parsing subroutine ** adams_bashforth2 **
+ parsing subroutine ** adams_bashforth3 **
+ parsing subroutine ** apply_forcing_u **
+ parsing subroutine ** apply_forcing_v **
+ parsing subroutine ** apply_forcing_t **
+ parsing subroutine ** apply_forcing_s **
+ parsing subroutine ** calc_3d_diffusivity **
+ parsing subroutine ** calc_adv_flow **
+ parsing subroutine ** calc_div_ghat **
+ parsing subroutine ** calc_grad_phi_fv **
+ parsing subroutine ** calc_grad_phi_hyd **
+ parsing subroutine ** calc_grad_phi_surf **
+ parsing subroutine ** calc_ivdc **
+ parsing subroutine ** calc_phi_hyd **
+ parsing subroutine ** calc_r_star **
+ parsing subroutine ** calc_surf_dr **
+ parsing subroutine ** calc_viscosity **
+ parsing subroutine ** calc_wsurf_tr **
+ parsing subroutine ** cg2d_nsa **
+ parsing subroutine ** convective_adjustment **
+ parsing subroutine ** convective_adjustment_ini **
+ parsing subroutine ** convective_weights **
+ parsing subroutine ** convectively_mixtracer **
+ parsing subroutine ** correction_step **
+ parsing subroutine ** cycle_ab_tracer **
+ parsing subroutine ** cycle_tracer **
+ parsing subroutine ** diags_phi_hyd **
+ parsing subroutine ** diags_phi_rlow **
+ parsing subroutine ** diags_rho_l **
+ parsing subroutine ** diags_rho_g **
+ parsing subroutine ** diags_sound_speed **
+ parsing subroutine ** do_atmospheric_phys **
+ parsing subroutine ** do_fields_blocking_exchanges **
+ parsing subroutine ** do_oceanic_phys **
+ parsing subroutine ** do_stagger_fields_exchanges **
+ parsing subroutine ** dynamics **
+ parsing subroutine ** external_fields_load **
+ parsing subroutine ** external_forcing_surf **
+ parsing subroutine ** forcing_surf_relax **
+ parsing subroutine ** find_alpha **
+ parsing subroutine ** find_beta **
+ parsing subroutine ** find_rho_2d **
+ parsing subroutine ** find_rhop0 **
+ parsing subroutine ** find_bulkmod **
+ parsing subroutine ** find_rhonum **
+ parsing subroutine ** find_rhoden **
+ parsing subroutine ** find_rhoteos **
+ parsing subroutine ** find_rho_scalar **
+ parsing subroutine ** look_for_neg_salinity **
+ parsing subroutine ** forward_step **
+ parsing subroutine ** freesurf_rescale_g **
+ parsing subroutine ** freeze_surface **
+ parsing subroutine ** grad_sigma **
+ parsing subroutine ** impldiff **
+ parsing subroutine ** ini_cg2d **
+ parsing subroutine ** ini_depths **
+ parsing subroutine ** ini_ffields **
+ parsing subroutine ** ini_fields **
+ parsing subroutine ** ini_forcing **
+ parsing subroutine ** ini_mixing **
+ parsing subroutine ** ini_nh_fields **
+ parsing subroutine ** ini_nlfs_vars **
+ parsing subroutine ** ini_p_ground **
+ parsing subroutine ** analylic_theta **
+ parsing subroutine ** ini_pressure **
+ parsing subroutine ** ini_psurf **
+ parsing subroutine ** ini_salt **
+ parsing subroutine ** ini_theta **
+ parsing subroutine ** ini_dynvars **
+ parsing subroutine ** ini_vel **
+ parsing subroutine ** initialise_varia **
+ parsing subroutine ** integrate_for_w **
+ parsing subroutine ** integr_continuity **
+ parsing subroutine ** load_fields_driver **
+ parsing subroutine ** load_grid_spacing **
+ parsing subroutine ** main_do_loop **
+ parsing subroutine ** momentum_correction_step **
+ parsing subroutine ** packages_init_variables **
+ parsing subroutine ** pressure_for_eos **
+ parsing subroutine ** read_pickup **
+ parsing subroutine ** remove_mean_rl **
+ parsing subroutine ** remove_mean_rs **
+ parsing subroutine ** reset_nlfs_vars **
+ parsing subroutine ** rotate_uv2en_rl **
+ parsing subroutine ** rotate_uv2en_rs **
+ parsing subroutine ** salt_integrate **
+ parsing subroutine ** temp_integrate **
+ parsing function   ** sw_ptmp **
+ parsing function   ** sw_temp **
+ parsing function   ** sw_adtg **
+ parsing subroutine ** solve_for_pressure **
+ parsing subroutine ** state_summary **
+ parsing subroutine ** solve_pentadiagonal **
+ parsing subroutine ** solve_tridiagonal **
+ parsing subroutine ** taueddy_init_varia **
+ parsing subroutine ** taueddy_tendency_apply_u **
+ parsing subroutine ** taueddy_tendency_apply_v **
+ parsing subroutine ** timestep **
+ parsing subroutine ** the_main_loop **
+ parsing subroutine ** thermodynamics **
+ parsing subroutine ** timestep_tracer **
+ parsing subroutine ** tracers_correction_step **
+ parsing subroutine ** update_cg2d **
+ parsing subroutine ** update_etah **
+ parsing subroutine ** update_etaws **
+ parsing subroutine ** update_masks_etc **
+ parsing subroutine ** update_r_star **
+ parsing subroutine ** update_sigma **
+ parsing subroutine ** update_surf_dr **
+ parsing subroutine ** swfrac **
+
+=========================================
+ normalization
+=========================================
+
+=========================================
+ control flow analysis
+=========================================
+
+=========================================
+ procedure pointer target analysis
+=========================================
+=========================================
+ data dependence analysis
+=========================================
+
+=========================================
+ MPI pre analysis
+=========================================
+=========================================
+ global data flow analysis
+=========================================
+TAF WARNING ad_input_code.f:6111 : cannot find corresponding open
+TAF WARNING ad_input_code.f:302446 : cannot find corresponding open
+TAF WARNING ad_input_code.f:40886 : cannot find corresponding open
+TAF WARNING ad_input_code.f:132323 : cannot find corresponding open
+TAF WARNING ad_input_code.f:40068 : cannot find corresponding open
+TAF WARNING ad_input_code.f:78915 : cannot find corresponding open
+ determine required routines and statements for subroutine : the_main_loop
+ dependent variable(s) = fc
+
+TAF WARNING the dependent variables do not depend on the variable(s) : xx_obcsn_dummy,xx_obcss_dummy,xx_obcsw_dummy,xx_genarr2d_dummy[C],xx_genarr3d_dummy[C]
+ determine influenced routines and statements for subroutine : the_main_loop
+ independent variable(s) = xx_gentim2d_dummy,xx_obcse_dummy
+
+ the independent variable(s) are : xx_gentim2d_dummy,xx_obcse_dummy
+
+ the   dependent variable(s) are : fc
+
+TAF WARNING toplevel routine overwrites the  input variables : evap[C],xx_gentim2d[C],xx_gentim2d0[C],xx_gentim2d1[C],xx_gentim2d_dummy[C],xx_obcse0[C],xx_obcse1[C]
+=========================================
+ MPI analysis
+=========================================
+=========================================
+ generate adjoint common blocks
+=========================================
+ original   common block (    1): autodiff_store_dyn2d
+ derivative common block (    1): autodiff_store_dyn2d_ad
+ original   common block (    1): autodiff_store_dyn3d
+ derivative common block (    1): autodiff_store_dyn3d_ad
+ original   common block (    1): autodiff_store_exf_atmos
+ derivative common block (    1): autodiff_store_exf_atmos_ad
+ original   common block (    1): autodiff_store_obcse
+ derivative common block (    1): autodiff_store_obcse_ad
+ original   common block (    9): controlaux_gencost_r
+ derivative common block (    1): controlaux_gencost_r_ad
+ original   common block (    4): controlaux_gentim2d_r
+ derivative common block (    3): controlaux_gentim2d_r_ad
+ original   common block (    2): controlaux_obcse_r
+ derivative common block (    2): controlaux_obcse_r_ad
+ original   common block (    1): cost_final_r
+ derivative common block (    1): cost_final_r_ad
+ original   common block (    2): cost_r
+ derivative common block (    1): adcost_r
+ original   common block (    3): ctrl_dummy_arr
+ derivative common block (    1): ctrl_dummy_arr_ad
+ original   common block (    4): ctrl_dummy_obcs
+ derivative common block (    1): ctrl_dummy_obcs_ad
+ original   common block (    2): dwnslp_flow
+ derivative common block (    1): dwnslp_flow_ad
+ original   common block (    5): dynvars_diag
+ derivative common block (    2): addynvars_diag
+ original   common block (   12): dynvars_r
+ derivative common block (   12): addynvars_r
+ original   common block (    1): dynvars_r_2
+ derivative common block (    1): dynvars_r_2_ad
+ original   common block (   18): ecco_cost_weights_obcs
+ derivative common block (    1): ecco_cost_weights_obcs_ad
+ original   common block (    1): ecco_gencost_ctrl
+ derivative common block (    1): ecco_gencost_ctrl_ad
+ original   common block (   29): ecco_gencost_r_1
+ derivative common block (    6): ecco_gencost_r_1_ad
+ original   common block (   13): ecco_r
+ derivative common block (    7): ecco_r_ad
+ original   common block (    3): exact_eta_local
+ derivative common block (    2): exact_eta_local_ad
+ original   common block (    3): exf_apressure_r
+ derivative common block (    1): exf_apressure_r_ad
+ original   common block (    8): exf_atm_temp_r
+ derivative common block (    8): adexf_atm_temp_r
+ original   common block (    2): exf_atm_wind_r
+ derivative common block (    2): adexf_atm_wind_r
+ original   common block (    2): exf_netflux_r
+ derivative common block (    2): adexf_netflux_r
+ original   common block (    2): exf_rad_down_r
+ derivative common block (    2): adexf_rad_down_r
+ original   common block (    2): exf_stress_r
+ derivative common block (    2): adexf_stress_r
+ original   common block (    1): exf_swflux_r
+ derivative common block (    1): adexf_swflux_r
+ original   common block (    1): exf_wspeed_r
+ derivative common block (    1): adexf_wspeed_r
+ original   common block (    2): exfl_aqh_r
+ derivative common block (    2): exfl_aqh_r_ad
+ original   common block (    2): exfl_atemp_r
+ derivative common block (    2): exfl_atemp_r_ad
+ original   common block (    2): exfl_lwflux_r
+ derivative common block (    2): exfl_lwflux_r_ad
+ original   common block (    2): exfl_precip_r
+ derivative common block (    2): exfl_precip_r_ad
+ original   common block (    4): exfl_rad_down_r
+ derivative common block (    4): exfl_rad_down_r_ad
+ original   common block (    2): exfl_snowprecip_r
+ derivative common block (    2): exfl_snowprecip_r_ad
+ original   common block (    2): exfl_uwind_r
+ derivative common block (    2): exfl_uwind_r_ad
+ original   common block (    2): exfl_vwind_r
+ derivative common block (    2): exfl_vwind_r_ad
+ original   common block (    4): exfl_wind_r
+ derivative common block (    4): exfl_wind_r_ad
+ original   common block (    1): ffields_empmr
+ derivative common block (    1): adffields_empmr
+ original   common block (    1): ffields_fu
+ derivative common block (    1): adffields_fu
+ original   common block (    1): ffields_fv
+ derivative common block (    1): adffields_fv
+ original   common block (    1): ffields_pload
+ derivative common block (    1): ffields_pload_ad
+ original   common block (    1): ffields_qnet
+ derivative common block (    1): adffields_qnet
+ original   common block (    1): ffields_qsw
+ derivative common block (    1): adffields_qsw
+ original   common block (    1): ffields_saltflux
+ derivative common block (    1): adffields_saltflux
+ original   common block (    1): ffields_sss
+ derivative common block (    1): adffields_sss
+ original   common block (    1): ffields_sst
+ derivative common block (    1): adffields_sst
+ original   common block (    5): kpp
+ derivative common block (    5): kpp_ad
+ original   common block (    1): kpp_short
+ derivative common block (    1): kpp_short_ad
+ original   common block (    8): obcs_fields_aux_e
+ derivative common block (    8): obcs_fields_aux_e_ad
+ original   common block (    4): obcs_fields_e
+ derivative common block (    4): obcs_fields_e_ad
+ original   common block (    2): surf_correc
+ derivative common block (    2): surf_correc_ad
+ original   common block (    4): surf_fixed
+ derivative common block (    1): surf_fixed_ad
+ original   common block (    5): surface_forcing
+ derivative common block (    5): surface_forcing_ad
+ original   common block (   18): tdfields
+ derivative common block (   18): tdfields_ad
+
+=========================================
+ generate adjoint routines
+=========================================
+ begin generate adjoint computations of : the_main_loop
+ begin generate adjoint computations of : cost_final
+ begin generate adjoint computations of : ecco_cost_final
+ end   generate adjoint computations of : ecco_cost_final
+ end   generate adjoint computations of : cost_final
+ begin generate adjoint computations of : ecco_cost_driver
+ begin generate adjoint computations of : ctrl_cost_driver
+ begin generate adjoint computations of : ctrl_cost_gen2d
+ end   generate adjoint computations of : ctrl_cost_gen2d
+ end   generate adjoint computations of : ctrl_cost_driver
+ begin generate adjoint computations of : cost_gencost_all
+ begin generate adjoint computations of : cost_gencost_sshv4
+ begin generate adjoint computations of : remove_mean_rl
+ end   generate adjoint computations of : remove_mean_rl
+ end   generate adjoint computations of : cost_gencost_sshv4
+ begin generate adjoint computations of : cost_gencost_transp
+ begin generate adjoint computations of : ecco_addcost
+ end   generate adjoint computations of : ecco_addcost
+ begin generate adjoint computations of : ecco_zero
+ end   generate adjoint computations of : ecco_zero
+ begin generate adjoint computations of : ecco_diffmsk
+ end   generate adjoint computations of : ecco_diffmsk
+ begin generate adjoint computations of : cost_genread
+ begin generate adjoint computations of : ecco_readbar
+ end   generate adjoint computations of : ecco_readbar
+ end   generate adjoint computations of : cost_genread
+ end   generate adjoint computations of : cost_gencost_transp
+ begin generate adjoint computations of : cost_gencost_moc
+ end   generate adjoint computations of : cost_gencost_moc
+ begin generate adjoint computations of : cost_gencost_bpv4
+ end   generate adjoint computations of : cost_gencost_bpv4
+ begin generate adjoint computations of : cost_gencost_boxmean
+ end   generate adjoint computations of : cost_gencost_boxmean
+ begin generate adjoint computations of : cost_generic
+ begin generate adjoint computations of : cost_genloop
+ begin generate adjoint computations of : ecco_offset
+ end   generate adjoint computations of : ecco_offset
+ begin generate adjoint computations of : ecco_divfield
+ end   generate adjoint computations of : ecco_divfield
+ begin generate adjoint computations of : ecco_cp
+ end   generate adjoint computations of : ecco_cp
+ begin generate adjoint computations of : ecco_addmask
+ end   generate adjoint computations of : ecco_addmask
+ begin generate adjoint computations of : ecco_subtract
+ end   generate adjoint computations of : ecco_subtract
+ begin generate adjoint computations of : ecco_mult
+ end   generate adjoint computations of : ecco_mult
+ end   generate adjoint computations of : cost_genloop
+ end   generate adjoint computations of : cost_generic
+ end   generate adjoint computations of : cost_gencost_all
+ begin generate adjoint computations of : cost_obcs
+ begin generate adjoint computations of : cost_obcse
+ end   generate adjoint computations of : cost_obcse
+ end   generate adjoint computations of : cost_obcs
+ end   generate adjoint computations of : ecco_cost_driver
+ begin generate adjoint computations of : cost_averagesfields
+ begin generate adjoint computations of : cost_averagesgeneric
+ end   generate adjoint computations of : cost_averagesgeneric
+ begin generate adjoint computations of : cost_gencost_customize
+ begin generate adjoint computations of : rotate_uv2en_rl
+ end   generate adjoint computations of : rotate_uv2en_rl
+ end   generate adjoint computations of : cost_gencost_customize
+ end   generate adjoint computations of : cost_averagesfields
+ begin generate adjoint computations of : main_do_loop
+ begin generate adjoint computations of : forward_step
+ begin generate adjoint computations of : ecco_phys
+ begin generate adjoint computations of : ecco_div
+ end   generate adjoint computations of : ecco_div
+ begin generate adjoint computations of : find_rho_scalar
+ end   generate adjoint computations of : find_rho_scalar
+ begin generate adjoint computations of : find_rho_2d
+ begin generate adjoint computations of : pressure_for_eos
+ end   generate adjoint computations of : pressure_for_eos
+ begin generate adjoint computations of : find_rhoteos
+ end   generate adjoint computations of : find_rhoteos
+ begin generate adjoint computations of : find_rhoden
+ end   generate adjoint computations of : find_rhoden
+ begin generate adjoint computations of : find_rhonum
+ end   generate adjoint computations of : find_rhonum
+ begin generate adjoint computations of : find_bulkmod
+ end   generate adjoint computations of : find_bulkmod
+ begin generate adjoint computations of : find_rhop0
+ end   generate adjoint computations of : find_rhop0
+ end   generate adjoint computations of : find_rho_2d
+ end   generate adjoint computations of : ecco_phys
+ begin generate adjoint computations of : do_fields_blocking_exchanges
+ begin generate adjoint computations of : exch_xyz_rl
+ begin generate adjoint computations of : exch2_3d_rl
+ end   generate adjoint computations of : exch2_3d_rl
+ end   generate adjoint computations of : exch_xyz_rl
+ begin generate adjoint computations of : exch_uv_xyz_rl
+ begin generate adjoint computations of : exch2_uv_3d_rl
+ end   generate adjoint computations of : exch2_uv_3d_rl
+ end   generate adjoint computations of : exch_uv_xyz_rl
+ end   generate adjoint computations of : do_fields_blocking_exchanges
+ begin generate adjoint computations of : tracers_correction_step
+ begin generate adjoint computations of : convective_adjustment
+ begin generate adjoint computations of : convectively_mixtracer
+ end   generate adjoint computations of : convectively_mixtracer
+ end   generate adjoint computations of : convective_adjustment
+ end   generate adjoint computations of : tracers_correction_step
+ begin generate adjoint computations of : thermodynamics
+ begin generate adjoint computations of : obcs_apply_ts
+ end   generate adjoint computations of : obcs_apply_ts
+ begin generate adjoint computations of : salt_integrate
+ begin generate adjoint computations of : cycle_tracer
+ end   generate adjoint computations of : cycle_tracer
+ begin generate adjoint computations of : cycle_ab_tracer
+ end   generate adjoint computations of : cycle_ab_tracer
+ begin generate adjoint computations of : impldiff
+ end   generate adjoint computations of : impldiff
+ begin generate adjoint computations of : timestep_tracer
+ end   generate adjoint computations of : timestep_tracer
+ begin generate adjoint computations of : dwnslp_apply
+ end   generate adjoint computations of : dwnslp_apply
+ begin generate adjoint computations of : adams_bashforth2
+ end   generate adjoint computations of : adams_bashforth2
+ begin generate adjoint computations of : gad_calc_rhs
+ begin generate adjoint computations of : kpp_transport_s
+ end   generate adjoint computations of : kpp_transport_s
+ begin generate adjoint computations of : kpp_transport_t
+ end   generate adjoint computations of : kpp_transport_t
+ begin generate adjoint computations of : gad_biharm_r
+ end   generate adjoint computations of : gad_biharm_r
+ begin generate adjoint computations of : gad_diff_r
+ end   generate adjoint computations of : gad_diff_r
+ begin generate adjoint computations of : gad_dst3fl_adv_r
+ end   generate adjoint computations of : gad_dst3fl_adv_r
+ begin generate adjoint computations of : gad_dst3_adv_r
+ end   generate adjoint computations of : gad_dst3_adv_r
+ begin generate adjoint computations of : gad_c4_adv_r
+ end   generate adjoint computations of : gad_c4_adv_r
+ begin generate adjoint computations of : gad_u3_adv_r
+ end   generate adjoint computations of : gad_u3_adv_r
+ begin generate adjoint computations of : gad_fluxlimit_adv_r
+ end   generate adjoint computations of : gad_fluxlimit_adv_r
+ begin generate adjoint computations of : gad_dst2u1_adv_r
+ end   generate adjoint computations of : gad_dst2u1_adv_r
+ begin generate adjoint computations of : gad_c2_adv_r
+ end   generate adjoint computations of : gad_c2_adv_r
+ begin generate adjoint computations of : gad_biharm_y
+ end   generate adjoint computations of : gad_biharm_y
+ begin generate adjoint computations of : gad_diff_y
+ end   generate adjoint computations of : gad_diff_y
+ begin generate adjoint computations of : obcs_u1_adv_tracer
+ end   generate adjoint computations of : obcs_u1_adv_tracer
+ begin generate adjoint computations of : gad_dst3fl_adv_y
+ end   generate adjoint computations of : gad_dst3fl_adv_y
+ begin generate adjoint computations of : gad_dst3_adv_y
+ end   generate adjoint computations of : gad_dst3_adv_y
+ begin generate adjoint computations of : gad_c4_adv_y
+ end   generate adjoint computations of : gad_c4_adv_y
+ begin generate adjoint computations of : gad_u3_adv_y
+ end   generate adjoint computations of : gad_u3_adv_y
+ begin generate adjoint computations of : gad_fluxlimit_adv_y
+ end   generate adjoint computations of : gad_fluxlimit_adv_y
+ begin generate adjoint computations of : gad_dst2u1_adv_y
+ end   generate adjoint computations of : gad_dst2u1_adv_y
+ begin generate adjoint computations of : gad_c2_adv_y
+ end   generate adjoint computations of : gad_c2_adv_y
+ begin generate adjoint computations of : gad_biharm_x
+ end   generate adjoint computations of : gad_biharm_x
+ begin generate adjoint computations of : gad_diff_x
+ end   generate adjoint computations of : gad_diff_x
+ begin generate adjoint computations of : gad_dst3fl_adv_x
+ end   generate adjoint computations of : gad_dst3fl_adv_x
+ begin generate adjoint computations of : gad_dst3_adv_x
+ end   generate adjoint computations of : gad_dst3_adv_x
+ begin generate adjoint computations of : gad_c4_adv_x
+ end   generate adjoint computations of : gad_c4_adv_x
+ begin generate adjoint computations of : gad_u3_adv_x
+ end   generate adjoint computations of : gad_u3_adv_x
+ begin generate adjoint computations of : gad_fluxlimit_adv_x
+ end   generate adjoint computations of : gad_fluxlimit_adv_x
+ begin generate adjoint computations of : gad_dst2u1_adv_x
+ end   generate adjoint computations of : gad_dst2u1_adv_x
+ begin generate adjoint computations of : gad_c2_adv_x
+ end   generate adjoint computations of : gad_c2_adv_x
+ begin generate adjoint computations of : gad_del2
+ end   generate adjoint computations of : gad_del2
+ begin generate adjoint computations of : gad_grad_y
+ begin generate adjoint computations of : fill_cs_corner_tr_rl
+ end   generate adjoint computations of : fill_cs_corner_tr_rl
+ end   generate adjoint computations of : gad_grad_y
+ begin generate adjoint computations of : gad_grad_x
+ end   generate adjoint computations of : gad_grad_x
+ end   generate adjoint computations of : gad_calc_rhs
+ begin generate adjoint computations of : apply_forcing_s
+ begin generate adjoint computations of : obcs_sponge_s
+ end   generate adjoint computations of : obcs_sponge_s
+ end   generate adjoint computations of : apply_forcing_s
+ begin generate adjoint computations of : calc_adv_flow
+ end   generate adjoint computations of : calc_adv_flow
+ begin generate adjoint computations of : gad_advection
+ end   generate adjoint computations of : gad_advection
+ begin generate adjoint computations of : calc_3d_diffusivity
+ begin generate adjoint computations of : kpp_calc_diff_s
+ end   generate adjoint computations of : kpp_calc_diff_s
+ begin generate adjoint computations of : kpp_calc_diff_t
+ end   generate adjoint computations of : kpp_calc_diff_t
+ end   generate adjoint computations of : calc_3d_diffusivity
+ end   generate adjoint computations of : salt_integrate
+ begin generate adjoint computations of : temp_integrate
+ begin generate adjoint computations of : apply_forcing_t
+ begin generate adjoint computations of : obcs_sponge_t
+ end   generate adjoint computations of : obcs_sponge_t
+ end   generate adjoint computations of : apply_forcing_t
+ end   generate adjoint computations of : temp_integrate
+ begin generate adjoint computations of : calc_wsurf_tr
+ end   generate adjoint computations of : calc_wsurf_tr
+ end   generate adjoint computations of : thermodynamics
+ begin generate adjoint computations of : do_stagger_fields_exchanges
+ begin generate adjoint computations of : exch_sm_3d_rl
+ begin generate adjoint computations of : exch2_sm_3d_rl
+ end   generate adjoint computations of : exch2_sm_3d_rl
+ end   generate adjoint computations of : exch_sm_3d_rl
+ begin generate adjoint computations of : exch_3d_rl
+ end   generate adjoint computations of : exch_3d_rl
+ begin generate adjoint computations of : exch_uv_3d_rl
+ end   generate adjoint computations of : exch_uv_3d_rl
+ end   generate adjoint computations of : do_stagger_fields_exchanges
+ begin generate adjoint computations of : integr_continuity
+ begin generate adjoint computations of : update_etah
+ begin generate adjoint computations of : exch_xy_rl
+ end   generate adjoint computations of : exch_xy_rl
+ end   generate adjoint computations of : update_etah
+ begin generate adjoint computations of : integrate_for_w
+ end   generate adjoint computations of : integrate_for_w
+ end   generate adjoint computations of : integr_continuity
+ begin generate adjoint computations of : momentum_correction_step
+ begin generate adjoint computations of : obcs_apply_uv
+ end   generate adjoint computations of : obcs_apply_uv
+ begin generate adjoint computations of : correction_step
+ end   generate adjoint computations of : correction_step
+ begin generate adjoint computations of : calc_grad_phi_surf
+ end   generate adjoint computations of : calc_grad_phi_surf
+ end   generate adjoint computations of : momentum_correction_step
+ begin generate adjoint computations of : solve_for_pressure
+ begin generate adjoint computations of : calc_div_ghat
+ end   generate adjoint computations of : calc_div_ghat
+ end   generate adjoint computations of : solve_for_pressure
+ begin generate adjoint computations of : dynamics
+ begin generate adjoint computations of : obcs_exchanges
+ end   generate adjoint computations of : obcs_exchanges
+ begin generate adjoint computations of : timestep
+ begin generate adjoint computations of : apply_forcing_v
+ begin generate adjoint computations of : obcs_sponge_v
+ end   generate adjoint computations of : obcs_sponge_v
+ end   generate adjoint computations of : apply_forcing_v
+ begin generate adjoint computations of : apply_forcing_u
+ begin generate adjoint computations of : obcs_sponge_u
+ end   generate adjoint computations of : obcs_sponge_u
+ end   generate adjoint computations of : apply_forcing_u
+ end   generate adjoint computations of : timestep
+ begin generate adjoint computations of : mom_vecinv
+ begin generate adjoint computations of : mom_v_metric_nh
+ end   generate adjoint computations of : mom_v_metric_nh
+ begin generate adjoint computations of : mom_u_metric_nh
+ end   generate adjoint computations of : mom_u_metric_nh
+ begin generate adjoint computations of : mom_v_coriolis_nh
+ end   generate adjoint computations of : mom_v_coriolis_nh
+ begin generate adjoint computations of : mom_u_coriolis_nh
+ end   generate adjoint computations of : mom_u_coriolis_nh
+ begin generate adjoint computations of : mom_vi_v_grad_ke
+ end   generate adjoint computations of : mom_vi_v_grad_ke
+ begin generate adjoint computations of : mom_vi_u_grad_ke
+ end   generate adjoint computations of : mom_vi_u_grad_ke
+ begin generate adjoint computations of : mom_vi_v_vertshear
+ end   generate adjoint computations of : mom_vi_v_vertshear
+ begin generate adjoint computations of : mom_vi_u_vertshear
+ end   generate adjoint computations of : mom_vi_u_vertshear
+ begin generate adjoint computations of : mom_vi_v_coriolis
+ end   generate adjoint computations of : mom_vi_v_coriolis
+ begin generate adjoint computations of : mom_vi_v_coriolis_c4
+ end   generate adjoint computations of : mom_vi_v_coriolis_c4
+ begin generate adjoint computations of : mom_vi_u_coriolis
+ end   generate adjoint computations of : mom_vi_u_coriolis
+ begin generate adjoint computations of : mom_vi_u_coriolis_c4
+ end   generate adjoint computations of : mom_vi_u_coriolis_c4
+ begin generate adjoint computations of : mom_vi_coriolis
+ end   generate adjoint computations of : mom_vi_coriolis
+ begin generate adjoint computations of : mom_calc_absvort3
+ end   generate adjoint computations of : mom_calc_absvort3
+ begin generate adjoint computations of : mom_v_botdrag_coeff
+ end   generate adjoint computations of : mom_v_botdrag_coeff
+ begin generate adjoint computations of : mom_v_sidedrag
+ end   generate adjoint computations of : mom_v_sidedrag
+ begin generate adjoint computations of : mom_v_rviscflux
+ end   generate adjoint computations of : mom_v_rviscflux
+ begin generate adjoint computations of : mom_u_botdrag_coeff
+ end   generate adjoint computations of : mom_u_botdrag_coeff
+ begin generate adjoint computations of : mom_u_sidedrag
+ end   generate adjoint computations of : mom_u_sidedrag
+ begin generate adjoint computations of : mom_u_rviscflux
+ end   generate adjoint computations of : mom_u_rviscflux
+ begin generate adjoint computations of : mom_vi_hdissip
+ end   generate adjoint computations of : mom_vi_hdissip
+ begin generate adjoint computations of : mom_hdissip
+ end   generate adjoint computations of : mom_hdissip
+ begin generate adjoint computations of : mom_calc_relvort3
+ end   generate adjoint computations of : mom_calc_relvort3
+ begin generate adjoint computations of : mom_calc_hdiv
+ end   generate adjoint computations of : mom_calc_hdiv
+ begin generate adjoint computations of : mom_vi_del2uv
+ end   generate adjoint computations of : mom_vi_del2uv
+ begin generate adjoint computations of : mom_calc_visc
+ end   generate adjoint computations of : mom_calc_visc
+ begin generate adjoint computations of : mom_calc_strain
+ end   generate adjoint computations of : mom_calc_strain
+ begin generate adjoint computations of : mom_calc_tension
+ end   generate adjoint computations of : mom_calc_tension
+ begin generate adjoint computations of : mom_calc_ke
+ end   generate adjoint computations of : mom_calc_ke
+ end   generate adjoint computations of : mom_vecinv
+ begin generate adjoint computations of : mom_fluxform
+ begin generate adjoint computations of : mom_v_coriolis
+ end   generate adjoint computations of : mom_v_coriolis
+ begin generate adjoint computations of : mom_u_coriolis
+ end   generate adjoint computations of : mom_u_coriolis
+ begin generate adjoint computations of : mom_v_metric_cylinder
+ end   generate adjoint computations of : mom_v_metric_cylinder
+ begin generate adjoint computations of : mom_v_metric_sphere
+ end   generate adjoint computations of : mom_v_metric_sphere
+ begin generate adjoint computations of : mom_v_yviscflux
+ end   generate adjoint computations of : mom_v_yviscflux
+ begin generate adjoint computations of : mom_v_xviscflux
+ end   generate adjoint computations of : mom_v_xviscflux
+ begin generate adjoint computations of : mom_v_del2v
+ end   generate adjoint computations of : mom_v_del2v
+ begin generate adjoint computations of : mom_v_adv_wv
+ end   generate adjoint computations of : mom_v_adv_wv
+ begin generate adjoint computations of : mom_v_adv_vv
+ end   generate adjoint computations of : mom_v_adv_vv
+ begin generate adjoint computations of : mom_v_adv_uv
+ end   generate adjoint computations of : mom_v_adv_uv
+ begin generate adjoint computations of : mom_u_metric_cylinder
+ end   generate adjoint computations of : mom_u_metric_cylinder
+ begin generate adjoint computations of : mom_u_metric_sphere
+ end   generate adjoint computations of : mom_u_metric_sphere
+ begin generate adjoint computations of : mom_u_yviscflux
+ end   generate adjoint computations of : mom_u_yviscflux
+ begin generate adjoint computations of : mom_u_xviscflux
+ end   generate adjoint computations of : mom_u_xviscflux
+ begin generate adjoint computations of : mom_u_del2u
+ end   generate adjoint computations of : mom_u_del2u
+ begin generate adjoint computations of : mom_u_adv_wu
+ end   generate adjoint computations of : mom_u_adv_wu
+ begin generate adjoint computations of : mom_u_adv_vu
+ end   generate adjoint computations of : mom_u_adv_vu
+ begin generate adjoint computations of : mom_u_adv_uu
+ end   generate adjoint computations of : mom_u_adv_uu
+ begin generate adjoint computations of : mom_calc_rtrans
+ end   generate adjoint computations of : mom_calc_rtrans
+ end   generate adjoint computations of : mom_fluxform
+ begin generate adjoint computations of : calc_phi_hyd
+ begin generate adjoint computations of : diags_phi_hyd
+ end   generate adjoint computations of : diags_phi_hyd
+ begin generate adjoint computations of : calc_grad_phi_fv
+ end   generate adjoint computations of : calc_grad_phi_fv
+ begin generate adjoint computations of : calc_grad_phi_hyd
+ end   generate adjoint computations of : calc_grad_phi_hyd
+ begin generate adjoint computations of : mom_quasihydrostatic
+ end   generate adjoint computations of : mom_quasihydrostatic
+ end   generate adjoint computations of : calc_phi_hyd
+ begin generate adjoint computations of : calc_viscosity
+TAF WARNING ad_input_code.f:284797 : potential conflict due to incomplete variable(s) : tmpfac[C]
+TAF WARNING RECOMPUTATION WARNING IF_STMT ad_input_code.f:284797 in calc_viscosity
+TAF WARNING  triggered by      : tmpfac[C]
+TAF WARNING  still to be recomputed : tmpfac[C]
+TAF WARNING RECOMPUTATION WARNING IF_STMT ad_input_code.f:284797 in calc_viscosity
+TAF WARNING  triggered by      : pc_kfac,tmpfac[C]
+TAF WARNING  still to be recomputed : tmpfac[C]
+TAF WARNING ad_input_code.f:284756 : potential conflict due to incomplete variable(s) : tmpfac[C]
+TAF WARNING RECOMPUTATION WARNING IF_STMT ad_input_code.f:284756 in calc_viscosity
+TAF WARNING  triggered by      : pc_kfac,kapparv[C],tmpfac[C]
+TAF WARNING  still to be recomputed : kapparv[C],tmpfac[C]
+TAF WARNING ad_input_code.f:284718 : potential conflict due to incomplete variable(s) : tmpfac[C]
+TAF WARNING RECOMPUTATION WARNING IF_STMT ad_input_code.f:284718 in calc_viscosity
+TAF WARNING  triggered by      : pc_kfac,kapparu[C],tmpfac[C]
+TAF WARNING  still to be recomputed : kapparu[C],tmpfac[C]
+ begin generate adjoint computations of : kpp_calc_visc
+ end   generate adjoint computations of : kpp_calc_visc
+ end   generate adjoint computations of : calc_viscosity
+ end   generate adjoint computations of : dynamics
+ begin generate adjoint computations of : do_oceanic_phys
+ begin generate adjoint computations of : kpp_do_exch
+ end   generate adjoint computations of : kpp_do_exch
+ begin generate adjoint computations of : dwnslp_calc_flow
+ end   generate adjoint computations of : dwnslp_calc_flow
+ begin generate adjoint computations of : kpp_calc_dummy
+TAF WARNING RECOMPUTATION WARNING CALL_STMT ad_input_code.f:153881 in kpp_calc_dummy
+TAF WARNING  triggered by      : kppdiffkzs[C],kppdiffkzt[C]
+TAF WARNING  still to be recomputed : kppdiffkzs[C],kppdiffkzt[C]
+ end   generate adjoint computations of : kpp_calc_dummy
+ begin generate adjoint computations of : kpp_calc
+ begin generate adjoint computations of : swfrac
+ end   generate adjoint computations of : swfrac
+ begin generate adjoint computations of : kppmix
+ begin generate adjoint computations of : enhance
+ end   generate adjoint computations of : enhance
+ begin generate adjoint computations of : blmix
+ begin generate adjoint computations of : wscale
+ end   generate adjoint computations of : wscale
+ end   generate adjoint computations of : blmix
+ begin generate adjoint computations of : bldepth
+ end   generate adjoint computations of : bldepth
+ begin generate adjoint computations of : ri_iwmix
+ end   generate adjoint computations of : ri_iwmix
+ end   generate adjoint computations of : kppmix
+ begin generate adjoint computations of : kpp_doublediff
+ end   generate adjoint computations of : kpp_doublediff
+TAF WARNING RECOMPUTATION WARNING CALL_STMT ad_input_code.f:152864 in kpp_calc
+TAF WARNING  triggered by      : kppdiffkzs[C],kppdiffkzt[C]
+TAF WARNING  still to be recomputed : kppdiffkzs[C],kppdiffkzt[C]
+TAF WARNING RECOMPUTATION WARNING IF_STMT ad_input_code.f:152763 in kpp_calc
+TAF WARNING  triggered by      : kppdiffkzs[C],kppdiffkzt[C]
+TAF WARNING  still to be recomputed : kppdiffkzs[C],kppdiffkzt[C]
+TAF WARNING RECOMPUTATION WARNING CALL_STMT ad_input_code.f:152859 in kpp_calc
+TAF WARNING  triggered by      : kppdiffkzs[C],kppdiffkzt[C]
+TAF WARNING  still to be recomputed : kppdiffkzs[C],kppdiffkzt[C]
+TAF WARNING RECOMPUTATION WARNING IF_STMT ad_input_code.f:152763 in kpp_calc
+TAF WARNING  triggered by      : kppdiffkzs[C],kppdiffkzt[C]
+TAF WARNING  still to be recomputed : kppdiffkzs[C],kppdiffkzt[C]
+ begin generate adjoint computations of : kpp_forcing_surf
+ end   generate adjoint computations of : kpp_forcing_surf
+ begin generate adjoint computations of : smooth_horiz
+ end   generate adjoint computations of : smooth_horiz
+ begin generate adjoint computations of : statekpp
+ begin generate adjoint computations of : find_beta
+ end   generate adjoint computations of : find_beta
+ begin generate adjoint computations of : find_alpha
+ end   generate adjoint computations of : find_alpha
+ end   generate adjoint computations of : statekpp
+ end   generate adjoint computations of : kpp_calc
+ begin generate adjoint computations of : grad_sigma
+ end   generate adjoint computations of : grad_sigma
+ begin generate adjoint computations of : dwnslp_calc_rho
+ end   generate adjoint computations of : dwnslp_calc_rho
+ begin generate adjoint computations of : obcs_adjust
+ begin generate adjoint computations of : obcs_balance_flow
+ end   generate adjoint computations of : obcs_balance_flow
+ end   generate adjoint computations of : obcs_adjust
+ begin generate adjoint computations of : external_forcing_surf
+ begin generate adjoint computations of : forcing_surf_relax
+ end   generate adjoint computations of : forcing_surf_relax
+ begin generate adjoint computations of : remove_mean_rs
+ end   generate adjoint computations of : remove_mean_rs
+TAF WARNING ad_input_code.f:303627 : potential conflict due to incomplete variable(s) : tmpvar[C]
+ end   generate adjoint computations of : external_forcing_surf
+ begin generate adjoint computations of : freeze_surface
+ end   generate adjoint computations of : freeze_surface
+ begin generate adjoint computations of : obcs_calc
+ begin generate adjoint computations of : ctrl_getobcse
+ end   generate adjoint computations of : ctrl_getobcse
+ begin generate adjoint computations of : obcs_prescribe_read
+ begin generate adjoint computations of : obcs_fields_load
+ begin generate adjoint computations of : obcs_time_interp_yz
+ end   generate adjoint computations of : obcs_time_interp_yz
+ end   generate adjoint computations of : obcs_fields_load
+ begin generate adjoint computations of : obcs_exf_load
+ begin generate adjoint computations of : obcs_exf_read_yz
+ begin generate adjoint computations of : exf_set_obcs_yz
+ begin generate adjoint computations of : exf_swapffields_yz
+ end   generate adjoint computations of : exf_swapffields_yz
+ end   generate adjoint computations of : exf_set_obcs_yz
+ end   generate adjoint computations of : obcs_exf_read_yz
+ end   generate adjoint computations of : obcs_exf_load
+ end   generate adjoint computations of : obcs_prescribe_read
+ end   generate adjoint computations of : obcs_calc
+ end   generate adjoint computations of : do_oceanic_phys
+ begin generate adjoint computations of : ctrl_map_forcing
+ begin generate adjoint computations of : exch_uv_xy_rs
+ begin generate adjoint computations of : exch2_uv_3d_rs
+ end   generate adjoint computations of : exch2_uv_3d_rs
+ end   generate adjoint computations of : exch_uv_xy_rs
+ begin generate adjoint computations of : exch_xy_rs
+ begin generate adjoint computations of : exch2_3d_rs
+ end   generate adjoint computations of : exch2_3d_rs
+ end   generate adjoint computations of : exch_xy_rs
+ end   generate adjoint computations of : ctrl_map_forcing
+ begin generate adjoint computations of : load_fields_driver
+ begin generate adjoint computations of : external_fields_load
+ end   generate adjoint computations of : external_fields_load
+ begin generate adjoint computations of : exf_getforcing
+ begin generate adjoint computations of : exf_mapfields
+ end   generate adjoint computations of : exf_mapfields
+ begin generate adjoint computations of : exf_getsurfacefluxes
+ end   generate adjoint computations of : exf_getsurfacefluxes
+ begin generate adjoint computations of : exch_uv_agrid_3d_rl
+ begin generate adjoint computations of : exch2_uv_agrid_3d_rl
+ end   generate adjoint computations of : exch2_uv_agrid_3d_rl
+ end   generate adjoint computations of : exch_uv_agrid_3d_rl
+ begin generate adjoint computations of : exch_uv_xy_rl
+ end   generate adjoint computations of : exch_uv_xy_rl
+ begin generate adjoint computations of : exf_bulkformulae
+ end   generate adjoint computations of : exf_bulkformulae
+ begin generate adjoint computations of : exf_wind
+ end   generate adjoint computations of : exf_wind
+ begin generate adjoint computations of : exf_radiation
+ end   generate adjoint computations of : exf_radiation
+ begin generate adjoint computations of : exf_getffields
+ begin generate adjoint computations of : exf_set_fld
+ begin generate adjoint computations of : exf_filter_rl
+ end   generate adjoint computations of : exf_filter_rl
+ begin generate adjoint computations of : exf_interp
+ begin generate adjoint computations of : exf_interpolate
+ end   generate adjoint computations of : exf_interpolate
+ end   generate adjoint computations of : exf_interp
+ begin generate adjoint computations of : exf_swapffields
+ end   generate adjoint computations of : exf_swapffields
+ end   generate adjoint computations of : exf_set_fld
+ begin generate adjoint computations of : exf_set_uv
+ end   generate adjoint computations of : exf_set_uv
+ end   generate adjoint computations of : exf_getffields
+ end   generate adjoint computations of : exf_getforcing
+ begin generate adjoint computations of : ctrl_map_gentim2d
+ begin generate adjoint computations of : ctrl_get_gen
+ begin generate adjoint computations of : ctrl_swapffields
+ end   generate adjoint computations of : ctrl_swapffields
+ end   generate adjoint computations of : ctrl_get_gen
+ end   generate adjoint computations of : ctrl_map_gentim2d
+ end   generate adjoint computations of : load_fields_driver
+ end   generate adjoint computations of : forward_step
+ end   generate adjoint computations of : main_do_loop
+ begin generate adjoint computations of : autodiff_restore
+ end   generate adjoint computations of : autodiff_restore
+ begin generate adjoint computations of : autodiff_store
+ end   generate adjoint computations of : autodiff_store
+ begin generate adjoint computations of : initialise_varia
+ begin generate adjoint reset        of : cost_init_varia
+ end   generate adjoint reset        of : cost_init_varia
+ begin generate adjoint computations of : packages_init_variables
+ begin generate adjoint computations of : obcs_init_variables
+ end   generate adjoint computations of : obcs_init_variables
+ begin generate adjoint computations of : ctrl_init_variables
+ begin generate adjoint computations of : ctrl_map_ini_gentim2d
+ end   generate adjoint computations of : ctrl_map_ini_gentim2d
+ end   generate adjoint computations of : ctrl_init_variables
+ begin generate adjoint computations of : ecco_init_varia
+ begin generate adjoint reset        of : ecco_cost_init_varia
+ end   generate adjoint reset        of : ecco_cost_init_varia
+ end   generate adjoint computations of : ecco_init_varia
+ end   generate adjoint computations of : packages_init_variables
+ end   generate adjoint computations of : initialise_varia
+TAF WARNING ad_input_code.f:12530 : storing of variable theta not necessary
+TAF WARNING ad_input_code.f:12532 : storing of variable uvel not necessary
+TAF WARNING ad_input_code.f:12532 : storing of variable vvel not necessary
+TAF WARNING ad_input_code.f:297026 : storing of variable theta not necessary
+TAF WARNING ad_input_code.f:297027 : storing of variable salt not necessary
+TAF WARNING ad_input_code.f:132007 : storing of variable fvert not necessary
+TAF WARNING ad_input_code.f:132047 : storing of variable localt not necessary
+TAF WARNING ad_input_code.f:132049 : storing of variable localt not necessary
+TAF WARNING ad_input_code.f:132051 : storing of variable fzon not necessary
+TAF WARNING ad_input_code.f:132051 : storing of variable fmer not necessary
+TAF WARNING ad_input_code.f:132006 : tape gad_local_tape not used
+TAF WARNING ad_input_code.f:137911 : storing of variable rjh not necessary
+TAF WARNING ad_input_code.f:137911 : storing of variable rj not necessary
+TAF WARNING ad_input_code.f:137883 : tape loctape_gad not used
+TAF WARNING ad_input_code.f:127044 : storing of variable fvert(:,:,:) not necessary
+TAF WARNING ad_input_code.f:126805 : storing of variable af not necessary
+TAF WARNING ad_input_code.f:126902 : storing of variable af not necessary
+TAF WARNING ad_input_code.f:351698 : storing of variable d5d_prime(:,:,k) not necessary
+TAF WARNING ad_input_code.f:351699 : storing of variable e5d_prime(:,:,k) not necessary
+TAF WARNING ad_input_code.f:351700 : storing of variable y5d_prime(:,:,k) not necessary
+TAF WARNING ad_input_code.f:351685 : tape loctape_solvepenta not used
+TAF WARNING ad_input_code.f:147599 : storing of variable smtr(:,:,:,bi,bj,:) not necessary
+TAF WARNING ad_input_code.f:147600 : storing of variable smtr0 not necessary
+TAF WARNING ad_input_code.f:147438 : tape somtape not used
+TAF WARNING ad_input_code.f:147466 : storing of variable smtr(:,:,k,bi,bj,:) not necessary
+TAF WARNING ad_input_code.f:147467 : storing of variable smtr0(:,:,k) not necessary
+TAF WARNING ad_input_code.f:147468 : storing of variable smvol(:,:,k) not necessary
+TAF WARNING ad_input_code.f:147469 : storing of variable smcorners not necessary
+TAF WARNING ad_input_code.f:147615 : storing of variable smtr(:,:,k,bi,bj,:) not necessary
+TAF WARNING ad_input_code.f:147616 : storing of variable smtr0(:,:,k) not necessary
+TAF WARNING ad_input_code.f:147617 : storing of variable smvol(:,:,k) not necessary
+TAF WARNING ad_input_code.f:147618 : storing of variable alp not necessary
+TAF WARNING ad_input_code.f:147618 : storing of variable aln not necessary
+TAF WARNING ad_input_code.f:147619 : storing of variable fp_v not necessary
+TAF WARNING ad_input_code.f:147619 : storing of variable fn_v not necessary
+TAF WARNING ad_input_code.f:147619 : storing of variable fp_o not necessary
+TAF WARNING ad_input_code.f:147619 : storing of variable fn_o not necessary
+TAF WARNING ad_input_code.f:147619 : storing of variable fp_x not necessary
+TAF WARNING ad_input_code.f:147619 : storing of variable fn_x not necessary
+TAF WARNING ad_input_code.f:147619 : storing of variable fp_y not necessary
+TAF WARNING ad_input_code.f:147619 : storing of variable fn_y not necessary
+TAF WARNING ad_input_code.f:147619 : storing of variable fp_z not necessary
+TAF WARNING ad_input_code.f:147619 : storing of variable fn_z not necessary
+TAF WARNING ad_input_code.f:147621 : storing of variable fp_xx not necessary
+TAF WARNING ad_input_code.f:147621 : storing of variable fn_xx not necessary
+TAF WARNING ad_input_code.f:147621 : storing of variable fp_yy not necessary
+TAF WARNING ad_input_code.f:147621 : storing of variable fn_yy not necessary
+TAF WARNING ad_input_code.f:147621 : storing of variable fp_zz not necessary
+TAF WARNING ad_input_code.f:147621 : storing of variable fn_zz not necessary
+TAF WARNING ad_input_code.f:147623 : storing of variable fp_xy not necessary
+TAF WARNING ad_input_code.f:147623 : storing of variable fn_xy not necessary
+TAF WARNING ad_input_code.f:147623 : storing of variable fp_xz not necessary
+TAF WARNING ad_input_code.f:147623 : storing of variable fn_xz not necessary
+TAF WARNING ad_input_code.f:147623 : storing of variable fp_yz not necessary
+TAF WARNING ad_input_code.f:147623 : storing of variable fn_yz not necessary
+TAF WARNING ad_input_code.f:147439 : tape somtape_k not used
+TAF WARNING ad_input_code.f:147494 : storing of variable smtr(:,:,k,bi,bj,:) not necessary
+TAF WARNING ad_input_code.f:147495 : storing of variable smtr0(:,:,k) not necessary
+TAF WARNING ad_input_code.f:147496 : storing of variable smvol(:,:,k) not necessary
+TAF WARNING ad_input_code.f:147497 : storing of variable smcorners not necessary
+TAF WARNING ad_input_code.f:147440 : tape somtape_k_pass not used
+TAF WARNING ad_input_code.f:148729 : storing of variable sm_o not necessary
+TAF WARNING ad_input_code.f:148729 : storing of variable sm_v not necessary
+TAF WARNING ad_input_code.f:148729 : storing of variable sm_x not necessary
+TAF WARNING ad_input_code.f:148729 : storing of variable sm_xz not necessary
+TAF WARNING ad_input_code.f:148729 : storing of variable sm_y not necessary
+TAF WARNING ad_input_code.f:148729 : storing of variable sm_yz not necessary
+TAF WARNING ad_input_code.f:148729 : storing of variable sm_z not necessary
+TAF WARNING ad_input_code.f:148729 : storing of variable sm_zz not necessary
+TAF WARNING ad_input_code.f:148700 : tape somtape_r not used
+TAF WARNING ad_input_code.f:149250 : storing of variable sm_o not necessary
+TAF WARNING ad_input_code.f:149250 : storing of variable sm_x not necessary
+TAF WARNING ad_input_code.f:149250 : storing of variable sm_xx not necessary
+TAF WARNING ad_input_code.f:149250 : storing of variable sm_xy not necessary
+TAF WARNING ad_input_code.f:149250 : storing of variable sm_xz not necessary
+TAF WARNING ad_input_code.f:149250 : storing of variable sm_y not necessary
+TAF WARNING ad_input_code.f:149250 : storing of variable sm_yy not necessary
+TAF WARNING ad_input_code.f:149250 : storing of variable sm_yz not necessary
+TAF WARNING ad_input_code.f:149250 : storing of variable sm_z not necessary
+TAF WARNING ad_input_code.f:149250 : storing of variable sm_zz not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_o not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_v not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_x not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_xx not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_xy not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_xz not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_y not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_yy not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_yz not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_z not necessary
+TAF WARNING ad_input_code.f:149267 : storing of variable sm_zz not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_o not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_v not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_x not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_xx not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_xy not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_xz not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_y not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_yy not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_yz not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_z not necessary
+TAF WARNING ad_input_code.f:149307 : storing of variable sm_zz not necessary
+TAF WARNING ad_input_code.f:149224 : tape somtape_x not used
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_o not necessary
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_v not necessary
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_x not necessary
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_xx not necessary
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_xy not necessary
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_xz not necessary
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_y not necessary
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_yy not necessary
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_yz not necessary
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_z not necessary
+TAF WARNING ad_input_code.f:149732 : storing of variable sm_zz not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_o not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_v not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_x not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_xx not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_xy not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_xz not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_y not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_yy not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_yz not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_z not necessary
+TAF WARNING ad_input_code.f:149749 : storing of variable sm_zz not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_o not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_v not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_x not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_xx not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_xy not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_xz not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_y not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_yy not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_yz not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_z not necessary
+TAF WARNING ad_input_code.f:149789 : storing of variable sm_zz not necessary
+TAF WARNING ad_input_code.f:149706 : tape somtape_y not used
+TAF WARNING ad_input_code.f:357783 : tape tapelev_init not used
+TAF WARNING ad_input_code.f:357822 : tape tapelvi2 not used
+TAF WARNING ad_input_code.f:357787 : tape tapelvi3 not used
+TAF WARNING ad_input_code.f:162270 : storing of variable v(i,k) not necessary
+TAF WARNING ad_input_code.f:162283 : storing of variable v(i,k) not necessary
+TAF WARNING ad_input_code.f:162283 : storing of variable zwork not necessary
+TAF WARNING ad_input_code.f:162267 : tape z121tape not used
+ end   generate adjoint computations of : the_main_loop
+
+=========================================
+ generate auxiliary routines
+=========================================
+ generate initialization of global adjoint variables
+
+=========================================
+ Fortran dialect transformations
+=========================================
+
+=========================================
+ write modified and reverse mode code
+=========================================
+./ad_input_code_ad.f:
+ writing subroutine ** adams_bashforth2_ad **
+ writing subroutine ** adams_bashforth2 **
+ writing subroutine ** adams_bashforth3 **
+ writing subroutine ** adexch_3d_rl **
+ writing subroutine ** adexch_sm_3d_rl **
+ writing subroutine ** adexch_uv_3d_rl **
+ writing subroutine ** adexch_uv_agrid_3d_rl **
+ writing subroutine ** adexch_uv_xy_rl **
+ writing subroutine ** adexch_uv_xy_rs **
+ writing subroutine ** adexch_uv_xyz_rl **
+ writing subroutine ** adexch_xy_rl **
+ writing subroutine ** adexch_xy_rs **
+ writing subroutine ** adexch_xyz_rl **
+ writing subroutine ** adthe_main_loop **
+ writing subroutine ** analylic_theta **
+ writing subroutine ** apply_forcing_s_ad **
+ writing subroutine ** apply_forcing_s **
+ writing subroutine ** apply_forcing_t_ad **
+ writing subroutine ** apply_forcing_t **
+ writing subroutine ** apply_forcing_u_ad **
+ writing subroutine ** apply_forcing_u **
+ writing subroutine ** apply_forcing_v_ad **
+ writing subroutine ** apply_forcing_v **
+ writing subroutine ** autodiff_init_varia **
+ writing subroutine ** autodiff_restore_ad **
+ writing subroutine ** autodiff_restore **
+ writing subroutine ** autodiff_store_ad **
+ writing subroutine ** autodiff_store **
+ writing subroutine ** bldepth_ad **
+ writing subroutine ** bldepthmd **
+ writing subroutine ** bldepth **
+ writing subroutine ** blmix_ad **
+ writing subroutine ** blmixmd **
+ writing subroutine ** blmix **
+ writing subroutine ** cal_addtime **
+ writing subroutine ** cal_checkdate **
+ writing function   ** cal_compdates **
+ writing subroutine ** cal_convdate **
+ writing subroutine ** cal_copydate **
+ writing subroutine ** cal_fulldate **
+ writing subroutine ** cal_getdate **
+ writing subroutine ** cal_getmonthsrec **
+ writing function   ** cal_intdays **
+ writing function   ** cal_intmonths **
+ writing function   ** cal_intyears **
+ writing function   ** cal_isleap **
+ writing function   ** cal_numints **
+ writing subroutine ** cal_printdate **
+ writing subroutine ** cal_printerror **
+ writing subroutine ** cal_subdates **
+ writing subroutine ** cal_time2dump **
+ writing subroutine ** cal_timeinterval **
+ writing subroutine ** cal_timepassed **
+ writing subroutine ** cal_timestamp **
+ writing subroutine ** cal_toseconds **
+ writing subroutine ** calc_3d_diffusivity_ad **
+ writing subroutine ** calc_3d_diffusivity **
+ writing subroutine ** calc_adv_flow_ad **
+ writing subroutine ** calc_adv_flow **
+ writing subroutine ** calc_div_ghat_ad **
+ writing subroutine ** calc_div_ghat **
+ writing subroutine ** calc_grad_phi_fv_ad **
+ writing subroutine ** calc_grad_phi_fv **
+ writing subroutine ** calc_grad_phi_hyd_ad **
+ writing subroutine ** calc_grad_phi_hyd **
+ writing subroutine ** calc_grad_phi_surf_ad **
+ writing subroutine ** calc_grad_phi_surf **
+ writing subroutine ** calc_ivdc **
+ writing subroutine ** calc_phi_hyd_ad **
+ writing subroutine ** calc_phi_hydmd **
+ writing subroutine ** calc_phi_hyd **
+ writing subroutine ** calc_r_star **
+ writing subroutine ** calc_surf_dr **
+ writing subroutine ** calc_viscosity_ad **
+ writing subroutine ** calc_viscosity **
+ writing subroutine ** calc_wsurf_tr_ad **
+ writing subroutine ** calc_wsurf_tr **
+ writing subroutine ** cg2d_nsa **
+ writing subroutine ** convective_adjustment_ad **
+ writing subroutine ** convective_adjustmentmd **
+ writing subroutine ** convective_adjustment **
+ writing subroutine ** convective_adjustment_ini **
+ writing subroutine ** convective_weights **
+ writing subroutine ** convectively_mixtracer_ad **
+ writing subroutine ** convectively_mixtracer **
+ writing subroutine ** correction_step_ad **
+ writing subroutine ** correction_step **
+ writing subroutine ** cost_accumulate_mean **
+ writing subroutine ** cost_atlantic_heat **
+ writing subroutine ** cost_averagesfields_ad **
+ writing subroutine ** cost_averagesfields **
+ writing subroutine ** cost_averagesflags **
+ writing subroutine ** cost_averagesgeneric_ad **
+ writing subroutine ** cost_averagesgeneric **
+ writing subroutine ** cost_averagesinit **
+ writing subroutine ** cost_bp_read **
+ writing subroutine ** cost_depth **
+ writing subroutine ** cost_final_ad **
+ writing subroutine ** cost_final **
+ writing subroutine ** cost_gencal **
+ writing subroutine ** cost_gencost_all_ad **
+ writing subroutine ** cost_gencost_all **
+ writing subroutine ** cost_gencost_assignperiod **
+ writing subroutine ** cost_gencost_boxmean_ad **
+ writing subroutine ** cost_gencost_boxmean **
+ writing subroutine ** cost_gencost_bpv4_ad **
+ writing subroutine ** cost_gencost_bpv4 **
+ writing subroutine ** cost_gencost_customize_ad **
+ writing subroutine ** cost_gencost_customize **
+ writing subroutine ** cost_gencost_glbmean **
+ writing subroutine ** cost_gencost_moc_ad **
+ writing subroutine ** cost_gencost_moc **
+ writing subroutine ** cost_gencost_seaicev4 **
+ writing subroutine ** cost_gencost_sshv4_ad **
+ writing subroutine ** cost_gencost_sshv4 **
+ writing subroutine ** cost_gencost_sstv4 **
+ writing subroutine ** cost_gencost_transp_ad **
+ writing subroutine ** cost_gencost_transp **
+ writing subroutine ** cost_generic_ad **
+ writing subroutine ** cost_generic **
+ writing subroutine ** cost_genloop_ad **
+ writing subroutine ** cost_genloop **
+ writing subroutine ** cost_genread_ad **
+ writing subroutine ** cost_genread **
+ writing subroutine ** cost_init_varia_ad **
+ writing subroutine ** cost_init_varia **
+ writing subroutine ** cost_obcs_ad **
+ writing subroutine ** cost_obcs **
+ writing subroutine ** cost_obcs_ageos **
+ writing subroutine ** cost_obcse_ad **
+ writing subroutine ** cost_obcse **
+ writing subroutine ** cost_obcsn **
+ writing subroutine ** cost_obcss **
+ writing subroutine ** cost_obcsvol **
+ writing subroutine ** cost_obcsw **
+ writing subroutine ** cost_sla_read **
+ writing subroutine ** cost_sla_read_yd **
+ writing subroutine ** cost_state_final **
+ writing subroutine ** cost_test **
+ writing subroutine ** cost_tile **
+ writing subroutine ** cost_tracer **
+ writing subroutine ** cost_vector **
+ writing subroutine ** ctrl_assign **
+ writing subroutine ** ctrl_cost_driver_ad **
+ writing subroutine ** ctrl_cost_driver **
+ writing subroutine ** ctrl_cost_gen2d_ad **
+ writing subroutine ** ctrl_cost_gen2d **
+ writing subroutine ** ctrl_cost_gen3d **
+ writing subroutine ** ctrl_cprlrl **
+ writing subroutine ** ctrl_cprsrl **
+ writing subroutine ** ctrl_cprsrs **
+ writing subroutine ** ctrl_depth_ini **
+ writing subroutine ** ctrl_get_gen_ad **
+ writing subroutine ** ctrl_get_gen **
+ writing subroutine ** ctrl_get_gen_rec **
+ writing subroutine ** ctrl_get_mask2d **
+ writing subroutine ** ctrl_get_mask3d **
+ writing subroutine ** ctrl_getobcse_ad **
+ writing subroutine ** ctrl_getobcse **
+ writing subroutine ** ctrl_getobcsn **
+ writing subroutine ** ctrl_getobcss **
+ writing subroutine ** ctrl_getobcsw **
+ writing subroutine ** ctrl_init_obcs_variables **
+ writing subroutine ** ctrl_init_rec **
+ writing subroutine ** ctrl_init_variables_ad **
+ writing subroutine ** ctrl_init_variablesmd **
+ writing subroutine ** ctrl_init_variables **
+ writing subroutine ** ctrl_map_forcing_ad **
+ writing subroutine ** ctrl_map_forcing **
+ writing subroutine ** ctrl_map_genarr2d **
+ writing subroutine ** ctrl_map_genarr3d **
+ writing subroutine ** ctrl_map_gentim2d_ad **
+ writing subroutine ** ctrl_map_gentim2d **
+ writing subroutine ** ctrl_map_ini_genarr **
+ writing subroutine ** ctrl_map_ini_gentim2d_ad **
+ writing subroutine ** ctrl_map_ini_gentim2dmd **
+ writing subroutine ** ctrl_map_ini_gentim2d **
+ writing subroutine ** ctrl_swapffields_ad **
+ writing subroutine ** ctrl_swapffields **
+ writing subroutine ** ctrl_swapffields_3d **
+ writing subroutine ** ctrl_swapffields_xz **
+ writing subroutine ** ctrl_swapffields_yz **
+ writing subroutine ** cycle_ab_tracer_ad **
+ writing subroutine ** cycle_ab_tracer **
+ writing subroutine ** cycle_tracer_ad **
+ writing subroutine ** cycle_tracer **
+ writing function   ** diagnostics_is_on **
+ writing subroutine ** diags_phi_hyd_ad **
+ writing subroutine ** diags_phi_hyd **
+ writing subroutine ** diags_phi_rlow **
+ writing subroutine ** diags_rho_g **
+ writing subroutine ** diags_rho_l **
+ writing subroutine ** diags_sound_speed **
+ writing function   ** different_multiple **
+ writing subroutine ** do_atmospheric_phys **
+ writing subroutine ** do_fields_blocking_exchanges_ad **
+ writing subroutine ** do_fields_blocking_exchanges **
+ writing subroutine ** do_oceanic_phys_ad **
+ writing subroutine ** do_oceanic_physmd **
+ writing subroutine ** do_oceanic_phys **
+ writing subroutine ** do_stagger_fields_exchanges_ad **
+ writing subroutine ** do_stagger_fields_exchanges **
+ writing subroutine ** dwnslp_apply_ad **
+ writing subroutine ** dwnslp_apply **
+ writing subroutine ** dwnslp_calc_flow_ad **
+ writing subroutine ** dwnslp_calc_flow **
+ writing subroutine ** dwnslp_calc_rho_ad **
+ writing subroutine ** dwnslp_calc_rho **
+ writing subroutine ** dwnslp_init_varia **
+ writing subroutine ** dynamics_ad **
+ writing subroutine ** dynamicsmd **
+ writing subroutine ** dynamics **
+ writing subroutine ** ecco_add **
+ writing subroutine ** ecco_addcost_ad **
+ writing subroutine ** ecco_addcost **
+ writing subroutine ** ecco_addmask_ad **
+ writing subroutine ** ecco_addmask **
+ writing subroutine ** ecco_cost_driver_ad **
+ writing subroutine ** ecco_cost_driver **
+ writing subroutine ** ecco_cost_final_ad **
+ writing subroutine ** ecco_cost_final **
+ writing subroutine ** ecco_cost_init_varia_ad **
+ writing subroutine ** ecco_cost_init_varia **
+ writing subroutine ** ecco_cp_ad **
+ writing subroutine ** ecco_cp **
+ writing subroutine ** ecco_cprsrl **
+ writing subroutine ** ecco_diffmsk_ad **
+ writing subroutine ** ecco_diffmsk **
+ writing subroutine ** ecco_div_ad **
+ writing subroutine ** ecco_div **
+ writing subroutine ** ecco_divfield_ad **
+ writing subroutine ** ecco_divfield **
+ writing subroutine ** ecco_error **
+ writing subroutine ** ecco_init_varia_ad **
+ writing subroutine ** ecco_init_varia **
+ writing subroutine ** ecco_maskmindepth **
+ writing subroutine ** ecco_mult_ad **
+ writing subroutine ** ecco_mult **
+ writing subroutine ** ecco_multfield **
+ writing subroutine ** ecco_offset_ad **
+ writing subroutine ** ecco_offset **
+ writing subroutine ** ecco_phys_ad **
+ writing subroutine ** ecco_phys **
+ writing subroutine ** ecco_readbar_ad **
+ writing subroutine ** ecco_readbar **
+ writing subroutine ** ecco_readwei **
+ writing subroutine ** ecco_subtract_ad **
+ writing subroutine ** ecco_subtract **
+ writing subroutine ** ecco_zero_ad **
+ writing subroutine ** ecco_zero **
+ writing subroutine ** enhance_ad **
+ writing subroutine ** enhance **
+ writing subroutine ** exch2_3d_rl_ad **
+ writing subroutine ** exch2_3d_rl **
+ writing subroutine ** exch2_3d_rs_ad **
+ writing subroutine ** exch2_3d_rs **
+ writing subroutine ** exch2_sm_3d_rl_ad **
+ writing subroutine ** exch2_sm_3d_rl **
+ writing subroutine ** exch2_uv_3d_rl_ad **
+ writing subroutine ** exch2_uv_3d_rl **
+ writing subroutine ** exch2_uv_3d_rs_ad **
+ writing subroutine ** exch2_uv_3d_rs **
+ writing subroutine ** exch2_uv_agrid_3d_rl_ad **
+ writing subroutine ** exch2_uv_agrid_3d_rl **
+ writing subroutine ** exch2_uv_agrid_3d_rs **
+ writing subroutine ** exch2_uv_dgrid_3d_rl **
+ writing subroutine ** exch2_uv_dgrid_3d_rs **
+ writing subroutine ** exch_3d_rl **
+ writing subroutine ** exch_3d_rs **
+ writing subroutine ** exch_sm_3d_rl **
+ writing subroutine ** exch_uv_3d_rl **
+ writing subroutine ** exch_uv_3d_rs **
+ writing subroutine ** exch_uv_agrid_3d_rl **
+ writing subroutine ** exch_uv_agrid_3d_rs **
+ writing subroutine ** exch_uv_dgrid_3d_rl **
+ writing subroutine ** exch_uv_dgrid_3d_rs **
+ writing subroutine ** exch_uv_xy_rl **
+ writing subroutine ** exch_uv_xy_rs **
+ writing subroutine ** exch_uv_xyz_rl **
+ writing subroutine ** exch_uv_xyz_rs **
+ writing subroutine ** exch_xy_rl **
+ writing subroutine ** exch_xy_rs **
+ writing subroutine ** exch_xyz_rl **
+ writing subroutine ** exch_xyz_rs **
+ writing subroutine ** exf_bulkformulae_ad **
+ writing subroutine ** exf_bulkformulaemd **
+ writing subroutine ** exf_bulkformulae **
+ writing subroutine ** exf_filter_rl_ad **
+ writing subroutine ** exf_filter_rl **
+ writing subroutine ** exf_getclim **
+ writing subroutine ** exf_getffieldrec **
+ writing subroutine ** exf_getffields_ad **
+ writing subroutine ** exf_getffieldsmd **
+ writing subroutine ** exf_getffields **
+ writing subroutine ** exf_getforcing_ad **
+ writing subroutine ** exf_getforcingmd **
+ writing subroutine ** exf_getforcing **
+ writing subroutine ** exf_getmonthsrec **
+ writing subroutine ** exf_getsurfacefluxes_ad **
+ writing subroutine ** exf_getsurfacefluxes **
+ writing subroutine ** exf_getyearlyfieldname **
+ writing subroutine ** exf_init_fld **
+ writing subroutine ** exf_init_gen **
+ writing subroutine ** exf_init_varia **
+ writing subroutine ** exf_interp_ad **
+ writing subroutine ** exf_interp **
+ writing subroutine ** exf_interp_uv **
+ writing subroutine ** exf_interpolate_ad **
+ writing subroutine ** exf_interpolate **
+ writing subroutine ** exf_mapfields_ad **
+ writing subroutine ** exf_mapfieldsmd **
+ writing subroutine ** exf_mapfields **
+ writing subroutine ** exf_radiation_ad **
+ writing subroutine ** exf_radiation **
+ writing subroutine ** exf_set_fld_ad **
+ writing subroutine ** exf_set_fld **
+ writing subroutine ** exf_set_gen **
+ writing subroutine ** exf_set_obcs_x **
+ writing subroutine ** exf_set_obcs_xz **
+ writing subroutine ** exf_set_obcs_y **
+ writing subroutine ** exf_set_obcs_yz_ad **
+ writing subroutine ** exf_set_obcs_yz **
+ writing subroutine ** exf_set_uv_ad **
+ writing subroutine ** exf_set_uv **
+ writing subroutine ** exf_swapffields_ad **
+ writing subroutine ** exf_swapffields **
+ writing subroutine ** exf_swapffields_3d **
+ writing subroutine ** exf_swapffields_xz **
+ writing subroutine ** exf_swapffields_yz_ad **
+ writing subroutine ** exf_swapffields_yz **
+ writing subroutine ** exf_wind_ad **
+ writing subroutine ** exf_windmd **
+ writing subroutine ** exf_wind **
+ writing subroutine ** exf_zenithangle **
+ writing subroutine ** external_fields_load_ad **
+ writing subroutine ** external_fields_load **
+ writing subroutine ** external_forcing_surf_ad **
+ writing subroutine ** external_forcing_surfmd **
+ writing subroutine ** external_forcing_surf **
+ writing subroutine ** fill_cs_corner_ag_rl **
+ writing subroutine ** fill_cs_corner_tr_rl_ad **
+ writing subroutine ** fill_cs_corner_tr_rl **
+ writing subroutine ** fill_cs_corner_uv_rl **
+ writing subroutine ** fill_cs_corner_uv_rs **
+ writing subroutine ** find_alpha_ad **
+ writing subroutine ** find_alpha **
+ writing subroutine ** find_beta_ad **
+ writing subroutine ** find_beta **
+ writing subroutine ** find_bulkmod_ad **
+ writing subroutine ** find_bulkmod **
+ writing subroutine ** find_rho_2d_ad **
+ writing subroutine ** find_rho_2d **
+ writing subroutine ** find_rho_scalar_ad **
+ writing subroutine ** find_rho_scalar **
+ writing subroutine ** find_rhoden_ad **
+ writing subroutine ** find_rhoden **
+ writing subroutine ** find_rhonum_ad **
+ writing subroutine ** find_rhonum **
+ writing subroutine ** find_rhop0_ad **
+ writing subroutine ** find_rhop0 **
+ writing subroutine ** find_rhoteos_ad **
+ writing subroutine ** find_rhoteos **
+ writing subroutine ** forcing_surf_relax_ad **
+ writing subroutine ** forcing_surf_relax **
+ writing subroutine ** forward_step_ad **
+ writing subroutine ** forward_stepmd **
+ writing subroutine ** forward_step **
+ writing subroutine ** freesurf_rescale_g **
+ writing subroutine ** freeze_surface_ad **
+ writing subroutine ** freeze_surface **
+ writing subroutine ** gad_advection_ad **
+ writing subroutine ** gad_advection **
+ writing subroutine ** gad_biharm_r_ad **
+ writing subroutine ** gad_biharm_r **
+ writing subroutine ** gad_biharm_x_ad **
+ writing subroutine ** gad_biharm_x **
+ writing subroutine ** gad_biharm_y_ad **
+ writing subroutine ** gad_biharm_y **
+ writing subroutine ** gad_c2_adv_r_ad **
+ writing subroutine ** gad_c2_adv_r **
+ writing subroutine ** gad_c2_adv_x_ad **
+ writing subroutine ** gad_c2_adv_x **
+ writing subroutine ** gad_c2_adv_y_ad **
+ writing subroutine ** gad_c2_adv_y **
+ writing subroutine ** gad_c2_impl_r **
+ writing subroutine ** gad_c4_adv_r_ad **
+ writing subroutine ** gad_c4_adv_r **
+ writing subroutine ** gad_c4_adv_x_ad **
+ writing subroutine ** gad_c4_adv_x **
+ writing subroutine ** gad_c4_adv_y_ad **
+ writing subroutine ** gad_c4_adv_y **
+ writing subroutine ** gad_calc_rhs_ad **
+ writing subroutine ** gad_calc_rhs **
+ writing subroutine ** gad_del2_ad **
+ writing subroutine ** gad_del2 **
+ writing subroutine ** gad_diff_r_ad **
+ writing subroutine ** gad_diff_r **
+ writing subroutine ** gad_diff_x_ad **
+ writing subroutine ** gad_diff_x **
+ writing subroutine ** gad_diff_y_ad **
+ writing subroutine ** gad_diff_y **
+ writing subroutine ** gad_dst2u1_adv_r_ad **
+ writing subroutine ** gad_dst2u1_adv_r **
+ writing subroutine ** gad_dst2u1_adv_x_ad **
+ writing subroutine ** gad_dst2u1_adv_x **
+ writing subroutine ** gad_dst2u1_adv_y_ad **
+ writing subroutine ** gad_dst2u1_adv_y **
+ writing subroutine ** gad_dst2u1_impl_r **
+ writing subroutine ** gad_dst3_adv_r_ad **
+ writing subroutine ** gad_dst3_adv_r **
+ writing subroutine ** gad_dst3_adv_x_ad **
+ writing subroutine ** gad_dst3_adv_x **
+ writing subroutine ** gad_dst3_adv_y_ad **
+ writing subroutine ** gad_dst3_adv_y **
+ writing subroutine ** gad_dst3fl_adv_r_ad **
+ writing subroutine ** gad_dst3fl_adv_r **
+ writing subroutine ** gad_dst3fl_adv_x_ad **
+ writing subroutine ** gad_dst3fl_adv_x **
+ writing subroutine ** gad_dst3fl_adv_y_ad **
+ writing subroutine ** gad_dst3fl_adv_y **
+ writing subroutine ** gad_dst3fl_impl_r **
+ writing subroutine ** gad_exch_som **
+ writing subroutine ** gad_fluxlimit_adv_r_ad **
+ writing subroutine ** gad_fluxlimit_adv_r **
+ writing subroutine ** gad_fluxlimit_adv_x_ad **
+ writing subroutine ** gad_fluxlimit_adv_x **
+ writing subroutine ** gad_fluxlimit_adv_y_ad **
+ writing subroutine ** gad_fluxlimit_adv_y **
+ writing subroutine ** gad_fluxlimit_impl_r **
+ writing subroutine ** gad_grad_x_ad **
+ writing subroutine ** gad_grad_x **
+ writing subroutine ** gad_grad_y_ad **
+ writing subroutine ** gad_grad_y **
+ writing subroutine ** gad_implicit_r **
+ writing subroutine ** gad_init_varia **
+ writing subroutine ** gad_os7mp_adv_r **
+ writing subroutine ** gad_os7mp_adv_x **
+ writing subroutine ** gad_os7mp_adv_y **
+ writing subroutine ** gad_read_pickup **
+ writing subroutine ** gad_som_adv_r **
+ writing subroutine ** gad_som_adv_x **
+ writing subroutine ** gad_som_adv_y **
+ writing subroutine ** gad_som_advect **
+ writing subroutine ** gad_som_exchanges **
+ writing subroutine ** gad_som_fill_cs_corner **
+ writing subroutine ** gad_som_lim_r **
+ writing subroutine ** gad_som_prep_cs_corner **
+ writing subroutine ** gad_u3_adv_r_ad **
+ writing subroutine ** gad_u3_adv_r **
+ writing subroutine ** gad_u3_adv_x_ad **
+ writing subroutine ** gad_u3_adv_x **
+ writing subroutine ** gad_u3_adv_y_ad **
+ writing subroutine ** gad_u3_adv_y **
+ writing subroutine ** gad_u3c4_impl_r **
+ writing subroutine ** get_exconc_deconc **
+ writing subroutine ** get_periodic_interval **
+ writing subroutine ** grad_sigma_ad **
+ writing subroutine ** grad_sigma **
+ writing subroutine ** impldiff_ad **
+ writing subroutine ** impldiff **
+ writing subroutine ** ini_cg2d **
+ writing subroutine ** ini_depths **
+ writing subroutine ** ini_dynvars **
+ writing subroutine ** ini_ffields **
+ writing subroutine ** ini_fields **
+ writing subroutine ** ini_forcing **
+ writing subroutine ** ini_mixing **
+ writing subroutine ** ini_nh_fields **
+ writing subroutine ** ini_nlfs_vars **
+ writing subroutine ** ini_p_ground **
+ writing subroutine ** ini_pressure **
+ writing subroutine ** ini_psurf **
+ writing subroutine ** ini_salt **
+ writing subroutine ** ini_theta **
+ writing subroutine ** ini_vel **
+ writing subroutine ** initialise_varia_ad **
+ writing subroutine ** initialise_variamd **
+ writing subroutine ** initialise_varia **
+ writing subroutine ** integr_continuity_ad **
+ writing subroutine ** integr_continuity **
+ writing subroutine ** integrate_for_w_ad **
+ writing subroutine ** integrate_for_w **
+ writing subroutine ** kpp_calc_ad **
+ writing subroutine ** kpp_calcmd **
+ writing subroutine ** kpp_calc **
+ writing subroutine ** kpp_calc_diff_ptr **
+ writing subroutine ** kpp_calc_diff_s_ad **
+ writing subroutine ** kpp_calc_diff_s **
+ writing subroutine ** kpp_calc_diff_t_ad **
+ writing subroutine ** kpp_calc_diff_t **
+ writing subroutine ** kpp_calc_dummy_ad **
+ writing subroutine ** kpp_calc_dummy **
+ writing subroutine ** kpp_calc_visc_ad **
+ writing subroutine ** kpp_calc_visc **
+ writing subroutine ** kpp_do_exch_ad **
+ writing subroutine ** kpp_do_exch **
+ writing subroutine ** kpp_doublediff_ad **
+ writing subroutine ** kpp_doublediff **
+ writing subroutine ** kpp_forcing_surf_ad **
+ writing subroutine ** kpp_forcing_surfmd **
+ writing subroutine ** kpp_forcing_surf **
+ writing subroutine ** kpp_init_varia **
+ writing subroutine ** kpp_output **
+ writing subroutine ** kpp_transport_ptr **
+ writing subroutine ** kpp_transport_s_ad **
+ writing subroutine ** kpp_transport_s **
+ writing subroutine ** kpp_transport_t_ad **
+ writing subroutine ** kpp_transport_t **
+ writing subroutine ** kppmix_ad **
+ writing subroutine ** kppmixmd **
+ writing subroutine ** kppmix **
+ writing function   ** lagran **
+ writing subroutine ** lef_zero **
+ writing subroutine ** load_fields_driver_ad **
+ writing subroutine ** load_fields_drivermd **
+ writing subroutine ** load_fields_driver **
+ writing subroutine ** load_grid_spacing **
+ writing subroutine ** look_for_neg_salinity **
+ writing subroutine ** main_do_loop_ad **
+ writing subroutine ** main_do_loopmd **
+ writing subroutine ** main_do_loop **
+ writing subroutine ** mom_calc_absvort3_ad **
+ writing subroutine ** mom_calc_absvort3 **
+ writing subroutine ** mom_calc_hdiv_ad **
+ writing subroutine ** mom_calc_hdiv **
+ writing subroutine ** mom_calc_hfacz **
+ writing subroutine ** mom_calc_ke_ad **
+ writing subroutine ** mom_calc_ke **
+ writing subroutine ** mom_calc_relvort3_ad **
+ writing subroutine ** mom_calc_relvort3 **
+ writing subroutine ** mom_calc_rtrans_ad **
+ writing subroutine ** mom_calc_rtrans **
+ writing subroutine ** mom_calc_strain_ad **
+ writing subroutine ** mom_calc_strain **
+ writing subroutine ** mom_calc_tension_ad **
+ writing subroutine ** mom_calc_tension **
+ writing subroutine ** mom_calc_visc_ad **
+ writing subroutine ** mom_calc_viscmd **
+ writing subroutine ** mom_calc_visc **
+ writing subroutine ** mom_fluxform_ad **
+ writing subroutine ** mom_fluxformmd **
+ writing subroutine ** mom_fluxform **
+ writing subroutine ** mom_hdissip_ad **
+ writing subroutine ** mom_hdissip **
+ writing subroutine ** mom_quasihydrostatic_ad **
+ writing subroutine ** mom_quasihydrostatic **
+ writing subroutine ** mom_u_adv_uu_ad **
+ writing subroutine ** mom_u_adv_uu **
+ writing subroutine ** mom_u_adv_vu_ad **
+ writing subroutine ** mom_u_adv_vu **
+ writing subroutine ** mom_u_adv_wu_ad **
+ writing subroutine ** mom_u_adv_wu **
+ writing subroutine ** mom_u_botdrag_coeff_ad **
+ writing subroutine ** mom_u_botdrag_coeff **
+ writing subroutine ** mom_u_coriolis_ad **
+ writing subroutine ** mom_u_coriolis **
+ writing subroutine ** mom_u_coriolis_nh_ad **
+ writing subroutine ** mom_u_coriolis_nh **
+ writing subroutine ** mom_u_del2u_ad **
+ writing subroutine ** mom_u_del2u **
+ writing subroutine ** mom_u_metric_cylinder_ad **
+ writing subroutine ** mom_u_metric_cylinder **
+ writing subroutine ** mom_u_metric_nh_ad **
+ writing subroutine ** mom_u_metric_nh **
+ writing subroutine ** mom_u_metric_sphere_ad **
+ writing subroutine ** mom_u_metric_sphere **
+ writing subroutine ** mom_u_rviscflux_ad **
+ writing subroutine ** mom_u_rviscflux **
+ writing subroutine ** mom_u_sidedrag_ad **
+ writing subroutine ** mom_u_sidedrag **
+ writing subroutine ** mom_u_xviscflux_ad **
+ writing subroutine ** mom_u_xviscflux **
+ writing subroutine ** mom_u_yviscflux_ad **
+ writing subroutine ** mom_u_yviscflux **
+ writing subroutine ** mom_v_adv_uv_ad **
+ writing subroutine ** mom_v_adv_uv **
+ writing subroutine ** mom_v_adv_vv_ad **
+ writing subroutine ** mom_v_adv_vv **
+ writing subroutine ** mom_v_adv_wv_ad **
+ writing subroutine ** mom_v_adv_wv **
+ writing subroutine ** mom_v_botdrag_coeff_ad **
+ writing subroutine ** mom_v_botdrag_coeff **
+ writing subroutine ** mom_v_coriolis_ad **
+ writing subroutine ** mom_v_coriolis **
+ writing subroutine ** mom_v_coriolis_nh_ad **
+ writing subroutine ** mom_v_coriolis_nh **
+ writing subroutine ** mom_v_del2v_ad **
+ writing subroutine ** mom_v_del2v **
+ writing subroutine ** mom_v_metric_cylinder_ad **
+ writing subroutine ** mom_v_metric_cylinder **
+ writing subroutine ** mom_v_metric_nh_ad **
+ writing subroutine ** mom_v_metric_nh **
+ writing subroutine ** mom_v_metric_sphere_ad **
+ writing subroutine ** mom_v_metric_sphere **
+ writing subroutine ** mom_v_rviscflux_ad **
+ writing subroutine ** mom_v_rviscflux **
+ writing subroutine ** mom_v_sidedrag_ad **
+ writing subroutine ** mom_v_sidedrag **
+ writing subroutine ** mom_v_xviscflux_ad **
+ writing subroutine ** mom_v_xviscflux **
+ writing subroutine ** mom_v_yviscflux_ad **
+ writing subroutine ** mom_v_yviscflux **
+ writing subroutine ** mom_vecinv_ad **
+ writing subroutine ** mom_vecinvmd **
+ writing subroutine ** mom_vecinv **
+ writing subroutine ** mom_vi_coriolis_ad **
+ writing subroutine ** mom_vi_coriolis **
+ writing subroutine ** mom_vi_del2uv_ad **
+ writing subroutine ** mom_vi_del2uv **
+ writing subroutine ** mom_vi_hdissip_ad **
+ writing subroutine ** mom_vi_hdissip **
+ writing subroutine ** mom_vi_u_coriolis_ad **
+ writing subroutine ** mom_vi_u_coriolis **
+ writing subroutine ** mom_vi_u_coriolis_c4_ad **
+ writing subroutine ** mom_vi_u_coriolis_c4 **
+ writing subroutine ** mom_vi_u_grad_ke_ad **
+ writing subroutine ** mom_vi_u_grad_ke **
+ writing subroutine ** mom_vi_u_vertshear_ad **
+ writing subroutine ** mom_vi_u_vertshear **
+ writing subroutine ** mom_vi_v_coriolis_ad **
+ writing subroutine ** mom_vi_v_coriolis **
+ writing subroutine ** mom_vi_v_coriolis_c4_ad **
+ writing subroutine ** mom_vi_v_coriolis_c4 **
+ writing subroutine ** mom_vi_v_grad_ke_ad **
+ writing subroutine ** mom_vi_v_grad_ke **
+ writing subroutine ** mom_vi_v_vertshear_ad **
+ writing subroutine ** mom_vi_v_vertshear **
+ writing subroutine ** mom_visc_qgl_limit **
+ writing subroutine ** mom_visc_qgl_stretch **
+ writing subroutine ** momentum_correction_step_ad **
+ writing subroutine ** momentum_correction_step **
+ writing subroutine ** obcs_adjust_ad **
+ writing subroutine ** obcs_adjust **
+ writing subroutine ** obcs_adjust_uvice **
+ writing subroutine ** obcs_apply_eta **
+ writing subroutine ** obcs_apply_ptracer **
+ writing subroutine ** obcs_apply_r_star **
+ writing subroutine ** obcs_apply_seaice **
+ writing subroutine ** obcs_apply_surf_dr **
+ writing subroutine ** obcs_apply_ts_ad **
+ writing subroutine ** obcs_apply_ts **
+ writing subroutine ** obcs_apply_uv_ad **
+ writing subroutine ** obcs_apply_uv **
+ writing subroutine ** obcs_apply_uvice **
+ writing subroutine ** obcs_apply_w **
+ writing subroutine ** obcs_balance_flow_ad **
+ writing subroutine ** obcs_balance_flow **
+ writing subroutine ** obcs_calc_ad **
+ writing subroutine ** obcs_calc **
+ writing subroutine ** obcs_calc_stevens **
+ writing subroutine ** obcs_copy_tracer **
+ writing subroutine ** obcs_copy_uv_n **
+ writing subroutine ** obcs_exchanges_ad **
+ writing subroutine ** obcs_exchanges **
+ writing subroutine ** obcs_exf_load_ad **
+ writing subroutine ** obcs_exf_load **
+ writing subroutine ** obcs_exf_read_xz **
+ writing subroutine ** obcs_exf_read_yz_ad **
+ writing subroutine ** obcs_exf_read_yz **
+ writing subroutine ** obcs_fields_load_ad **
+ writing subroutine ** obcs_fields_load **
+ writing subroutine ** obcs_init_variables_ad **
+ writing subroutine ** obcs_init_variables **
+ writing subroutine ** obcs_prescribe_read_ad **
+ writing subroutine ** obcs_prescribe_read **
+ writing subroutine ** obcs_read_pickup **
+ writing subroutine ** obcs_save_uv_n **
+ writing subroutine ** obcs_sponge_s_ad **
+ writing subroutine ** obcs_sponge_s **
+ writing subroutine ** obcs_sponge_t_ad **
+ writing subroutine ** obcs_sponge_t **
+ writing subroutine ** obcs_sponge_u_ad **
+ writing subroutine ** obcs_sponge_u **
+ writing subroutine ** obcs_sponge_v_ad **
+ writing subroutine ** obcs_sponge_v **
+ writing subroutine ** obcs_stevens_calc_tracer_east **
+ writing subroutine ** obcs_stevens_calc_tracer_north **
+ writing subroutine ** obcs_stevens_calc_tracer_south **
+ writing subroutine ** obcs_stevens_calc_tracer_west **
+ writing subroutine ** obcs_stevens_save_tracers **
+ writing subroutine ** obcs_time_interp_xz **
+ writing subroutine ** obcs_time_interp_yz_ad **
+ writing subroutine ** obcs_time_interp_yz **
+ writing subroutine ** obcs_u1_adv_tracer_ad **
+ writing subroutine ** obcs_u1_adv_tracer **
+ writing subroutine ** orlanski_east **
+ writing subroutine ** orlanski_init **
+ writing subroutine ** orlanski_north **
+ writing subroutine ** orlanski_south **
+ writing subroutine ** orlanski_west **
+ writing subroutine ** packages_init_variables_ad **
+ writing subroutine ** packages_init_variablesmd **
+ writing subroutine ** packages_init_variables **
+ writing subroutine ** pressure_for_eos_ad **
+ writing subroutine ** pressure_for_eos **
+ writing subroutine ** read_fld_xy_rl **
+ writing subroutine ** read_fld_xy_rs **
+ writing subroutine ** read_fld_xyz_rl **
+ writing subroutine ** read_fld_xyz_rs **
+ writing subroutine ** read_pickup **
+ writing subroutine ** read_rec_3d_rl **
+ writing subroutine ** read_rec_3d_rs **
+ writing subroutine ** read_rec_lev_rl **
+ writing subroutine ** read_rec_lev_rs **
+ writing subroutine ** read_rec_xy_rl **
+ writing subroutine ** read_rec_xy_rs **
+ writing subroutine ** read_rec_xyz_rl **
+ writing subroutine ** read_rec_xyz_rs **
+ writing subroutine ** read_rec_xz_rl **
+ writing subroutine ** read_rec_xz_rs **
+ writing subroutine ** read_rec_yz_rl **
+ writing subroutine ** read_rec_yz_rs **
+ writing subroutine ** remove_mean_rl_ad **
+ writing subroutine ** remove_mean_rl **
+ writing subroutine ** remove_mean_rs_ad **
+ writing subroutine ** remove_mean_rs **
+ writing subroutine ** reset_nlfs_vars **
+ writing subroutine ** ri_iwmix_ad **
+ writing subroutine ** ri_iwmixmd **
+ writing subroutine ** ri_iwmix **
+ writing subroutine ** rotate_uv2en_rl_ad **
+ writing subroutine ** rotate_uv2en_rl **
+ writing subroutine ** rotate_uv2en_rs **
+ writing subroutine ** salt_integrate_ad **
+ writing subroutine ** salt_integratemd **
+ writing subroutine ** salt_integrate **
+ writing subroutine ** smooth_horiz_ad **
+ writing subroutine ** smooth_horiz **
+ writing subroutine ** solve_for_pressure_ad **
+ writing subroutine ** solve_for_pressure **
+ writing subroutine ** solve_pentadiagonal **
+ writing subroutine ** solve_tridiagonal **
+ writing subroutine ** state_summary **
+ writing subroutine ** statekpp_ad **
+ writing subroutine ** statekpp **
+ writing function   ** sw_adtg **
+ writing function   ** sw_ptmp **
+ writing function   ** sw_temp **
+ writing subroutine ** swfrac_ad **
+ writing subroutine ** swfrac **
+ writing subroutine ** taueddy_init_varia **
+ writing subroutine ** taueddy_tendency_apply_u **
+ writing subroutine ** taueddy_tendency_apply_v **
+ writing subroutine ** temp_integrate_ad **
+ writing subroutine ** temp_integratemd **
+ writing subroutine ** temp_integrate **
+ writing subroutine ** mdthe_main_loop **
+ writing subroutine ** the_main_loop **
+ writing subroutine ** thermodynamics_ad **
+ writing subroutine ** thermodynamicsmd **
+ writing subroutine ** thermodynamics **
+ writing subroutine ** timeave_cumul_1k1t **
+ writing subroutine ** timeave_cumul_1t **
+ writing subroutine ** timeave_cumul_1vfc **
+ writing subroutine ** timeave_cumul_2v **
+ writing subroutine ** timeave_cumul_2vfc **
+ writing subroutine ** timeave_cumul_dif_1t **
+ writing subroutine ** timeave_cumulate **
+ writing subroutine ** timeave_norma_2v **
+ writing subroutine ** timeave_normalize **
+ writing subroutine ** timeave_reset **
+ writing subroutine ** timeave_statv_write **
+ writing subroutine ** timeave_statvars **
+ writing subroutine ** timeave_surf_flux **
+ writing subroutine ** timestep_ad **
+ writing subroutine ** timestep **
+ writing subroutine ** timestep_tracer_ad **
+ writing subroutine ** timestep_tracer **
+ writing subroutine ** tracers_correction_step_ad **
+ writing subroutine ** tracers_correction_stepmd **
+ writing subroutine ** tracers_correction_step **
+ writing subroutine ** update_cg2d **
+ writing subroutine ** update_etah_ad **
+ writing subroutine ** update_etah **
+ writing subroutine ** update_etaws **
+ writing subroutine ** update_masks_etc **
+ writing subroutine ** update_r_star **
+ writing subroutine ** update_sigma **
+ writing subroutine ** update_surf_dr **
+ writing subroutine ** wscale_ad **
+ writing subroutine ** wscale **
+ writing subroutine ** z121 **
+ writing subroutine ** zero_ad **
+

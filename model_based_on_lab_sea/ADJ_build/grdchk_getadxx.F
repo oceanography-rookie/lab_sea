@@ -1,0 +1,1521 @@
+
+
+
+
+
+
+
+
+
+
+
+CBOP
+C !ROUTINE: GRDCHK_OPTIONS.h
+C !INTERFACE:
+C #include "GRDCHK_OPTIONS.h"
+
+C !DESCRIPTION:
+C *==================================================================*
+C | CPP options file for Gradient-Check (grdchk) package:
+C | Control which optional features to compile in this package code.
+C *==================================================================*
+CEOP
+
+
+
+
+
+
+
+C $Header: /u/gcmpack/MITgcm_contrib/SOSE/BoxAdj/code_ad/CPP_OPTIONS.h,v 1.1 2011/01/18 19:33:08 mmazloff Exp $
+C $Name:  $
+
+
+
+C CPP flags controlling particular source code features
+
+C o Shortwave heating as extra term in external_forcing.F
+C Note: this should be a run-time option
+
+C o Include/exclude phi_hyd calculation code
+
+C o Include/exclude call to S/R CONVECT
+
+C o Include/exclude call to S/R CALC_DIFFUSIVITY
+
+C o Include/exclude Implicit vertical advection code
+
+C o Include/exclude nonHydrostatic code
+
+C o Include pressure loading code
+
+
+C o Use "Exact Convervation" of fluid in Free-Surface formulation
+C   so that d/dt(eta) is exactly equal to - Div.Transport
+
+C o Allow the use of Non-Linear Free-Surface formulation
+C   this implies that surface thickness (hFactors) vary with time
+
+C o Use "OLD" UV discretisation near boundaries (*not* recommended)
+C   Note - only works with  #undef NO_SLIP_LATERAL  in calc_mom_rhs.F
+C          because the old code did not have no-slip BCs
+
+C o Execution environment support options
+CBOP
+C     !ROUTINE: CPP_EEOPTIONS.h
+C     !INTERFACE:
+C     include "CPP_EEOPTIONS.h"
+C
+C     !DESCRIPTION:
+C     *==========================================================*
+C     | CPP\_EEOPTIONS.h                                         |
+C     *==========================================================*
+C     | C preprocessor "execution environment" supporting        |
+C     | flags. Use this file to set flags controlling the        |
+C     | execution environment in which a model runs - as opposed |
+C     | to the dynamical problem the model solves.               |
+C     | Note: Many options are implemented with both compile time|
+C     |       and run-time switches. This allows options to be   |
+C     |       removed altogether, made optional at run-time or   |
+C     |       to be permanently enabled. This convention helps   |
+C     |       with the data-dependence analysis performed by the |
+C     |       adjoint model compiler. This data dependency       |
+C     |       analysis can be upset by runtime switches that it  |
+C     |       is unable to recoginise as being fixed for the     |
+C     |       duration of an integration.                        |
+C     |       A reasonable way to use these flags is to          |
+C     |       set all options as selectable at runtime but then  |
+C     |       once an experimental configuration has been        |
+C     |       identified, rebuild the code with the appropriate  |
+C     |       options set at compile time.                       |
+C     *==========================================================*
+CEOP
+
+
+C     In general the following convention applies:
+C     ALLOW  - indicates an feature will be included but it may
+C     CAN      have a run-time flag to allow it to be switched
+C              on and off.
+C              If ALLOW or CAN directives are "undef'd" this generally
+C              means that the feature will not be available i.e. it
+C              will not be included in the compiled code and so no
+C              run-time option to use the feature will be available.
+C
+C     ALWAYS - indicates the choice will be fixed at compile time
+C              so no run-time option will be present
+
+C=== Macro related options ===
+C--   Control storage of floating point operands
+C     On many systems it improves performance only to use
+C     8-byte precision for time stepped variables.
+C     Constant in time terms ( geometric factors etc.. )
+C     can use 4-byte precision, reducing memory utilisation and
+C     boosting performance because of a smaller working set size.
+C     However, on vector CRAY systems this degrades performance.
+C     Enable to switch REAL4_IS_SLOW from genmake2 (with LET_RS_BE_REAL4):
+
+C--   Control use of "double" precision constants.
+C     Use D0 where it means REAL*8 but not where it means REAL*16
+
+C=== IO related options ===
+C--   Flag used to indicate whether Fortran formatted write
+C     and read are threadsafe. On SGI the routines can be thread
+C     safe, on Sun it is not possible - if you are unsure then
+C     undef this option.
+
+C--   Flag used to indicate whether Binary write to Local file (i.e.,
+C     a different file for each tile) and read are thread-safe.
+
+C--   Flag to turn off the writing of error message to ioUnit zero
+
+C--   Alternative formulation of BYTESWAP, faster than
+C     compiler flag -byteswapio on the Altix.
+
+C--   Flag to turn on old default of opening scratch files with the
+C     STATUS='SCRATCH' option. This method, while perfectly FORTRAN-standard,
+C     caused filename conflicts on some multi-node/multi-processor platforms
+C     in the past and has been replace by something (hopefully) more robust.
+
+C--   Flag defined for eeboot_minimal.F, eeset_parms.F and open_copy_data_file.F
+C     to write STDOUT, STDERR and scratch files from process 0 only.
+C WARNING: to use only when absolutely confident that the setup is working
+C     since any message (error/warning/print) from any proc <> 0 will be lost.
+
+C=== MPI, EXCH and GLOBAL_SUM related options ===
+C--   Flag turns off MPI_SEND ready_to_receive polling in the
+C     gather_* subroutines to speed up integrations.
+
+C--   Control use of communication that might overlap computation.
+C     Under MPI selects/deselects "non-blocking" sends and receives.
+C--   Control use of communication that is atomic to computation.
+C     Under MPI selects/deselects "blocking" sends and receives.
+
+C--   Control XY periodicity in processor to grid mappings
+C     Note: Model code does not need to know whether a domain is
+C           periodic because it has overlap regions for every box.
+C           Model assume that these values have been
+C           filled in some way.
+
+C--   disconnect tiles (no exchange between tiles, just fill-in edges
+C     assuming locally periodic subdomain)
+
+C--   Always cumulate tile local-sum in the same order by applying MPI allreduce
+C     to array of tiles ; can get slower with large number of tiles (big set-up)
+
+C--   Alternative way of doing global sum without MPI allreduce call
+C     but instead, explicit MPI send & recv calls. Expected to be slower.
+
+C--   Alternative way of doing global sum on a single CPU
+C     to eliminate tiling-dependent roundoff errors. Note: This is slow.
+
+C=== Other options (to add/remove pieces of code) ===
+C--   Flag to turn on checking for errors from all threads and procs
+C     (calling S/R STOP_IF_ERROR) before stopping.
+
+C--   Control use of communication with other component:
+C     allow to import and export from/to Coupler interface.
+
+
+CBOP
+C     !ROUTINE: CPP_EEMACROS.h
+C     !INTERFACE:
+C     include "CPP_EEMACROS.h"
+C     !DESCRIPTION:
+C     *==========================================================*
+C     | CPP_EEMACROS.h
+C     *==========================================================*
+C     | C preprocessor "execution environment" supporting
+C     | macros. Use this file to define macros for  simplifying
+C     | execution environment in which a model runs - as opposed
+C     | to the dynamical problem the model solves.
+C     *==========================================================*
+CEOP
+
+
+C     In general the following convention applies:
+C     ALLOW  - indicates an feature will be included but it may
+C     CAN      have a run-time flag to allow it to be switched
+C              on and off.
+C              If ALLOW or CAN directives are "undef'd" this generally
+C              means that the feature will not be available i.e. it
+C              will not be included in the compiled code and so no
+C              run-time option to use the feature will be available.
+C
+C     ALWAYS - indicates the choice will be fixed at compile time
+C              so no run-time option will be present
+
+C     Flag used to indicate which flavour of multi-threading
+C     compiler directives to use. Only set one of these.
+C     USE_SOLARIS_THREADING  - Takes directives for SUN Workshop
+C                              compiler.
+C     USE_KAP_THREADING      - Takes directives for Kuck and
+C                              Associates multi-threading compiler
+C                              ( used on Digital platforms ).
+C     USE_IRIX_THREADING     - Takes directives for SGI MIPS
+C                              Pro Fortran compiler.
+C     USE_EXEMPLAR_THREADING - Takes directives for HP SPP series
+C                              compiler.
+C     USE_C90_THREADING      - Takes directives for CRAY/SGI C90
+C                              system F90 compiler.
+
+
+
+
+
+
+C--   Define the mapping for the _BARRIER macro
+C     On some systems low-level hardware support can be accessed through
+C     compiler directives here.
+
+C--   Define the mapping for the BEGIN_CRIT() and  END_CRIT() macros.
+C     On some systems we simply execute this section only using the
+C     master thread i.e. its not really a critical section. We can
+C     do this because we do not use critical sections in any critical
+C     sections of our code!
+
+C--   Define the mapping for the BEGIN_MASTER_SECTION() and
+C     END_MASTER_SECTION() macros. These are generally implemented by
+C     simply choosing a particular thread to be "the master" and have
+C     it alone execute the BEGIN_MASTER..., END_MASTER.. sections.
+
+CcnhDebugStarts
+C      Alternate form to the above macros that increments (decrements) a counter each
+C      time a MASTER section is entered (exited). This counter can then be checked in barrier
+C      to try and detect calls to BARRIER within single threaded sections.
+C      Using these macros requires two changes to Makefile - these changes are written
+C      below.
+C      1 - add a filter to the CPP command to kill off commented _MASTER lines
+C      2 - add a filter to the CPP output the converts the string N EWLINE to an actual newline.
+C      The N EWLINE needs to be changes to have no space when this macro and Makefile changes
+C      are used. Its in here with a space to stop it getting parsed by the CPP stage in these
+C      comments.
+C      #define IF ( a .EQ. 1 ) THEN  IF ( a .EQ. 1 ) THEN  N EWLINE      CALL BARRIER_MS(a)
+C      #define ENDIF    CALL BARRIER_MU(a) N EWLINE        ENDIF
+C      'CPP = cat $< | $(TOOLSDIR)/set64bitConst.sh |  grep -v '^[cC].*_MASTER' | cpp  -traditional -P'
+C      .F.f:
+C      $(CPP) $(DEFINES) $(INCLUDES) |  sed 's/N EWLINE/\n/' > $@
+CcnhDebugEnds
+
+C--   Control storage of floating point operands
+C     On many systems it improves performance only to use
+C     8-byte precision for time stepped variables.
+C     Constant in time terms ( geometric factors etc.. )
+C     can use 4-byte precision, reducing memory utilisation and
+C     boosting performance because of a smaller working
+C     set size. However, on vector CRAY systems this degrades
+C     performance.
+C- Note: global_sum/max macros were used to switch to  JAM routines (obsolete);
+C  in addition, since only the R4 & R8 S/R are coded, GLOBAL RS & RL macros
+C  enable to call the corresponding R4 or R8 S/R.
+
+
+
+C- Note: a) exch macros were used to switch to  JAM routines (obsolete)
+C        b) exch R4 & R8 macros are not practically used ; if needed,
+C           will directly call the corrresponding S/R.
+
+C--   Control use of JAM routines for Artic network (no longer supported)
+C     These invoke optimized versions of "exchange" and "sum" that
+C     utilize the programmable aspect of Artic cards.
+CXXX No longer supported ; started to remove JAM routines.
+CXXX #ifdef LETS_MAKE_JAM
+CXXX #define CALL GLOBAL_SUM_R8 ( a, b) CALL GLOBAL_SUM_R8_JAM ( a, b)
+CXXX #define CALL GLOBAL_SUM_R8 ( a, b ) CALL GLOBAL_SUM_R8_JAM ( a, b )
+CXXX #define CALL EXCH_XY_RS ( a, b ) CALL EXCH_XY_R8_JAM ( a, b )
+CXXX #define CALL EXCH_XY_RL ( a, b ) CALL EXCH_XY_R8_JAM ( a, b )
+CXXX #define CALL EXCH_XYZ_RS ( a, b ) CALL EXCH_XYZ_R8_JAM ( a, b )
+CXXX #define CALL EXCH_XYZ_RL ( a, b ) CALL EXCH_XYZ_R8_JAM ( a, b )
+CXXX #endif
+
+C--   Control use of "double" precision constants.
+C     Use d0 where it means REAL*8 but not where it means REAL*16
+
+C--   Substitue for 1.D variables
+C     Sun compilers do not use 8-byte precision for literals
+C     unless .Dnn is specified. CRAY vector machines use 16-byte
+C     precision when they see .Dnn which runs very slowly!
+
+C--   Set the format for writing processor IDs, e.g. in S/R eeset_parms
+C     and S/R open_copy_data_file. The default of I9.9 should work for
+C     a long time (until we will use 10e10 processors and more)
+
+C--   Set the format for writing ensemble task IDs in S/R eeset_parms
+C     and S/R open_copy_data_file.
+
+C--   Set ACTION= in OPEN instruction for input file (before doing IO)
+C     leave it empty (if EXCLUDE_OPEN_ACTION) or set it to proper value
+
+
+
+C o Include/exclude code specific to the ECCO/SEALION version.
+C   AUTODIFF or EXF package.
+C   Currently controled by a single header file
+C   For this to work, PACKAGES_CONFIG.h needs to be included!
+cph#if (defined () || cph     defined () || cph     defined ())
+C#include "ECCO_CPPOPTIONS.h"
+cph#endif
+
+C o Allow full 3D specification of vertical diffusivity
+C - otherwise, can be turned on or off hereafter:
+
+
+
+C-- Package-specific options go here
+C   Note: most of these options have been shifted to the common header
+C         file ECCO_CPPOPTIONS.h
+
+CBOP
+C !ROUTINE: CTRL_OPTIONS.h
+C !INTERFACE:
+C #include "CTRL_OPTIONS.h"
+
+C !DESCRIPTION:
+C *==================================================================*
+C | CPP options file for Control (ctrl) package:
+C | Control which optional features to compile in this package code.
+C *==================================================================*
+CEOP
+
+C $Header: /u/gcmpack/MITgcm_contrib/SOSE/BoxAdj/code_ad/CPP_OPTIONS.h,v 1.1 2011/01/18 19:33:08 mmazloff Exp $
+C $Name:  $
+
+
+
+C   ==================================================================
+C-- Package-specific Options & Macros go here
+
+C  o  Re-activate deprecated codes in pkg/ecco & pkg/ctrl (but not recommended)
+C     and since pkg/ctrl can be used without pkg/ecco, better to have it here
+
+
+C       >>> Initial values.
+C#define ALLOW_THETA0_CONTROL
+C#define ALLOW_SALT0_CONTROL
+C#undef ALLOW_UVEL0_CONTROL
+C#undef ALLOW_VVEL0_CONTROL
+C#undef ALLOW_TR10_CONTROL
+
+C       >>> Surface fluxes.
+
+C       >>> Atmospheric state.
+
+
+c       >>> Make sure that  is defined
+
+
+
+
+
+C       >>> Radiation
+
+C       >>> seaice init. conditions
+CML#define  ALLOW_SIAREA_CONTROL
+CML#define  ALLOW_SIHEFF_CONTROL
+
+C       >>> Other Control.
+
+C       >>> Backward compatibility option (before checkpoint 65p)
+
+C       >>> Generic Control.
+C#define ALLOW_GENARR2D_CONTROL
+C#define ALLOW_GENARR3D_CONTROL
+
+C  o Rotation of wind/stress controls adjustments
+C    from Eastward/Northward to model grid directions
+
+C  o Originally the first two time-reccords of control
+C    variable tau u and tau v were skipped.
+C    The CTRL_SKIP_FIRST_TWO_ATM_REC_ALL option extends this
+C    to the other the time variable atmospheric controls.
+
+C  o use pkg/smooth correlation operator (incl. smoother) for 2D controls (Weaver, Courtier 01)
+C    This CPP option just sets the default for ctrlSmoothCorrel2D to .TRUE.
+C  o use pkg/smooth correlation operator (incl. smoother) for 3D controls (Weaver, Courtier 01)
+C    This CPP option just sets the default for ctrlSmoothCorrel3D to .TRUE.
+
+C  o apply pkg/ctrl/ctrl_smooth.F to 2D controls (outside of ctrlSmoothCorrel2D)
+C  o apply pkg/smooth/smooth_diff2d.F to 2D controls (outside of ctrlSmoothCorrel2D)
+C  o apply pkg/smooth/smooth_diff3d.F to 3D controls (outside of ctrlSmoothCorrel3D)
+
+C   ==================================================================
+
+      subroutine grdchk_getadxx(
+     I                       icvrec,
+     I                       itile,
+     I                       jtile,
+     I                       layer,
+     I                       itilepos,
+     I                       jtilepos,
+     I                       xx_comp,
+     I                       ierr,
+     I                       mythid )
+
+c     ==================================================================
+c     SUBROUTINE grdchk_getadxx
+c     ==================================================================
+c
+c     o Set component a component of the control vector; xx(loc)
+c
+c     started: Christian Eckert eckert@mit.edu 08-Mar-2000
+c     continued: heimbach@mit.edu: 13-Jun-2001
+c
+c     ==================================================================
+c     SUBROUTINE grdchk_getadxx
+c     ==================================================================
+
+      implicit none
+
+c     == global variables ==
+
+CBOP
+C     !ROUTINE: EEPARAMS.h
+C     !INTERFACE:
+C     include "EEPARAMS.h"
+C
+C     !DESCRIPTION:
+C     *==========================================================*
+C     | EEPARAMS.h                                               |
+C     *==========================================================*
+C     | Parameters for "execution environemnt". These are used   |
+C     | by both the particular numerical model and the execution |
+C     | environment support routines.                            |
+C     *==========================================================*
+CEOP
+
+C     ========  EESIZE.h  ========================================
+
+C     MAX_LEN_MBUF  :: Default message buffer max. size
+C     MAX_LEN_FNAM  :: Default file name max. size
+C     MAX_LEN_PREC  :: Default rec len for reading "parameter" files
+
+      INTEGER MAX_LEN_MBUF
+      PARAMETER ( MAX_LEN_MBUF = 512 )
+      INTEGER MAX_LEN_FNAM
+      PARAMETER ( MAX_LEN_FNAM = 512 )
+      INTEGER MAX_LEN_PREC
+      PARAMETER ( MAX_LEN_PREC = 200 )
+
+C     MAX_NO_THREADS  :: Maximum number of threads allowed.
+CC    MAX_NO_PROCS    :: Maximum number of processes allowed.
+CC    MAX_NO_BARRIERS :: Maximum number of distinct thread "barriers"
+      INTEGER MAX_NO_THREADS
+      PARAMETER ( MAX_NO_THREADS =  4 )
+c     INTEGER MAX_NO_PROCS
+c     PARAMETER ( MAX_NO_PROCS   =  70000 )
+c     INTEGER MAX_NO_BARRIERS
+c     PARAMETER ( MAX_NO_BARRIERS = 1 )
+
+C     Particularly weird and obscure voodoo numbers
+C     lShare :: This wants to be the length in
+C               [148]-byte words of the size of
+C               the address "window" that is snooped
+C               on an SMP bus. By separating elements in
+C               the global sum buffer we can avoid generating
+C               extraneous invalidate traffic between
+C               processors. The length of this window is usually
+C               a cache line i.e. small O(64 bytes).
+C               The buffer arrays are usually short arrays
+C               and are declared REAL ARRA(lShare[148],LBUFF).
+C               Setting lShare[148] to 1 is like making these arrays
+C               one dimensional.
+      INTEGER cacheLineSize
+      INTEGER lShare1
+      INTEGER lShare4
+      INTEGER lShare8
+      PARAMETER ( cacheLineSize = 256 )
+      PARAMETER ( lShare1 =  cacheLineSize )
+      PARAMETER ( lShare4 =  cacheLineSize/4 )
+      PARAMETER ( lShare8 =  cacheLineSize/8 )
+
+CC    MAX_VGS  :: Maximum buffer size for Global Vector Sum
+c     INTEGER MAX_VGS
+c     PARAMETER ( MAX_VGS = 8192 )
+
+C     ========  EESIZE.h  ========================================
+
+C     Symbolic values
+C     precXXXX :: precision used for I/O
+      INTEGER precFloat32
+      PARAMETER ( precFloat32 = 32 )
+      INTEGER precFloat64
+      PARAMETER ( precFloat64 = 64 )
+
+C     Real-type constant for some frequently used simple number (0,1,2,1/2):
+      Real*8     zeroRS, oneRS, twoRS, halfRS
+      PARAMETER ( zeroRS = 0.0D0 , oneRS  = 1.0D0 )
+      PARAMETER ( twoRS  = 2.0D0 , halfRS = 0.5D0 )
+      Real*8     zeroRL, oneRL, twoRL, halfRL
+      PARAMETER ( zeroRL = 0.0D0 , oneRL  = 1.0D0 )
+      PARAMETER ( twoRL  = 2.0D0 , halfRL = 0.5D0 )
+
+C     UNSET_xxx :: Used to indicate variables that have not been given a value
+      Real*8  UNSET_FLOAT8
+      PARAMETER ( UNSET_FLOAT8 = 1.234567D5 )
+      Real*4  UNSET_FLOAT4
+      PARAMETER ( UNSET_FLOAT4 = 1.234567E5 )
+      Real*8     UNSET_RL
+      PARAMETER ( UNSET_RL     = 1.234567D5 )
+      Real*8     UNSET_RS
+      PARAMETER ( UNSET_RS     = 1.234567D5 )
+      INTEGER UNSET_I
+      PARAMETER ( UNSET_I      = 123456789  )
+
+C     debLevX  :: used to decide when to print debug messages
+      INTEGER debLevZero
+      INTEGER debLevA, debLevB,  debLevC, debLevD, debLevE
+      PARAMETER ( debLevZero=0 )
+      PARAMETER ( debLevA=1 )
+      PARAMETER ( debLevB=2 )
+      PARAMETER ( debLevC=3 )
+      PARAMETER ( debLevD=4 )
+      PARAMETER ( debLevE=5 )
+
+C     SQUEEZE_RIGHT      :: Flag indicating right blank space removal
+C                           from text field.
+C     SQUEEZE_LEFT       :: Flag indicating left blank space removal
+C                           from text field.
+C     SQUEEZE_BOTH       :: Flag indicating left and right blank
+C                           space removal from text field.
+C     PRINT_MAP_XY       :: Flag indicating to plot map as XY slices
+C     PRINT_MAP_XZ       :: Flag indicating to plot map as XZ slices
+C     PRINT_MAP_YZ       :: Flag indicating to plot map as YZ slices
+C     commentCharacter   :: Variable used in column 1 of parameter
+C                           files to indicate comments.
+C     INDEX_I            :: Variable used to select an index label
+C     INDEX_J               for formatted input parameters.
+C     INDEX_K
+C     INDEX_NONE
+      CHARACTER*(*) SQUEEZE_RIGHT
+      PARAMETER ( SQUEEZE_RIGHT = 'R' )
+      CHARACTER*(*) SQUEEZE_LEFT
+      PARAMETER ( SQUEEZE_LEFT = 'L' )
+      CHARACTER*(*) SQUEEZE_BOTH
+      PARAMETER ( SQUEEZE_BOTH = 'B' )
+      CHARACTER*(*) PRINT_MAP_XY
+      PARAMETER ( PRINT_MAP_XY = 'XY' )
+      CHARACTER*(*) PRINT_MAP_XZ
+      PARAMETER ( PRINT_MAP_XZ = 'XZ' )
+      CHARACTER*(*) PRINT_MAP_YZ
+      PARAMETER ( PRINT_MAP_YZ = 'YZ' )
+      CHARACTER*(*) commentCharacter
+      PARAMETER ( commentCharacter = '#' )
+      INTEGER INDEX_I
+      INTEGER INDEX_J
+      INTEGER INDEX_K
+      INTEGER INDEX_NONE
+      PARAMETER ( INDEX_I    = 1,
+     &            INDEX_J    = 2,
+     &            INDEX_K    = 3,
+     &            INDEX_NONE = 4 )
+
+C     EXCH_IGNORE_CORNERS :: Flag to select ignoring or
+C     EXCH_UPDATE_CORNERS    updating of corners during an edge exchange.
+      INTEGER EXCH_IGNORE_CORNERS
+      INTEGER EXCH_UPDATE_CORNERS
+      PARAMETER ( EXCH_IGNORE_CORNERS = 0,
+     &            EXCH_UPDATE_CORNERS = 1 )
+
+C     FORWARD_SIMULATION
+C     REVERSE_SIMULATION
+C     TANGENT_SIMULATION
+      INTEGER FORWARD_SIMULATION
+      INTEGER REVERSE_SIMULATION
+      INTEGER TANGENT_SIMULATION
+      PARAMETER ( FORWARD_SIMULATION = 0,
+     &            REVERSE_SIMULATION = 1,
+     &            TANGENT_SIMULATION = 2 )
+
+C--   COMMON /EEPARAMS_L/ Execution environment public logical variables.
+C     eeBootError    :: Flags indicating error during multi-processing
+C     eeEndError     :: initialisation and termination.
+C     fatalError     :: Flag used to indicate that the model is ended with an error
+C     debugMode      :: controls printing of debug msg (sequence of S/R calls).
+C     useSingleCpuIO :: When useSingleCpuIO is set, MDS_WRITE_FIELD outputs from
+C                       master MPI process only. -- NOTE: read from main parameter
+C                       file "data" and not set until call to INI_PARMS.
+C     useSingleCpuInput :: When useSingleCpuInput is set, EXF_INTERP_READ
+C                       reads forcing files from master MPI process only.
+C                       -- NOTE: read from main parameter file "data"
+C                          and defaults to useSingleCpuInput = useSingleCpuIO
+C     printMapIncludesZeros  :: Flag that controls whether character constant
+C                               map code ignores exact zero values.
+C     useCubedSphereExchange :: use Cubed-Sphere topology domain.
+C     useCoupler     :: use Coupler for a multi-components set-up.
+C     useNEST_PARENT :: use Parent Nesting interface (pkg/nest_parent)
+C     useNEST_CHILD  :: use Child  Nesting interface (pkg/nest_child)
+C     useNest2W_parent :: use Parent 2-W Nesting interface (pkg/nest2w_parent)
+C     useNest2W_child  :: use Child  2-W Nesting interface (pkg/nest2w_child)
+C     useOASIS       :: use OASIS-coupler for a multi-components set-up.
+      COMMON /EEPARAMS_L/
+c    &  eeBootError, fatalError, eeEndError,
+     &  eeBootError, eeEndError, fatalError, debugMode,
+     &  useSingleCpuIO, useSingleCpuInput, printMapIncludesZeros,
+     &  useCubedSphereExchange, useCoupler,
+     &  useNEST_PARENT, useNEST_CHILD,
+     &  useNest2W_parent, useNest2W_child, useOASIS,
+     &  useSETRLSTK, useSIGREG
+      LOGICAL eeBootError
+      LOGICAL eeEndError
+      LOGICAL fatalError
+      LOGICAL debugMode
+      LOGICAL useSingleCpuIO
+      LOGICAL useSingleCpuInput
+      LOGICAL printMapIncludesZeros
+      LOGICAL useCubedSphereExchange
+      LOGICAL useCoupler
+      LOGICAL useNEST_PARENT
+      LOGICAL useNEST_CHILD
+      LOGICAL useNest2W_parent
+      LOGICAL useNest2W_child
+      LOGICAL useOASIS
+      LOGICAL useSETRLSTK
+      LOGICAL useSIGREG
+
+C--   COMMON /EPARAMS_I/ Execution environment public integer variables.
+C     errorMessageUnit    :: Fortran IO unit for error messages
+C     standardMessageUnit :: Fortran IO unit for informational messages
+C     maxLengthPrt1D :: maximum length for printing (to Std-Msg-Unit) 1-D array
+C     scrUnit1      :: Scratch file 1 unit number
+C     scrUnit2      :: Scratch file 2 unit number
+C     eeDataUnit    :: Unit # for reading "execution environment" parameter file
+C     modelDataUnit :: Unit number for reading "model" parameter file.
+C     numberOfProcs :: Number of processes computing in parallel
+C     pidIO         :: Id of process to use for I/O.
+C     myBxLo, myBxHi :: Extents of domain in blocks in X and Y
+C     myByLo, myByHi :: that each threads is responsble for.
+C     myProcId      :: My own "process" id.
+C     myPx          :: My X coord on the proc. grid.
+C     myPy          :: My Y coord on the proc. grid.
+C     myXGlobalLo   :: My bottom-left (south-west) x-index global domain.
+C                      The x-coordinate of this point in for example m or
+C                      degrees is *not* specified here. A model needs to
+C                      provide a mechanism for deducing that information
+C                      if it is needed.
+C     myYGlobalLo   :: My bottom-left (south-west) y-index in global domain.
+C                      The y-coordinate of this point in for example m or
+C                      degrees is *not* specified here. A model needs to
+C                      provide a mechanism for deducing that information
+C                      if it is needed.
+C     nThreads      :: No. of threads
+C     nTx, nTy      :: No. of threads in X and in Y
+C                      This assumes a simple cartesian gridding of the threads
+C                      which is not required elsewhere but that makes it easier
+C     ioErrorCount  :: IO Error Counter. Set to zero initially and increased
+C                      by one every time an IO error occurs.
+      COMMON /EEPARAMS_I/
+     &  errorMessageUnit, standardMessageUnit, maxLengthPrt1D,
+     &  scrUnit1, scrUnit2, eeDataUnit, modelDataUnit,
+     &  numberOfProcs, pidIO, myProcId,
+     &  myPx, myPy, myXGlobalLo, myYGlobalLo, nThreads,
+     &  myBxLo, myBxHi, myByLo, myByHi,
+     &  nTx, nTy, ioErrorCount
+      INTEGER errorMessageUnit
+      INTEGER standardMessageUnit
+      INTEGER maxLengthPrt1D
+      INTEGER scrUnit1
+      INTEGER scrUnit2
+      INTEGER eeDataUnit
+      INTEGER modelDataUnit
+      INTEGER ioErrorCount(MAX_NO_THREADS)
+      INTEGER myBxLo(MAX_NO_THREADS)
+      INTEGER myBxHi(MAX_NO_THREADS)
+      INTEGER myByLo(MAX_NO_THREADS)
+      INTEGER myByHi(MAX_NO_THREADS)
+      INTEGER myProcId
+      INTEGER myPx
+      INTEGER myPy
+      INTEGER myXGlobalLo
+      INTEGER myYGlobalLo
+      INTEGER nThreads
+      INTEGER nTx
+      INTEGER nTy
+      INTEGER numberOfProcs
+      INTEGER pidIO
+
+CEH3 ;;; Local Variables: ***
+CEH3 ;;; mode:fortran ***
+CEH3 ;;; End: ***
+C $Header: /u/gcmpack/MITgcm/model/inc/SIZE.h,v 1.26 2001/09/21 15:13:31 cnh Exp $
+C $Name:  $
+C
+CBOP
+C    !ROUTINE: SIZE.h
+C    !INTERFACE:
+C    include SIZE.h
+C    !DESCRIPTION: \bv
+C     *==========================================================*
+C     | SIZE.h Declare size of underlying computational grid.     
+C     *==========================================================*
+C     | The design here support a three-dimensional model grid    
+C     | with indices I,J and K. The three-dimensional domain      
+C     | is comprised of nPx*nSx blocks of size sNx along one axis 
+C     | nPy*nSy blocks of size sNy along another axis and one     
+C     | block of size Nz along the final axis.                    
+C     | Blocks have overlap regions of size OLx and OLy along the 
+C     | dimensions that are subdivided.                           
+C     *==========================================================*
+C     \ev
+CEOP
+C     Voodoo numbers controlling data layout.
+C     sNx :: No. X points in sub-grid.
+C     sNy :: No. Y points in sub-grid.
+C     OLx :: Overlap extent in X.
+C     OLy :: Overlat extent in Y.
+C     nSx :: No. sub-grids in X.
+C     nSy :: No. sub-grids in Y.
+C     nPx :: No. of processes to use in X.
+C     nPy :: No. of processes to use in Y.
+C     Nx  :: No. points in X for the total domain.
+C     Ny  :: No. points in Y for the total domain.
+C     Nr  :: No. points in Z for full process domain.
+      INTEGER sNx
+      INTEGER sNy
+      INTEGER OLx
+      INTEGER OLy
+      INTEGER nSx
+      INTEGER nSy
+      INTEGER nPx
+      INTEGER nPy
+      INTEGER Nx
+      INTEGER Ny
+      INTEGER Nr
+      PARAMETER (
+     &           sNx =   20,
+     &           sNy =   20,
+     &           OLx =   4,
+     &           OLy =   4,
+     &           nSx =   1,
+     &           nSy =   1,
+     &           nPx =   46,
+     &           nPy =   36,
+     &           Nx  = sNx*nSx*nPx,
+     &           Ny  = sNy*nSy*nPy,
+     &           Nr  =  50)
+
+C     MAX_OLX  - Set to the maximum overlap region size of any array
+C     MAX_OLY    that will be exchanged. Controls the sizing of exch
+C                routine buffers.
+      INTEGER MAX_OLX
+      INTEGER MAX_OLY
+      PARAMETER ( MAX_OLX = OLx,
+     &            MAX_OLY = OLy )
+      integer     nobcs
+      parameter ( nobcs = 4 )
+
+c     ==================================================================
+c     CTRL_SIZE.h
+c     ==================================================================
+
+
+C     Generic control variable array dimension
+C     ----------------------------------------
+C
+C     maxCtrlArr2D :: number of 2-d generic init. ctrl variables
+C     maxCtrlArr3D :: number of 3-d generic init. ctrl variables
+C     maxCtrlTim2D :: number of 2-d generic tim-varying ctrl variables
+C     maxCtrlProc  :: number of pre-processing options per ctrl variable
+
+      integer     maxCtrlArr2D
+      parameter ( maxCtrlArr2D = 2 )
+
+      integer     maxCtrlArr3D
+      parameter ( maxCtrlArr3D = 2 )
+
+      integer     maxCtrlTim2D
+      parameter ( maxCtrlTim2D = 7 )
+
+      integer     maxCtrlProc
+      parameter ( maxCtrlProc = 1 )
+
+
+CEH3 ;;; Local Variables: ***
+CEH3 ;;; mode:fortran ***
+CEH3 ;;; End: ***
+c     ==================================================================
+c     HEADER CONTROLVARS
+c     ==================================================================
+c
+c     o Control variables of the ECCO state estimation tool.
+c
+c     Depending on the specific problem to be studied users will have to
+c     modify this header file.
+c
+c     started: Christian Eckert eckert@mit.edu  30-Jun-1999
+c
+c     ==================================================================
+c     HEADER CONTROLVARS ctrl.h
+c     ==================================================================
+
+      integer     maxcvars
+      parameter ( maxcvars = 400 )
+
+cph ctrlprec will be set to 32 for ECCO to reduce I/O
+cph but jeopardizes some gradient checks, so should be
+cph set to 64 by default.
+      integer     ctrlprec
+      common /controlparams_i/ ctrlprec
+
+
+      common /controlparams_r/
+     &                       delZexp,
+     &                       forcingPrecond
+
+      Real*8 delZexp
+      Real*8 forcingPrecond
+
+      common /controlparams_c/
+     &                       ctrlDir
+
+      CHARACTER*(MAX_LEN_FNAM) ctrlDir
+
+C     doInitXX            :: at iter 0 only, set ctrls to 0 and write
+C                            to xx*000.data
+C     doMainPack          :: pack adxx*data files into ecco_cost_* file
+C                            (usually for optim.x)
+C     doMainUnpack        :: unpack ecco_ctrl_* file (usually from optim.x)
+C                            into xx_*data files
+C     doPackDiag          :: output diag_pack*/diag_unpack* files during
+C                            ctrl_pack/ctrl_unpack
+C     doSinglePrecTapelev :: reduce precision of ad tape files to float32
+C                            (only used in pkg/autodiff ...)
+
+      common /controlvars_l /
+     &                       doInitXX,
+     &                       doAdmTlm,
+     &                       doPackDiag,
+     &                       doZscaleUnpack,
+     &                       doZscalePack,
+     &                       doMainUnpack,
+     &                       doMainPack,
+     &                       doSinglePrecTapelev,
+     &                       doAdmtlmBypassAD
+
+      logical doInitXX
+      logical doAdmTlm
+      logical doPackDiag
+      logical doZscaleUnpack
+      logical doZscalePack
+      logical doMainUnpack
+      logical doMainPack
+      logical doSinglePrecTapelev
+      logical doAdmtlmBypassAD
+
+      common /controlvars_i/
+     &                       nvartype,
+     &                       nvarlength,
+     &                       ncvarindex,
+     &                       ncvarrecs,
+     &                       ncvarrecstart,
+     &                       ncvarrecsend,
+     &                       ncvarxmax,
+     &                       ncvarymax,
+     &                       ncvarnrmax,
+     &                       nwetctile,
+     &                       nwetstile,
+     &                       nwetwtile,
+     &                       nwetvtile,
+     &                       nwetcglobal,
+     &                       nwetsglobal,
+     &                       nwetwglobal,
+     &                       nwetvglobal,
+     &                       nbuffglobal
+      integer nvartype
+      integer nvarlength
+      integer ncvarindex    ( maxcvars )
+      integer ncvarrecs     ( maxcvars )
+      integer ncvarrecstart ( maxcvars )
+      integer ncvarrecsend  ( maxcvars )
+      integer ncvarxmax     ( maxcvars )
+      integer ncvarymax     ( maxcvars )
+      integer ncvarnrmax    ( maxcvars )
+      integer nwetctile     ( nSx,nSy,Nr )
+      integer nwetstile     ( nSx,nSy,Nr )
+      integer nwetwtile     ( nSx,nSy,Nr )
+      integer nwetvtile     ( nSx,nSy,Nr )
+      integer nwetcglobal     ( Nr )
+      integer nwetsglobal     ( Nr )
+      integer nwetwglobal     ( Nr )
+      integer nwetvglobal     ( Nr )
+      integer nbuffglobal
+
+
+      common /controlvars_c/
+     &                       ncvargrd
+     &                     , yadprefix
+      character*(1) ncvargrd(maxcvars)
+      character*(2) yadprefix
+
+      common /controlvec_header_i/
+     &        filenvartype,
+     &        filenvarlength,
+     &        fileOptimCycle,
+     &        filencbuffindex,
+     &        fileIg,
+     &        fileJg,
+     &        fileI,
+     &        fileJ,
+     &        filensx,
+     &        filensy,
+     &        filek,
+     &        filenWetcGlobal,
+     &        filenWetsGlobal,
+     &        filenWetwGlobal,
+     &        filenWetvGlobal,
+     &        filencvarindex,
+     &        filencvarrecs,
+     &        filencvarxmax,
+     &        filencvarymax,
+     &        filencvarnrmax
+      integer        filenvartype
+      integer        filenvarlength
+      integer        fileOptimCycle
+      integer        filencbuffindex
+      integer        fileIg
+      integer        fileJg
+      integer        fileI
+      integer        fileJ
+      integer        filensx
+      integer        filensy
+      integer        filek
+      integer        filenWetcGlobal(Nr)
+      integer        filenWetsGlobal(Nr)
+      integer        filenWetwGlobal(Nr)
+      integer        filenWetvGlobal(Nr)
+      integer        filencvarindex(maxcvars)
+      integer        filencvarrecs(maxcvars)
+      integer        filencvarxmax(maxcvars)
+      integer        filencvarymax(maxcvars)
+      integer        filencvarnrmax(maxcvars)
+
+      common /controlvec_header_r/
+     &               filefc
+      Real*8            filefc
+
+      common /controlvec_header_c/
+     &        fileYctrlid,
+     &        filencvargrd
+      character*(10) fileYctrlid
+      character*( 1) filencvargrd(maxcvars)
+
+c     Define unit weight as a placeholder
+      common /ctrl_weights_unit_r/
+     &                        wunit
+      Real*8 wunit     (Nr,nSx,nSy)
+
+      common /packnames_c/
+     &                      yadmark,
+     &                      ctrlname,
+     &                      costname,
+     &                      scalname,
+     &                      maskname,
+     &                      metaname,
+     &                      yctrlid,
+     &                      yctrlposunpack,
+     &                      yctrlpospack
+      character*2 yadmark
+      character*9 ctrlname
+      character*9 costname
+      character*9 scalname
+      character*9 maskname
+      character*9 metaname
+      character*10 yctrlid
+      character*4 yctrlposunpack
+      character*4 yctrlpospack
+
+
+c     Control variables:
+c     ==================
+c
+c     ==================================================================
+c     END OF HEADER CONTROLVARS ctrl.h
+c     ==================================================================
+C     ==================================================================
+C     CTRL_GENARR.h
+C     ==================================================================
+
+
+      COMMON /CONTROLFILES_CARR/
+     &     xx_genarr2d_file,
+     &     xx_genarr3d_file,
+     &     xx_genarr2d_weight,
+     &     xx_genarr3d_weight,
+     &     xx_genarr2d_preproc, xx_genarr2d_preproc_c,
+     &     xx_genarr3d_preproc, xx_genarr3d_preproc_c
+      CHARACTER*(MAX_LEN_FNAM) xx_genarr2d_file(maxCtrlArr2D)
+      CHARACTER*(MAX_LEN_FNAM) xx_genarr3d_file(maxCtrlArr3D)
+      CHARACTER*(MAX_LEN_FNAM) xx_genarr2d_weight(maxCtrlArr2D)
+      CHARACTER*(MAX_LEN_FNAM) xx_genarr3d_weight(maxCtrlArr3D)
+      CHARACTER*(MAX_LEN_FNAM)
+     &         xx_genarr2d_preproc(maxCtrlProc,maxCtrlArr2D)
+      CHARACTER*(MAX_LEN_FNAM)
+     &         xx_genarr3d_preproc(maxCtrlProc,maxCtrlArr3D)
+      CHARACTER*(MAX_LEN_FNAM)
+     &         xx_genarr2d_preproc_c(maxCtrlProc,maxCtrlArr2D)
+      CHARACTER*(MAX_LEN_FNAM)
+     &         xx_genarr3d_preproc_c(maxCtrlProc,maxCtrlArr3D)
+
+      COMMON /CONTROLFILES_RARR/
+     &     genarr2dPrecond, genarr3dPrecond,
+     &     xx_genarr2d_bounds,xx_genarr3d_bounds,
+     &     xx_genarr2d_preproc_r,xx_genarr3d_preproc_r
+      Real*8 genarr2dPrecond(maxCtrlArr2D)
+      Real*8 genarr3dPrecond(maxCtrlArr3D)
+      Real*8 xx_genarr2d_bounds(5,maxCtrlArr2D)
+      Real*8 xx_genarr3d_bounds(5,maxCtrlArr3D)
+      Real*8 xx_genarr2d_preproc_r(maxCtrlProc,maxCtrlArr2D)
+      Real*8 xx_genarr3d_preproc_r(maxCtrlProc,maxCtrlArr3D)
+
+      COMMON /CONTROLFILES_IARR/
+     &     xx_genarr2d_preproc_i,xx_genarr3d_preproc_i
+      integer xx_genarr2d_preproc_i(maxCtrlProc,maxCtrlArr2D)
+      integer xx_genarr3d_preproc_i(maxCtrlProc,maxCtrlArr3D)
+
+      COMMON /CONTROLFILES_CTIM/
+     &     xx_gentim2d_file, xx_gentim2d_weight,
+     &     xx_gentim2d_preproc, xx_gentim2d_preproc_c
+      CHARACTER*(MAX_LEN_FNAM) xx_gentim2d_file(maxCtrlTim2D)
+      CHARACTER*(MAX_LEN_FNAM) xx_gentim2d_weight(maxCtrlTim2D)
+      CHARACTER*(MAX_LEN_FNAM)
+     &         xx_gentim2d_preproc(maxCtrlProc,maxCtrlTim2D)
+      CHARACTER*(MAX_LEN_FNAM)
+     &         xx_gentim2d_preproc_c(maxCtrlProc,maxCtrlTim2D)
+
+      COMMON /CONTROLFILES_ITIM/
+     &     xx_gentim2d_startdate1,
+     &     xx_gentim2d_startdate2,
+     &     xx_gentim2d_startdate,
+     &     xx_gentim2d_preproc_i
+      INTEGER xx_gentim2d_startdate1(maxCtrlTim2D)
+      INTEGER xx_gentim2d_startdate2(maxCtrlTim2D)
+      INTEGER xx_gentim2d_startdate(4,maxCtrlTim2D)
+      INTEGER xx_gentim2d_preproc_i(maxCtrlProc,maxCtrlTim2D)
+
+      COMMON /CONTROLFILES_RTIM/
+     &     xx_gentim2d_period, gentim2dPrecond,
+     &     xx_gentim2d_preproc_r, xx_gentim2d_bounds
+      Real*8 xx_gentim2d_period(maxCtrlTim2D)
+      Real*8 gentim2dPrecond(maxCtrlTim2D)
+      Real*8 xx_gentim2d_preproc_r(maxCtrlProc,maxCtrlTim2D)
+      Real*8 xx_gentim2d_bounds(5,maxCtrlTim2D)
+
+      COMMON /CONTROLFILES_LTIM/
+     &     xx_gentim2d_cumsum, xx_gentim2d_glosum
+      LOGICAL xx_gentim2d_cumsum(maxCtrlTim2D)
+      LOGICAL xx_gentim2d_glosum(maxCtrlTim2D)
+
+      common /controlaux_gencost_r/
+     &     objf_gentim2d,  num_gentim2d, mult_gentim2d,
+     &     objf_genarr2d,  num_genarr2d, mult_genarr2d,
+     &     objf_genarr3d,  num_genarr3d, mult_genarr3d
+
+      Real*8  objf_gentim2d(nsx,nsy,maxCtrlTim2D)
+      Real*8  num_gentim2d(nsx,nsy,maxCtrlTim2D)
+      Real*8  mult_gentim2d(maxCtrlTim2D)
+      Real*8  objf_genarr2d(nsx,nsy,maxCtrlArr2D)
+      Real*8  num_genarr2d(nsx,nsy,maxCtrlArr2D)
+      Real*8  mult_genarr2d(maxCtrlArr2D)
+      Real*8  objf_genarr3d(nsx,nsy,maxCtrlArr3D)
+      Real*8  num_genarr3d(nsx,nsy,maxCtrlArr3D)
+      Real*8  mult_genarr3d(maxCtrlArr3D)
+
+
+
+
+      common /controlaux_gentim2d_r/
+     &                      xx_gentim2d0,
+     &                      xx_gentim2d1,
+     &                      xx_gentim2d,
+     &                      wgentim2d
+      Real*8
+     & xx_gentim2d0(1-olx:snx+olx,1-oly:sny+oly,nsx,nsy,maxCtrlTim2D)
+      Real*8
+     & xx_gentim2d1(1-olx:snx+olx,1-oly:sny+oly,nsx,nsy,maxCtrlTim2D)
+      Real*8
+     & xx_gentim2d(1-olx:snx+olx,1-oly:sny+oly,nsx,nsy,maxCtrlTim2D)
+      Real*8
+     & wgentim2d(1-olx:snx+olx,1-oly:sny+oly,nsx,nsy,maxCtrlTim2D)
+
+CEH3 ;;; Local Variables: ***
+CEH3 ;;; mode:fortran ***
+CEH3 ;;; End: ***
+c     ==================================================================
+c     HEADER AVERAGES
+c     ==================================================================
+c
+c     o Header for obcs ctrl weights
+c
+c     ==================================================================
+c     HEADER AVERAGES
+c     ==================================================================
+
+      Real*8  objf_obcsn(nsx,nsy), objf_obcss(nsx,nsy)
+      Real*8  objf_obcsw(nsx,nsy), objf_obcse(nsx,nsy)
+      Real*8  objf_obcsvol, objf_ageos(nsx,nsy)
+      Real*8  mult_obcsn, mult_obcss
+      Real*8  mult_obcsw, mult_obcse
+      Real*8  mult_obcsvol, mult_ageos
+      Real*8  num_obcsn(nsx,nsy), num_obcss(nsx,nsy)
+      Real*8  num_obcsw(nsx,nsy), num_obcse(nsx,nsy)
+      Real*8  num_obcsvol, num_ageos(nsx,nsy)
+      common /ecco_cost_weights_obcs/
+     &     objf_obcsn, objf_obcss, objf_obcsw, objf_obcse,
+     &     objf_obcsvol, objf_ageos,
+     &     mult_obcsn, mult_obcss, mult_obcsw, mult_obcse,
+     &     mult_obcsvol, mult_ageos,
+     &     num_obcsn, num_obcss, num_obcsw, num_obcse,
+     &     num_obcsvol, num_ageos
+
+      common /ih_modes/ modesv
+      Real*8 modesv (nr,nr,nr)
+      common /ctrl_dummy_obcs/
+     &                    xx_obcsn_dummy
+     &                  , xx_obcss_dummy
+     &                  , xx_obcsw_dummy
+     &                  , xx_obcse_dummy
+      Real*8 xx_obcsn_dummy
+      Real*8 xx_obcss_dummy
+      Real*8 xx_obcsw_dummy
+      Real*8 xx_obcse_dummy
+      common /controlfiles_c_obcs/
+     &                      xx_obcsn_file
+     &                    , xx_obcss_file
+     &                    , xx_obcsw_file
+     &                    , xx_obcse_file
+      character*(MAX_LEN_FNAM) xx_obcsn_file
+      character*(MAX_LEN_FNAM) xx_obcss_file
+      character*(MAX_LEN_FNAM) xx_obcsw_file
+      character*(MAX_LEN_FNAM) xx_obcse_file
+      common /controltimes_r_obcs/
+     &                        xx_obcsnperiod
+     &                      , xx_obcssperiod
+     &                      , xx_obcswperiod
+     &                      , xx_obcseperiod
+      Real*8     xx_obcsnperiod
+      Real*8     xx_obcssperiod
+      Real*8     xx_obcswperiod
+      Real*8     xx_obcseperiod
+      common /controltimes_i_obcs/
+     &                        xx_obcsnstartdate1
+     &                      , xx_obcsnstartdate2
+     &                      , xx_obcssstartdate1
+     &                      , xx_obcssstartdate2
+     &                      , xx_obcswstartdate1
+     &                      , xx_obcswstartdate2
+     &                      , xx_obcsestartdate1
+     &                      , xx_obcsestartdate2
+     &                      , xx_obcsnstartdate
+     &                      , xx_obcssstartdate
+     &                      , xx_obcswstartdate
+     &                      , xx_obcsestartdate
+      integer xx_obcsnstartdate1
+      integer xx_obcsnstartdate2
+      integer xx_obcssstartdate1
+      integer xx_obcssstartdate2
+      integer xx_obcswstartdate1
+      integer xx_obcswstartdate2
+      integer xx_obcsestartdate1
+      integer xx_obcsestartdate2
+      integer xx_obcsnstartdate(4)
+      integer xx_obcssstartdate(4)
+      integer xx_obcswstartdate(4)
+      integer xx_obcsestartdate(4)
+      common /controlvars_i_obcsn/
+     &                       nwetobcsn,
+     &                       nwetobcsnglo
+      integer nwetobcsn     ( nsx,nsy,nr,nobcs )
+      integer nwetobcsnglo  ( nr,nobcs )
+      common /controlvars_i_obcss/
+     &                       nwetobcss,
+     &                       nwetobcssglo
+      integer nwetobcss     ( nsx,nsy,nr,nobcs )
+      integer nwetobcssglo  ( nr,nobcs )
+      common /controlvars_i_obcsw/
+     &                       nwetobcsw,
+     &                       nwetobcswglo
+      integer nwetobcsw     ( nsx,nsy,nr,nobcs )
+      integer nwetobcswglo  ( nr,nobcs )
+      common /controlvars_i_obcse/
+     &                       nwetobcse,
+     &                       nwetobcseglo
+      integer nwetobcse     ( nsx,nsy,nr,nobcs )
+      integer nwetobcseglo  ( nr,nobcs )
+
+C     This is moved from ecco_local_params.h, because it is the only
+C     parameter used (by obcs ctrl parameters)
+      common /ecco_data_errfile/
+     &     data_errfile
+      character*(max_len_fnam) data_errfile
+
+
+
+      common /ecco_cost_weights_obcse/
+     &                      wobcse, wobcseLev
+      Real*8 wobcse     (                      nr,nobcs)
+      Real*8 wobcseLev  (1-oly:sny+oly,nr,nsx,nsy,nobcs)
+      common /controlaux_obcse_r/
+     &                      xx_obcse0,
+     &                      xx_obcse1
+      Real*8 xx_obcse0 (1-Oly:sNy+Oly,Nr,nSx,nSy,nobcs)
+      Real*8 xx_obcse1 (1-Oly:sNy+Oly,Nr,nSx,nSy,nobcs)
+c     ==================================================================
+c     HEADER OPTIMIZATION
+c     ==================================================================
+c
+c     o Header for the large scale optimization.
+c
+c       This header file contains those parameters that are monitoring
+c       the state of the off-line optimization procedure. One
+c       optimization cycle is considered to consist of a forward/adjoint
+c       model run followed by a cost function minimization that then
+c       yields a new guess for the control vector:
+c
+c       optimcycle i:   xx(i) --> fc(i) adxx(i) --> xx(i+1)
+c
+c
+c     started: Christian Eckert eckert@mit.edu  30-Jun-1999
+c
+c     changed: Christian Eckert eckert@mit.edu  24-Feb-2000
+c
+c
+c     ==================================================================
+c     HEADER OPTIMIZATION
+c     ==================================================================
+
+c     Optimization version:
+c     =====================
+c
+c     lsoptversion - Version of the large scale optimization.
+
+      character*(5)  lsoptversion
+      parameter    ( lsoptversion = '2.1.0' )
+
+      character*(5)  offlineversion
+      parameter    ( offlineversion = '0.1.1' )
+
+c     The off-line optimization part:
+c     ===============================
+c
+c     Starting an optimization experiment implies setting optimcycle to
+c     zero. During cycle number I the model is called first, then the
+c     offline optimization is run. The latter provides a new guess for
+c     the vector of control variables for the next cycle I+1.
+c
+c     optimcycle - cycle number of the off-line optimization.
+
+      common /optiparm_i/
+     &                    optimcycle,
+     &                    nvars,
+     &                    numiter,
+     &                    nfunc,
+     &                    iprint,
+     &                    nupdate
+      integer optimcycle
+      integer nvars
+      integer numiter
+      integer nfunc
+      integer iprint
+      integer nupdate
+
+      common /optiparm_r/
+     &                    fmin,
+     &                    epsf,
+     &                    epsx,
+     &                    epsg,
+     &                    eps
+      Real*8 epsf
+      Real*8 epsx
+      Real*8 fmin
+      Real*8 epsg
+      Real*8 eps
+
+      common /optiparm_l/
+     &                    nondimcontrol
+      logical nondimcontrol
+
+      common /optiparm_c/
+     &                    copt
+      character*( 3) copt
+
+c     ==================================================================
+c     END OF HEADER OPTIMIZATION
+c     ==================================================================
+
+
+c     ==================================================================
+c     HEADER GRADIENT_CHECK
+c     ==================================================================
+c
+c     o Header for doing gradient checks with the ECCO ocean state
+c       estimation tool.
+c
+c     started: Christian Eckert eckert@mit.edu  01-Mar-2000
+c
+c     changed: Christian Eckert eckert@mit.edu
+c              heimbach@mit.edu 24-Feb-2003
+c
+c
+c     ==================================================================
+c     HEADER GRADIENT_CHECK
+c     ==================================================================
+
+c     maxgrdchecks - maximum number of gradient checks done per tile.
+
+      integer     maxgrdchecks
+      parameter ( maxgrdchecks = 4000 )
+
+      common /grdchkparms_r/
+     &                       grdchk_eps
+      Real*8     grdchk_eps
+
+      common /grdchkparms_l/
+     &                       useCentralDiff
+      logical useCentralDiff
+
+      common /grdchkparms_i/
+     &                       nbeg,
+     &                       nend,
+     &                       nstep,
+     &                       grdchkvarindex,
+     &                       grdchkwhichproc,
+     &                       iGloPos,
+     &                       jGloPos,
+     &                       kGloPos,
+     &                       iLocTile,
+     &                       jLocTile,
+     &                       idep,
+     &                       jdep,
+     &                       obcsglo,
+     &                       recglo,
+     &                       iwetsum
+
+      integer nbeg
+      integer nend
+      integer nstep
+      integer grdchkvarindex
+      integer grdchkwhichproc
+      integer iGloPos
+      integer jGloPos
+      integer kGloPos
+      integer iLocTile
+      integer jLocTile
+      integer idep
+      integer jdep
+      integer obcsglo
+      integer recglo
+      integer iwetsum(nsx,nsy,0:nr)
+
+      common /grdchk_r/
+     &                  fcrmem, fcppmem, fcpmmem,
+     &                  xxmemref, xxmempert,
+     &                  gfdmem, adxxmem, ftlxxmem,
+     &                  ratioadmem, ratioftlmem
+      Real*8 fcrmem      ( maxgrdchecks )
+      Real*8 fcppmem     ( maxgrdchecks )
+      Real*8 fcpmmem     ( maxgrdchecks )
+      Real*8 xxmemref    ( maxgrdchecks )
+      Real*8 xxmempert   ( maxgrdchecks )
+      Real*8 gfdmem      ( maxgrdchecks )
+      Real*8 adxxmem     ( maxgrdchecks )
+      Real*8 ftlxxmem    ( maxgrdchecks )
+      Real*8 ratioadmem  ( maxgrdchecks )
+      Real*8 ratioftlmem ( maxgrdchecks )
+
+      common /grdchk_i/
+     &                  ncvarcomp, maxncvarcomps,
+     &                  nwettile,
+     &                  irecmem,
+     &                  bimem, bjmem,
+     &                  ilocmem,jlocmem,klocmem,iobcsmem,
+     &                  ichkmem, icompmem, itestmem, ierrmem, icglomem
+      integer ncvarcomp
+      integer maxncvarcomps
+      integer nwettile( nsx,nsy,nr,nobcs )
+      integer irecmem ( maxgrdchecks )
+      integer bjmem   ( maxgrdchecks )
+      integer bimem   ( maxgrdchecks )
+      integer klocmem ( maxgrdchecks )
+      integer iobcsmem( maxgrdchecks )
+      integer jlocmem ( maxgrdchecks )
+      integer ilocmem ( maxgrdchecks )
+      integer ichkmem ( maxgrdchecks )
+      integer icompmem( maxgrdchecks )
+      integer itestmem( maxgrdchecks )
+      integer ierrmem ( maxgrdchecks )
+      integer icglomem( maxgrdchecks )
+
+      common /grdchk_obcs_mask_r/
+     &                            grdchk_maskxz, grdchk_maskyz
+      Real*8     grdchk_maskxz(1-olx:snx+olx,nr,nsx,nsy,nobcs)
+      Real*8     grdchk_maskyz(1-oly:sny+oly,nr,nsx,nsy,nobcs)
+
+
+
+c     ==================================================================
+c     END OF HEADER GRADIENT_CHECK
+c     ==================================================================
+
+
+
+c     == routine arguments ==
+      integer icvrec
+      integer itile
+      integer jtile
+      integer layer
+      integer itilepos
+      integer jtilepos
+      Real*8     xx_comp
+      integer ierr
+      integer mythid
+
+c--   == external ==
+      integer  ilnblnk
+      external ilnblnk
+
+c     == local variables ==
+      integer iarr
+      integer il, ilDir
+      integer dumiter
+      Real*8     dumtime
+      Real*8     dummy
+      logical doglobalread
+      logical ladinit
+      Real*8 tmpfldyz (1-OLy:sNy+OLy,Nr,nSx,nSy)
+      Real*8 loctmp2d (1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
+      Real*8 loctmp3d (1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
+      character*(80) fname
+
+c--   == end of interface ==
+
+      doglobalread = .false.
+      ladinit      = .false.
+      dumiter      = 0
+      dumtime      = 0.D0
+c     Find ctrlDir (w/o trailing blanks) length
+      ilDir = ilnblnk(ctrlDir)
+
+      if ( grdchkvarindex .eq. 0 ) then
+         STOP 'GRDCHK INDEX 0 NOT ALLOWED'
+
+
+
+
+      else if ( grdchkvarindex .eq. 14 ) then
+         il=ilnblnk( xx_obcse_file )
+         write(fname,'(80a)') ' '
+         write(fname,'(3a,i10.10)') ctrlDir(1:ilDir)//
+     &        yadmark, xx_obcse_file(1:il),'.',optimcycle
+
+
+
+      else if ( grdchkvarindex .ge. 301 .and.
+     &          grdchkvarindex .le. 300+maxCtrlTim2D ) then
+       do iarr = 1, maxCtrlTim2D
+        if ( grdchkvarindex .eq. 300+iarr ) then
+         il=ilnblnk( xx_gentim2d_file(iarr) )
+         write(fname,'(80a)') ' '
+         write(fname,'(3a,i10.10)') ctrlDir(1:ilDir)//
+     &        yadmark, xx_gentim2d_file(iarr)(1:il),'.',optimcycle
+        endif
+       enddo
+
+      else
+         STOP 'grdchk_getadxx: grdchkvarindex not implemented'
+      endif
+
+      if (ierr .EQ. 0 ) then
+      if ( grdchkvarindex.EQ.1 .OR. grdchkvarindex.EQ.2 .OR.
+     &     grdchkvarindex.EQ.27 .OR. grdchkvarindex.EQ.28 .OR.
+     &     grdchkvarindex.EQ.15 .OR. grdchkvarindex.EQ.16 .OR.
+     &     grdchkvarindex.EQ.17 .OR. grdchkvarindex.EQ.21 .OR.
+     &     grdchkvarindex.EQ.22 .OR. grdchkvarindex.EQ.31 .OR.
+     &     grdchkvarindex.EQ.44
+     &                                            ) then
+
+         call active_read_xyz( fname, loctmp3d, 1,
+     &                         doglobalread, ladinit, optimcycle,
+     &                         mythid, dummy)
+         if ( myProcId .EQ. grdchkwhichproc )
+     &   xx_comp = loctmp3d( itilepos,jtilepos,layer,itile,jtile )
+
+
+      elseif ( grdchkvarindex.EQ.13 .OR. grdchkvarindex.EQ.14) then
+         call active_read_yz( fname, tmpfldyz, icvrec,
+     &                        doglobalread, ladinit, optimcycle,
+     &                        mythid, dummy)
+         if ( myProcId .EQ. grdchkwhichproc )
+     &   xx_comp = tmpfldyz( jtilepos,layer,itile,jtile )
+
+      else
+
+         call active_read_xy( fname, loctmp2d, icvrec,
+     &                        doglobalread, ladinit, optimcycle,
+     &                        mythid, dummy)
+         if ( myProcId .EQ. grdchkwhichproc )
+     &   xx_comp = loctmp2d( itilepos,jtilepos,itile,jtile )
+
+      endif
+      endif
+
+
+      return
+      end
